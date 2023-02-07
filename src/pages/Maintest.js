@@ -1,5 +1,9 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+
 //template literal
+const color = "white";
 const EmotionBox = styled.div`
   background-color: yellow;
   font-size: 20px;
@@ -39,6 +43,26 @@ const Maintest = () => {
       <div className="App">
         <EmotionBox>Emotion Box!</EmotionBox>
         <EmotionBox2>Emotion Box!</EmotionBox2>
+      </div>
+
+      {/* <div
+        className={css`
+          padding: 32px;
+          background-color: pink;
+        `}
+      >
+        이모션 css방식
+      </div> */}
+
+      <div
+        css={css`
+          margin: 10px;
+          padding: 10px;
+          background-color: #eee;
+        `}
+      >
+        This is an example of <code>`css`</code> using a tagged template
+        literal.
       </div>
 
       <div>test</div>
