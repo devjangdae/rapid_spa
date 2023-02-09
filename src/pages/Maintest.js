@@ -1,74 +1,47 @@
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-
 import { Provider, useSelector, useDispatch } from "react-redux";
-import {createSlice, configureStore} from '@reduxjs/toolkit';
+import { createSlice, configureStore } from "@reduxjs/toolkit";
 
-//template literal
-const color = "white";
-const EmotionBox = styled.div`
-  background-color: yellow;
-  font-size: 20px;
-  width: 200px;
-  padding: 20px;
-  margin: 20px;
-  color: "black";
-  border: 1px solid black;
-  border-radius: 4px;
-  text-align: center;
-  &:hover {
-    background-color: orange;
+const counterslice = createSlice({ //작은 스토어임!
+  name:'counter',
+  initialState:{value:0},
+  reducers:{
+    up:(state, action)=>{
+      //... 안써도 됨
+      state.value = state.value + action.payload;
+    }
   }
-`;
-
-// object
-const EmotionBox2 = styled.div({
-  backgroundColor: "blue",
-  color: "black",
-  fontSize: "20px",
-  width: "200px",
-  padding: "20px",
-  margin: "20px",
-  border: "1px solid black",
-  borderRadius: "4px",
-  textAlign: "center",
-  "&:hover": {
-    backgroundColor: "navy",
-  },
 });
+
+const store = configureStore({
+  reducer:{
+    counter123:counterslice.reducer
+  }
+})
+
+function Counter() {
+  const dispatch = useDispatch();
+  const count = useSelector(state => {
+    return state.counter123.value;
+  });
+  return (
+    <div>
+      <button onClick={()=>{
+        //dispatch({type:'counter/up', step:2});
+        dispatch(counterslice.actions.up(2));//액션크리에이터를 이용하면 payload로!!
+      }}>+</button>{count}
+    </div>
+  );
+}
 
 const Maintest = () => {
   return (
     <>
       <div>메인test페이지</div>
-
-      <div className="App">
-        <EmotionBox>Emotion Box!</EmotionBox>
-        <EmotionBox2>Emotion Box!</EmotionBox2>
+      <div>
+        <Provider store={store}>
+          <Counter />
+        </Provider>
       </div>
-
-      {/* <div
-        className={css`
-          padding: 32px;
-          background-color: pink;
-        `}
-      >
-        이모션 css방식
-      </div> */}
-
-      <div
-        css={css`
-          margin: 10px;
-          padding: 10px;
-          background-color: #eee;
-        `}
-      >
-        This is an example of <code>`css`</code> using a tagged template
-        literal.
-      </div>
-
-      <div>test</div>
     </>
   );
 };
