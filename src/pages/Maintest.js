@@ -2,6 +2,9 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+import { Provider, useSelector, useDispatch } from "react-redux";
+import {createSlice, configureStore} from '@reduxjs/toolkit';
+
 //template literal
 const color = "white";
 const EmotionBox = styled.div`
