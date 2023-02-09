@@ -9,8 +9,9 @@ const login_text_wrap = css`
 const login_wrap = css`
   display: flex;
   flex-direction: column;
-  width: 550px;
+  width: 450px;
   gap: 20px;
+  padding: 50px;
 `;
 
 const login_box = css`
@@ -72,29 +73,32 @@ const bg_pink = css`
 
 const Logintest = () => {
   return (
-    <div css={[basic_container]}>
-      <div css={[content_container]}>
-        
-        <div css={[title_box]}>
-          <div css={[title_text_wrap]}>
-            <div css={[title_text]}>Rapid</div>
-            <div css={[title_text]}>Collector</div>
+    <div className="basic_container" css={[basic_container]}>
+      <div className="content_container" css={[content_container]}>
+        <div className="title_box" css={[title_box]}>
+          <div className="title_text_wrap" css={[title_text_wrap]}>
+            <div className="title_text" css={[title_text]}>Rapid</div>
+            <div className="title_text" css={[title_text]}>Collector</div>
           </div>
         </div>
 
-        <div css={[login_box]}>
-          <div css={[login_wrap]}>
-            <div css={[login_text_wrap]}>id</div>
-            <Input placeholder="Basic usage" />
-
-            <div css={[login_text_wrap]}>pw</div>
-            <Input placeholder="Basic usage" />
-
-            <div css={[login_text_wrap]}>space</div>
+        <div className="login_box" css={[login_box]}>
+          <div className="login_wrap" css={[login_wrap]}>
+            <div>
+              <div className="login_text_wrap" css={[login_text_wrap]}>id</div>
+              <div>
+                <Input placeholder="Basic usage" />
+              </div>
+            </div>
+            <div>
+              <div className="login_text_wrap" css={[login_text_wrap]}>pw</div>
+              <div>
+                <Input placeholder="Basic usage" />
+              </div>
+            </div>
             <Button type="primary">Primary Button</Button>
           </div>
         </div>
-
       </div>
     </div>
   );
