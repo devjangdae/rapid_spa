@@ -1,6 +1,10 @@
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
+import axios from "axios";
+import { useEffect } from "react";
+import * as md5 from 'md5'
+
 const counterslice = createSlice({
   //작은 스토어임!
   name: "counter",
@@ -39,7 +43,35 @@ function Counter() {
   );
 }
 
+const userId = '20220464';
+const userPw = '20220464';
+
 const Maintest = () => {
+  console.log(1);
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        //const response = await axios.get("http://localhost:8080/todos");
+        const response = await axios.get(
+          `/rss/api/auths/login?username=${userId}&password=${md5(userPw)}`
+        );
+
+        console.log("response : ");
+        console.log(response);
+
+        console.log("response.data.data");
+        console.log(response.data);
+
+        //setTodos(response.data.data);
+
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    loadData();
+  }, []);
+
   return (
     <>
       <div>메인test페이지</div>
