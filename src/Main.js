@@ -15,8 +15,9 @@ import {
   Checkbox,
   Row,
   Col,
-  Space, 
-  Empty
+  Space,
+  Empty,
+  Tag,
 } from "antd";
 import {
   UserOutlined,
@@ -31,8 +32,9 @@ const { Panel } = Collapse;
 const { RangePicker } = DatePicker;
 
 //const { Title } = Typography;
-
-var lineArray = [[]];
+// https://stackoverflow.com/questions/55763038/how-to-get-the-value-of-the-rangepicker-which-having-the-time-with-ant-design
+var lineArray = [];
+var lineArray2 = [];
 
 const items = [
   {
@@ -88,10 +90,10 @@ const top_container = css`
 `;
 
 const table_container = css`
-display: flex;
-width: 1440px;
-flex-grow: 1;
-min-height:60vh;
+  display: flex;
+  width: 1440px;
+  flex-grow: 1;
+  min-height: 60vh;
 `;
 
 const content_wrapper = css`
@@ -157,7 +159,6 @@ const collapse = css`
   background: #ffffff;
   border: 1px solid #d9d9d9;
   border-radius: 10px;
-  width: 50%;
   margin: 5px;
   font-family: "Saira";
 `;
@@ -184,11 +185,10 @@ const drawer_containter = css`
 `;
 
 const drawer_containter2 = css`
-height: 100%;
-display: flex;
-flex-direction: column;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
-
 
 const drawer_checkbox = css``;
 
@@ -197,35 +197,34 @@ const drawer_checkbox_group = css`
 `;
 
 const drawer_button_wrapper = css`
-flex-grow: 1;
-display: flex;
-justify-content: flex-end;
-align-items: flex-end;
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 `;
 
 const drawer_button_wrapper2 = css`
-display: flex;
-width:fill;
+  display: flex;
+  width: fill;
   align-items: flex-end;
   align-self: stretch;
   justify-content: flex-end;
 `;
 
 const empty = css`
-display: flex;
-width:1440px;
-justify-content: center;
-align-items: center;
-background: #ffffff;
-border-radius: 10px;
-margin: 5px;
-
+  display: flex;
+  width: 1440px;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 10px;
+  margin: 5px;
 `;
 
 const StyledCheckbox = styled(Checkbox.Group)`
-.ant-checkbox-group{
-  flex-direction: column!important;
-}
+  .ant-checkbox-group {
+    flex-direction: column !important;
+  }
 `;
 
 const disabledDate = (current) => {
@@ -247,58 +246,89 @@ function Main() {
     setOpen(false);
   };
 
-  const accessToken= "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImV4cCI6MTY3NjAwNzI4NSwiaWF0IjoxNjc1OTkyODg1LCJ1c2VySWQiOjEwMDAxLCJ1c2VyTmFtZSI6IjIwMjIwNDYzIiwicGVybWlzc2lvbiI6IiJ9.tOTY0dwdiLNny6GckURmyJlR88j73lBQrA6IUZrRzDU";
+  const [categoryList, setCategoryList] = useState([]);
+  const [oldArray, setOldArray] = useState([]);
+  const [theArray, setTheArray] = useState([]);
+  const [isSelectedCategoryNull, setIsSelectedCategoryNull] = useState(true);
+
+  const accessToken =
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImV4cCI6MTY3NjAzNzkxNCwiaWF0IjoxNjc2MDIzNTE0LCJ1c2VySWQiOjEwMDAxLCJ1c2VyTmFtZSI6IjIwMjIwNDYzIiwicGVybWlzc2lvbiI6IiJ9.vsWxmrp0V0yvq0gzVlSdlYYjbVtwDto1sgOtGhiaXLE";
 
   useEffect(() => {
-
-  	const fetchMachine = async () => {
-  		try {
-  			const response = await axios.get(
-  				'/rss/api/system/machinesInfo/',
-          {headers: {
-            "Authorization": `Bearer ${accessToken}`
-          }}
-  			);
-  			console.log(response.data.lists);
+    const fetchMachine = async () => {
+      try {
+        const response = await axios.get("/rss/api/system/machinesInfo/", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        console.log(response.data.lists);
         console.log(JSON.stringify(response.data.lists[1].line));
 
-        const arrayUniqueByKey = [...new Map(response.data.lists.map(item =>
-          [item['line'], item])).values()];
+        const arrayUniqueByKey = [
+          ...new Map(
+            response.data.lists.map((item) => [item["line"], item])
+          ).values(),
+        ];
 
-      
         console.log(arrayUniqueByKey);
-        console.log(arrayUniqueByKey[1]);
-        console.log(arrayUniqueByKey[1].line);
 
+        // for(let i=0; i<arrayUniqueByKey.length; i++){
 
-        console.log(response.data.lists[1].line);
-        console.log(response.data.lists.length);
-    
+        //   console.log(arrayUniqueByKey.length);
 
-        for(let i=0; i<arrayUniqueByKey.length; i++){
-            for(let j=0; j<response.data.lists.length; j++){
+        //   lineArray.push(arrayUniqueByKey[i].line);
+        //   var lineArray3 =[];
 
-                if((arrayUniqueByKey[i].line === response.data.lists[j].line)){
-                  lineArray.push([arrayUniqueByKey[i].line, response.data.lists[j].machineName]);
-                  
-                } 
-              
+        //     for(let j=0; j<response.data.lists.length; j++){
 
-            }
-          
+        //         if((arrayUniqueByKey[i].line === response.data.lists[j].line)){
+
+        //           lineArray3.push(response.data.lists[j].machineName);
+
+        //         }
+
+        //         lineArray.push(lineArray3);
+        //         console.log(lineArray3)
+
+        //     }
+
+        // }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    fetchMachine();
+  }, []);
+
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const response = await axios.get("/rss/api/system/categoryInfo/", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        console.log(response.data.lists);
+
+        var tempList = [];
+        for (let i = 0; i < response.data.lists.length; i++) {
+          tempList.push(
+            response.data.lists[i].categoryCode +
+              "_" +
+              response.data.lists[i].categoryName
+          );
         }
 
-        console.log(lineArray);
+        console.log(tempList);
+        setCategoryList(tempList);
+      } catch (e) {
+        console.log(e);
+      }
+    };
 
-
-
-  		} catch (e) {
-  			console.log(e);
-  		}
-  	}
-
-  	fetchMachine();
-
+    fetchCategory();
   }, []);
 
   // const MainHeader = styled(Layout.Header)`
@@ -312,11 +342,35 @@ function Main() {
   // text-align: 'center';
   //`;
 
+  const handleChange = (e) => {
+    let isChecked = e.target.checked;
+    //let isChecked = e.target.value;
+    // do whatever you want with isChecked value
+
+    if (isChecked == true) {
+      let val = e.target.value;
+      setTheArray((theArray) => [...theArray, val]);
+      setIsSelectedCategoryNull(false);
+    } else if (isChecked == false) {
+      let val = e.target.value;
+      setTheArray(theArray.filter((item) => item !== val));
+      setIsSelectedCategoryNull(true);
+    }
+  };
+
+  const countCat = () => {
+    if (theArray.length == 0) {
+      setIsSelectedCategoryNull(true);
+    } else setIsSelectedCategoryNull(false);
+
+    return isSelectedCategoryNull;
+  };
+
   return (
     <Layout
       style={{
         fontFamily: "Saira",
-        minHeight: "100vh"
+        minHeight: "100vh",
       }}
     >
       <Header
@@ -342,44 +396,92 @@ function Main() {
         </div>
       </Header>
 
-      <Content style={{ justifyContent: "center", display: "flex", backgroundColor:'#F0F2F5' }}>
+      <Content
+        style={{
+          justifyContent: "center",
+          display: "flex",
+          backgroundColor: "#F0F2F5",
+        }}
+      >
         <div css={content_wrapper}>
-        <div css={top_container}>
-          <div css={date_container}>
-            <div css={date_box}>
-              <div>DATE</div>
-              <div css={disabled_color}>Please Select Date</div>
+          <div css={top_container}>
+            <div css={date_container}>
+              <div css={date_box}>
+                <div>DATE</div>
+                <div css={disabled_color}>Please Select Date</div>
+              </div>
+              <div>
+                <Button css={blue_button}>Reset</Button>
+                <Button css={white_button} onClick={showDrawer}>
+                  Select <DoubleRightOutlined />
+                </Button>
+              </div>
             </div>
-            <div>
-              <Button css={blue_button}>Reset</Button>
-              <Button css={white_button} onClick={showDrawer}>
-                Select <DoubleRightOutlined />
-              </Button>
+            <div css={collapse_container}>
+              <div style={{ width: "50%" }}>
+                <Collapse
+                  css={collapse}
+                  size="small"
+                  style={{ color: "black" }}
+                >
+                  <Panel header="MACHINE" key="1"></Panel>
+                </Collapse>
+              </div>
+              <div style={{ width: "50%" }}>
+                {/* {theArray.length ==0 ? (
+
+                  <Collapse css={collapse} collapsible="disabled" >
+                    <Panel header="CATEGORY" key="1"> Please Select Category</Panel>
+                  </Collapse>
+
+                ) : (
+
+                  <Collapse css={collapse} defaultActiveKey={['1']}>
+                    <Panel header="CATEGORY" key="1">
+                    {theArray.map((list) => (
+                      <Tag color="orange" style={{marginTop:"3px", marginBottom:"3px"}}>
+                        {list}
+                      </Tag>
+                      ))}
+                    </Panel>
+                  </Collapse>
+
+                )} */}
+
+                <Collapse css={collapse}>
+                  <Panel header="CATEGORY" key="1">
+                    {theArray.length == 0 ? (
+                      <div>Please Select Panel</div>
+                    ) : (
+                      theArray.map((list) => (
+                        <Tag
+                          color="orange"
+                          style={{ marginTop: "3px", marginBottom: "3px" }}
+                        >
+                          {list}
+                        </Tag>
+                      ))
+                    )}
+                  </Panel>
+                </Collapse>
+              </div>
             </div>
           </div>
-          <div css={collapse_container}>
-            <Collapse css={collapse} collapsible="disabled" size="small" style={{color:"black"}}>
-              <Panel header="MACHINE" key="1"></Panel>
-            </Collapse>
-            <Collapse css={collapse} collapsible="disabled">
-              <Panel header="CATEGORY" key="2">
-              </Panel>
-            </Collapse>
+
+          <div css={table_container}>
+            <div css={empty}>
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description={<span>Please Search for Data</span>}
+              />
+            </div>
           </div>
         </div>
-
-        <div css={table_container}>
-          <div css={empty}>
-            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={<span>Please Search for Data</span>}/>
-          </div>
-        </div>
-        
-        </div>
-
-
       </Content>
 
-      <Footer style={{height:"55px", backgroundColor:'#D9D9D9'}}>footer</Footer>
+      <Footer style={{ height: "55px", backgroundColor: "#D9D9D9" }}>
+        footer
+      </Footer>
 
       <Drawer
         title="Option Select"
@@ -388,83 +490,80 @@ function Main() {
         closable={false}
         open={open}
         size="large"
-      
       >
         <div css={drawer_containter2}>
-        <div css={drawer_containter}>
-          <div css={drawer_date_containter}>
-            DATE
-            <RangePicker bordered={false} disabledDate={disabledDate} />
-          </div>
-          <Divider />
+          <div css={drawer_containter}>
+            <div css={drawer_date_containter}>
+              DATE
+              <RangePicker bordered={false} disabledDate={disabledDate} />
+            </div>
+            <Divider />
 
-          <div css={machine_category_wrapper}>
-            <div css={drawer_machine_wrapper}>
-              <div css={machine_header_wrapper}>MACHINE</div>
+            <div css={machine_category_wrapper}>
+              <div css={drawer_machine_wrapper}>
+                <div css={machine_header_wrapper}>MACHINE</div>
+                <div>
+                  <Tabs
+                    defaultActiveKey="1"
+                    items={new Array(3).fill(null).map((_, i) => {
+                      const id = String(i + 1);
+                      return {
+                        label: `Fab_${id}`,
+                        key: id,
+                        children: (
+                          <Checkbox.Group
+                            style={{
+                              width: "100%",
+                            }}
+                          >
+                            <Space direction="vertical">
+                              <Checkbox value="A">A</Checkbox>
+                              <Checkbox value="A">A</Checkbox>
+                              <Checkbox value="A">A</Checkbox>
+                            </Space>
+                          </Checkbox.Group>
+                        ),
+                      };
+                    })}
+                    tabPosition={"left"}
+                  />
+                </div>
+              </div>
               <div>
-                <Tabs
-                  defaultActiveKey="1"
-                  items={new Array(3).fill(null).map((_, i) => {
-                    const id = String(i + 1);
-                    return {
-                      label: `Fab_${id}`,
-                      key: id,
-                      children: (
-                        <Checkbox.Group
-                        style={{
-                          width: '100%',
-                        }}
-                      >
-                        <Space direction="vertical">
+                <div css={machine_header_wrapper}>CATEGORY</div>
+                <div>
+                  {/* <Tabs defaultActiveKey="1" items={items} tabPosition={"left"} /> */}
+
+                  <Checkbox.Group
+                    style={{
+                      width: "100%",
+                    }}
+                  >
+                    <Space direction="vertical">
+                      {/* <Checkbox value="A">A</Checkbox>
                         <Checkbox value="A">A</Checkbox>
-                        <Checkbox value="A">A</Checkbox>
-                        <Checkbox value="A">A</Checkbox>
-                        </Space>
-                      </Checkbox.Group>
-                      ),
-                    };
-                  })}
-                  tabPosition={"left"}
-                />
+                        <Checkbox value="A">A</Checkbox> */}
+
+                      {categoryList.map((list) => (
+                        <Checkbox
+                          value={list}
+                          onChange={(e) => handleChange(e)}
+                        >
+                          {list}
+                        </Checkbox>
+                      ))}
+                      <div>{theArray}</div>
+                    </Space>
+                  </Checkbox.Group>
+                </div>
               </div>
             </div>
-            <div>
-              <div css={machine_header_wrapper}>CATEGORY</div>
-              <div>
-                {/* <Tabs defaultActiveKey="1" items={items} tabPosition={"left"} /> */}
-                <Tabs
-                  defaultActiveKey="1"
-                  items={new Array(3).fill(null).map((_, i) => {
-                    const id = String(i + 1);
-                    return {
-                      label: `Fab_${id}`,
-                      key: id,
-                      children: (
-                        <Checkbox.Group
-                        style={{
-                          width: '100%',
-                        }}
-                      >
-                        <Space direction="vertical">
-                        <Checkbox value="A">A</Checkbox>
-                        <Checkbox value="A">A</Checkbox>
-                        <Checkbox value="A">A</Checkbox>
-                        </Space>
-                      </Checkbox.Group>
-                      ),
-                    };
-                  })}
-                  tabPosition={"left"}
-                />
-              </div>
-            </div>
           </div>
-        </div>
 
-        <div css={drawer_button_wrapper}>
-          <Button css={blue_button}>Cancel</Button>
-          <Button css={white_button}>Save</Button>
-        </div>
+          <div css={drawer_button_wrapper}>
+            <Button css={blue_button}>Cancel</Button>
+            <Button css={white_button}>Save</Button>
+          </div>
         </div>
       </Drawer>
     </Layout>
