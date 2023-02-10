@@ -2,8 +2,8 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 import axios from "axios";
-import { useEffect } from "react";
-import * as md5 from 'md5'
+import { useEffect, useState } from "react";
+import * as md5 from "md5";
 
 const counterslice = createSlice({
   //작은 스토어임!
@@ -33,7 +33,7 @@ function Counter() {
       <button
         onClick={() => {
           //dispatch({type:'counter/up', step:2});
-          dispatch(counterslice.actions.up(2)); //액션크리에이터를 이용하면 payload로!!
+          dispatch(counterslice.actions.up(1)); //액션크리에이터를 이용하면 payload로!!
         }}
       >
         +
@@ -43,11 +43,14 @@ function Counter() {
   );
 }
 
-const userId = '20220464';
-const userPw = '20220464';
+const userId = "20220464";
+const userPw = "20220464";
 
 const Maintest = () => {
   console.log(1);
+  const [accessToken, setAccessToken] = useState([]);
+  const [refreshToken, setRefreshToken] = useState([]);
+
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -56,14 +59,26 @@ const Maintest = () => {
           `/rss/api/auths/login?username=${userId}&password=${md5(userPw)}`
         );
 
-        console.log("response : ");
-        console.log(response);
-
-        console.log("response.data.data");
-        console.log(response.data);
-
+        //console.log("response : ");
+        //console.log(response);
+        //console.log("response.data.data");
+        //console.log(response.data);
         //setTodos(response.data.data);
 
+        setAccessToken(response.data.accessToken);
+        setRefreshToken(response.data.refreshToken);
+        sessionStorage.setItem("accessToken", accessToken);
+        sessionStorage.setItem("refreshToken", refreshToken);
+        
+
+        const response2 = await axios.get("/rss/api/system/machinesInfo/", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        console.log(response2.data.lists);
+
+        
       } catch (e) {
         console.log(e);
       }
@@ -78,6 +93,14 @@ const Maintest = () => {
       <div>
         <Provider store={store}>
           <Counter />
+          <div style={{ backgroundColor: "pink", padding: "50px" }}>
+            <div>accessToken</div>
+            {accessToken}
+          </div>
+          <div style={{ backgroundColor: "blue", padding: "50px" }}>
+            <div>refreshToken</div>
+            {refreshToken}
+          </div>
         </Provider>
       </div>
     </>
