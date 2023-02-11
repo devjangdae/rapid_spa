@@ -22,7 +22,7 @@ const titleBox = css`
   height: 400px;
 `;
 
-function index() {
+function TitleBox() {
   return (
     <div className="titleBox" css={[titleBox]}>
       <div className="titleTextWrap" css={[titleTextWrap]}>
@@ -37,4 +37,4 @@ function index() {
   );
 }
 
-export default index;
+export default TitleBox;

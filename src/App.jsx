@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./styles/App.css";
-import LogIn from "./pages/login/LogIn";
+import Loginrapid2 from "./pages/loginrapid/Loginrapid2";
 import Mainrapid from "./pages/mainrapid/Mainrapid";
 import Maintest from "./pages/maintest/Maintest";
 
@@ -9,7 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LogIn />} />
+        <Route path="/" element={<Loginrapid2 />} />
         <Route path="/mainrapid" element={<Mainrapid />} />
         <Route path="/maintest" element={<Maintest />} />
       </Routes>

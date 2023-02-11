@@ -28,7 +28,7 @@ const loginBox = css`
   border-radius: 8px;
 `;
 
-function Index() {
+function LoginBox() {
   return (
     <div className="loginBox" css={[loginBox]}>
       <div className="loginWrap" css={[loginWrap]}>
@@ -54,4 +54,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default LoginBox;
