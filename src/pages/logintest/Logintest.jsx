@@ -2,11 +2,11 @@
 import { css } from "@emotion/react";
 import { Input, Button } from "antd";
 
-const login_text_wrap = css`
+const loginTextWrap = css`
   display: flex;
 `;
 
-const login_wrap = css`
+const loginWrap = css`
   display: flex;
   flex-direction: column;
   width: 450px;
@@ -14,7 +14,7 @@ const login_wrap = css`
   padding: 50px;
 `;
 
-const login_box = css`
+const loginBox = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,19 +28,19 @@ const login_box = css`
   border-radius: 8px;
 `;
 
-const title_text = css`
+const titleText = css`
   font-size: 90px;
   font-weight: 800;
   color: #000f45;
 `;
 
-const title_text_wrap = css`
+const titleTextWrap = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
-const title_box = css`
+const titleBox = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -49,7 +49,7 @@ const title_box = css`
   height: 400px;
 `;
 
-const content_container = css`
+const contentContainer = css`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -60,38 +60,43 @@ const content_container = css`
   gap: 20px;
 `;
 
-const basic_container = css`
+const basicContainer = css`
   display: flex;
   width: 100%;
   height: 100%;
   background: #f0f2f5;
 `;
 
-const bg_pink = css`
-  background-color: pink;
-`;
-
-const Logintest = () => {
+function Logintest() {
+  console.log("asd");
   return (
-    <div className="basic_container" css={[basic_container]}>
-      <div className="content_container" css={[content_container]}>
-        <div className="title_box" css={[title_box]}>
-          <div className="title_text_wrap" css={[title_text_wrap]}>
-            <div className="title_text" css={[title_text]}>Rapid</div>
-            <div className="title_text" css={[title_text]}>Collector</div>
+    <div className="basicContainer" css={[basicContainer]}>
+      <div className="contentContainer" css={[contentContainer]}>
+        <div className="titleBox" css={[titleBox]}>
+          <div className="titleTextWrap" css={[titleTextWrap]}>
+            <div className="titleText" css={[titleText]}>
+              Rapid
+            </div>
+            <div className="titleText" css={[titleText]}>
+              Collector
+            </div>
           </div>
         </div>
 
-        <div className="login_box" css={[login_box]}>
-          <div className="login_wrap" css={[login_wrap]}>
+        <div className="loginBox" css={[loginBox]}>
+          <div className="loginWrap" css={[loginWrap]}>
             <div>
-              <div className="login_text_wrap" css={[login_text_wrap]}>id</div>
+              <div className="loginTextWrap" css={[loginTextWrap]}>
+                id
+              </div>
               <div>
                 <Input placeholder="Basic usage" />
               </div>
             </div>
             <div>
-              <div className="login_text_wrap" css={[login_text_wrap]}>pw</div>
+              <div className="loginTextWrap" css={[loginTextWrap]}>
+                pw
+              </div>
               <div>
                 <Input placeholder="Basic usage" />
               </div>
@@ -102,6 +107,6 @@ const Logintest = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Logintest;
