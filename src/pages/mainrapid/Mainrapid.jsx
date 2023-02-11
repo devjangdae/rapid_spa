@@ -176,7 +176,7 @@ const disabledDate = (current) => {
   return current && current > dayjs().endOf("day");
 };
 
-function Main() {
+function Mainrapid() {
   // const {
   //   token: { colorBgContainer },
   // } = theme.useToken();
@@ -502,4 +502,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default Mainrapid;

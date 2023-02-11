@@ -67,7 +67,7 @@ const basicContainer = css`
   background: #f0f2f5;
 `;
 
-function Logintest() {
+function Login() {
   console.log("asd");
   return (
     <div className="basicContainer" css={[basicContainer]}>
@@ -109,4 +109,4 @@ function Logintest() {
   );
 }
 
-export default Logintest;
+export default Login;
