@@ -31,10 +31,18 @@ import { Outlet } from "react-router-dom";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import store from "../../reducers/store";
 import { up } from "../../reducers/slices/counterSlice";
+import { caUpdate } from "../../reducers/slices/categorySlice";
 
 function Counter() {
   const dispatch = useDispatch();
   const count = useSelector((state) => {
+    // console.log(state);
+    // return state.categoryData.items[0].port;
+
+    // const datas = state.categoryData.items.map((item) => {
+    //   return { port: item.port + 2 };
+    // });
+    // console.log(datas);
     return state.counter123.value;
   });
   return (
@@ -47,7 +55,27 @@ function Counter() {
       >
         +
       </button>
-      {count}
+      {`숫자카운터툴킷state:${count}`}
+    </div>
+  );
+}
+
+function Cate() {
+  const dispatch = useDispatch();
+  const categorys = useSelector((state) => {
+    console.log(state); // 카테고리 객체 콘솔로그
+    return state.categoryData.items.length;
+  });
+  return (
+    <div>
+      <button
+        onClick={() => {
+          dispatch(caUpdate(3));
+        }}
+      >
+        +
+      </button>
+      {`객체의 2개씩추가 개수 :  ${categorys}`}
     </div>
   );
 }
@@ -372,6 +400,7 @@ function Mainrapid() {
                     <div css={disabledColor}>Please Select Date</div>
                   </div>
                   <Counter />
+                  <Cate />
                   <div>
                     <Button css={blueButton}>Reset</Button>
                     <Button css={whiteButton} onClick={showDrawer}>
