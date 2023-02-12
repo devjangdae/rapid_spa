@@ -30,35 +30,7 @@ import { Outlet } from "react-router-dom";
 // 툴킷
 import { Provider, useSelector, useDispatch } from "react-redux";
 import store from "../../reducers/store";
-import { up } from "../../reducers/slices/counterSlice";
 import { caUpdate } from "../../reducers/slices/categorySlice";
-
-function Counter() {
-  const dispatch = useDispatch();
-  const count = useSelector((state) => {
-    // console.log(state);
-    // return state.categoryData.items[0].port;
-
-    // const datas = state.categoryData.items.map((item) => {
-    //   return { port: item.port + 2 };
-    // });
-    // console.log(datas);
-    return state.counter123.value;
-  });
-  return (
-    <div>
-      <button
-        onClick={() => {
-          // dispatch({type:'counter/up', step:2});
-          dispatch(up(1)); // 액션크리에이터를 이용하면 payload로!!
-        }}
-      >
-        +
-      </button>
-      {`숫자카운터툴킷state:${count}`}
-    </div>
-  );
-}
 
 function Cate() {
   const dispatch = useDispatch();
@@ -399,7 +371,6 @@ function Mainrapid() {
                     <div>DATE</div>
                     <div css={disabledColor}>Please Select Date</div>
                   </div>
-                  <Counter />
                   <Cate />
                   <div>
                     <Button css={blueButton}>Reset</Button>

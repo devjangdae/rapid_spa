@@ -1,32 +1,15 @@
 /* eslint-disable no-param-reassign */
 /** @jsxImportSource @emotion/react */
 import { Provider, useSelector, useDispatch } from "react-redux";
-import { createSlice, configureStore } from "@reduxjs/toolkit";
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import * as md5 from "md5";
+import store from "../../reducers/store";
+import { up } from "../../reducers/slices/counterSlice";
+import { caUpdate } from "../../reducers/slices/categorySlice";
 
 import Header from "../../components/Header/header";
 import Footer from "../../components/Footer/footer";
-
-const counterslice = createSlice({
-  // 작은 스토어임!
-  name: "counter",
-  initialState: { value: 0 },
-  reducers: {
-    up: (state, action) => {
-      // ... 안써도 됨
-      state.value += action.payload;
-    },
-  },
-});
-
-const store = configureStore({
-  reducer: {
-    counter123: counterslice.reducer,
-  },
-});
 
 function Counter() {
   const dispatch = useDispatch();
@@ -38,12 +21,32 @@ function Counter() {
       <button
         onClick={() => {
           // dispatch({type:'counter/up', step:2});
-          dispatch(counterslice.actions.up(1)); // 액션크리에이터를 이용하면 payload로!!
+          dispatch(up(1)); // 액션크리에이터를 이용하면 payload로!!
         }}
       >
         +
       </button>
       {count}
+    </div>
+  );
+}
+
+function Cate() {
+  const dispatch = useDispatch();
+  const categorys = useSelector((state) => {
+    console.log(state); // 카테고리 객체 콘솔로그
+    return state.categoryData.items.length;
+  });
+  return (
+    <div>
+      <button
+        onClick={() => {
+          dispatch(caUpdate(3));
+        }}
+      >
+        +
+      </button>
+      {`객체의 2개씩추가 개수 :  ${categorys}`}
     </div>
   );
 }
@@ -103,6 +106,7 @@ function Maintest() {
           <div>
             <Provider store={store}>
               <Counter />
+              <Cate />
               <div style={{ backgroundColor: "pink", padding: "50px" }}>
                 <div>accessToken</div>
                 {accessToken}
