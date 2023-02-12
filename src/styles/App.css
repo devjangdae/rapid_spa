@@ -14,20 +14,36 @@ body {
   margin: 0;
 }
 
-.contentContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 120px;
-  width: 100%;
-  height: 100%;
-  gap: 20px;
+.basic-footer {
+  z-index: 50;
+  color: #000000;
+  background-color: #D9D9D9;
+  padding-inline: 50px;
+  height: 65px;
+  line-height: 65px;
 }
 
-.basicContainer {
+.content-container {
   display: flex;
+  flex-direction: column;
+  padding: 0px 120px;
+}
+
+.basic-header {
+  z-index: 50;
+  color: #ffffff;
+  background-color: #1890FF;
+  padding-inline: 50px;
+  height: 65px;
+  line-height: 65px;
+}
+
+.basic-container {
+  font-family: "Saira";
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   background: #f0f2f5;
+  justify-content: space-between;
 }

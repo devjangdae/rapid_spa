@@ -1,10 +1,14 @@
 /* eslint-disable no-param-reassign */
+/** @jsxImportSource @emotion/react */
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
 import * as md5 from "md5";
+
+import Header from "../../components/Header/header";
+import Footer from "../../components/Footer/footer";
 
 const counterslice = createSlice({
   // 작은 스토어임!
@@ -86,22 +90,35 @@ function Maintest() {
   }, []);
 
   return (
-    <>
-      <div>메인test페이지</div>
-      <div>
-        <Provider store={store}>
-          <Counter />
-          <div style={{ backgroundColor: "pink", padding: "50px" }}>
-            <div>accessToken</div>
-            {accessToken}
-          </div>
-          <div style={{ backgroundColor: "blue", padding: "50px" }}>
-            <div>refreshToken</div>
-            {refreshToken}
-          </div>
-        </Provider>
+    <div className="basic-container">
+      <div className="basic-header">
+        <Header />
       </div>
-    </>
+      <div className="content-container">
+        <div className="logint-container">
+          <div>메인test페이지</div>
+          <div>메인test페이지</div>
+          <div>메인test페이지</div>
+          <div>메인test페이지</div>
+          <div>
+            <Provider store={store}>
+              <Counter />
+              <div style={{ backgroundColor: "pink", padding: "50px" }}>
+                <div>accessToken</div>
+                {accessToken}
+              </div>
+              <div style={{ backgroundColor: "blue", padding: "50px" }}>
+                <div>refreshToken</div>
+                {refreshToken}
+              </div>
+            </Provider>
+          </div>
+        </div>
+      </div>
+      <div className="basic-footer">
+        <Footer />
+      </div>
+    </div>
   );
 }
 

@@ -857,7 +857,7 @@
   dependencies:
     "@babel/plugin-transform-react-jsx" "^7.18.6"
 
-"@babel/plugin-transform-react-jsx@^7.18.6":
+"@babel/plugin-transform-react-jsx@^7.17.12", "@babel/plugin-transform-react-jsx@^7.18.6":
   version "7.20.13"
   resolved "https://registry.npmjs.org/@babel/plugin-transform-react-jsx/-/plugin-transform-react-jsx-7.20.13.tgz"
   integrity sha512-MmTZx/bkUrfJhhYAYt3Urjm+h8DQGrPrnKQ94jLo7NLuOU+T89a7IByhKmrb8SKhrIYIQ0FN0CHMbnFRen4qNw==
@@ -1238,7 +1238,14 @@
   resolved "https://registry.npmjs.org/@ctrl/tinycolor/-/tinycolor-3.5.0.tgz"
   integrity sha512-tlJpwF40DEQcfR/QF+wNMVyGMaO9FQp6Z1Wahj4Gk3CJQYHwA2xVG7iKDFdW6zuxZY9XWOpGcfNCTsX4McOsOg==
 
-"@emotion/babel-plugin@^11.10.5":
+"@emotion/babel-plugin-jsx-pragmatic@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@emotion/babel-plugin-jsx-pragmatic/-/babel-plugin-jsx-pragmatic-0.2.0.tgz#6fdd78600417973fa2610704693158181d8505b7"
+  integrity sha512-VPfKAtb/bVyu5y+HzCPj9bb2nHnj9yX5mMAU7N0pIDcrFZo8aqDyHXLYF8BD7tY4pNL09N87dygVLKIkQvshJw==
+  dependencies:
+    "@babel/plugin-syntax-jsx" "^7.17.12"
+
+"@emotion/babel-plugin@^11.10.0", "@emotion/babel-plugin@^11.10.5":
   version "11.10.5"
   resolved "https://registry.npmjs.org/@emotion/babel-plugin/-/babel-plugin-11.10.5.tgz"
   integrity sha512-xE7/hyLHJac7D2Ve9dKroBBZqBT7WuPQmWcq7HSGb84sUuP4mlOWoB8dvVfD9yk5DHkU1m6RW7xSoDtnQHNQeA==
@@ -1255,6 +1262,16 @@
     find-root "^1.1.0"
     source-map "^0.5.7"
     stylis "4.1.3"
+
+"@emotion/babel-preset-css-prop@^11.10.0":
+  version "11.10.0"
+  resolved "https://registry.yarnpkg.com/@emotion/babel-preset-css-prop/-/babel-preset-css-prop-11.10.0.tgz#23922787561d8376782b0e9006323512fe797275"
+  integrity sha512-oN2lCP0NJTEt80IIeFM1RbmapeEVNYzKXYk2pYirAuom9WvV9Oz/aJQN5Hn3RyBMPaY+Of1OZYpTVMle2jUm4g==
+  dependencies:
+    "@babel/plugin-transform-react-jsx" "^7.17.12"
+    "@babel/runtime" "^7.18.3"
+    "@emotion/babel-plugin" "^11.10.0"
+    "@emotion/babel-plugin-jsx-pragmatic" "^0.2.0"
 
 "@emotion/cache@^11.10.5":
   version "11.10.5"
@@ -3880,14 +3897,9 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-dayjs@^1.11.1:
+dayjs@^1.11.1, dayjs@^1.11.7:
   version "1.11.7"
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.11.7.tgz"
-  integrity sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==
-
-dayjs@^1.11.7:
-  version "1.11.7"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.7.tgz#4b296922642f70999544d1144a2c25730fce63e2"
   integrity sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==
 
 debug@2.6.9, debug@^2.6.0:
