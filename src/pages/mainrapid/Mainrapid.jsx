@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/no-unknown-property */
 /** @jsxImportSource @emotion/react */
-/* eslint-disable no-param-reassign */
+
 import { css } from "@emotion/react";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -29,25 +29,8 @@ import { Outlet } from "react-router-dom";
 
 // 툴킷
 import { Provider, useSelector, useDispatch } from "react-redux";
-import { createSlice, configureStore } from "@reduxjs/toolkit";
-
-const counterslice = createSlice({
-  // 작은 스토어임!
-  name: "counter",
-  initialState: { value: 0 },
-  reducers: {
-    up: (state, action) => {
-      // ... 안써도 됨
-      state.value += action.payload;
-    },
-  },
-});
-
-const store = configureStore({
-  reducer: {
-    counter123: counterslice.reducer,
-  },
-});
+import store from "../../reducers/store";
+import { up } from "../../reducers/slices/counterSlice";
 
 function Counter() {
   const dispatch = useDispatch();
@@ -59,7 +42,7 @@ function Counter() {
       <button
         onClick={() => {
           // dispatch({type:'counter/up', step:2});
-          dispatch(counterslice.actions.up(1)); // 액션크리에이터를 이용하면 payload로!!
+          dispatch(up(1)); // 액션크리에이터를 이용하면 payload로!!
         }}
       >
         +
