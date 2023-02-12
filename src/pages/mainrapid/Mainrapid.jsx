@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/no-unknown-property */
 /** @jsxImportSource @emotion/react */
+/* eslint-disable no-param-reassign */
 import { css } from "@emotion/react";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -25,6 +26,48 @@ import {
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
+
+// 툴킷
+import { Provider, useSelector, useDispatch } from "react-redux";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
+
+const counterslice = createSlice({
+  // 작은 스토어임!
+  name: "counter",
+  initialState: { value: 0 },
+  reducers: {
+    up: (state, action) => {
+      // ... 안써도 됨
+      state.value += action.payload;
+    },
+  },
+});
+
+const store = configureStore({
+  reducer: {
+    counter123: counterslice.reducer,
+  },
+});
+
+function Counter() {
+  const dispatch = useDispatch();
+  const count = useSelector((state) => {
+    return state.counter123.value;
+  });
+  return (
+    <div>
+      <button
+        onClick={() => {
+          // dispatch({type:'counter/up', step:2});
+          dispatch(counterslice.actions.up(1)); // 액션크리에이터를 이용하면 payload로!!
+        }}
+      >
+        +
+      </button>
+      {count}
+    </div>
+  );
+}
 
 const { Header, Content, Footer } = Layout;
 const { Panel } = Collapse;
@@ -301,68 +344,70 @@ function Mainrapid() {
 
   return (
     <div>
-      <Layout
-        style={{
-          fontFamily: "Saira",
-          minHeight: "100vh",
-        }}
-      >
-        <Header
+      <Provider store={store}>
+        <Layout
           style={{
-            height: "65px",
-            color: "white",
             fontFamily: "Saira",
-            backgroundColor: "#1890FF",
+            minHeight: "100vh",
           }}
         >
-          <div css={wrapper}>
-            <div>Rapid Collector</div>
-            <div css={profileWrapper}>
-              <div css={numberWrapper}>
-                <Avatar size={22} icon={<UserOutlined />} />
-                20220463
-              </div>
-              <div css={logoutWrapper}>
-                <LogoutOutlined style={{ fontSize: "15px" }} />
-                Logout
+          <Header
+            style={{
+              height: "65px",
+              color: "white",
+              fontFamily: "Saira",
+              backgroundColor: "#1890FF",
+            }}
+          >
+            <div css={wrapper}>
+              <div>Rapid Collector</div>
+              <div css={profileWrapper}>
+                <div css={numberWrapper}>
+                  <Avatar size={22} icon={<UserOutlined />} />
+                  20220463
+                </div>
+                <div css={logoutWrapper}>
+                  <LogoutOutlined style={{ fontSize: "15px" }} />
+                  Logout
+                </div>
               </div>
             </div>
-          </div>
-        </Header>
+          </Header>
 
-        <Content
-          style={{
-            justifyContent: "center",
-            display: "flex",
-            backgroundColor: "#F0F2F5",
-          }}
-        >
-          <div css={contentWrapper}>
-            <div css={topContainer}>
-              <div css={dateContainer}>
-                <div css={dateBox}>
-                  <div>DATE</div>
-                  <div css={disabledColor}>Please Select Date</div>
+          <Content
+            style={{
+              justifyContent: "center",
+              display: "flex",
+              backgroundColor: "#F0F2F5",
+            }}
+          >
+            <div css={contentWrapper}>
+              <div css={topContainer}>
+                <div css={dateContainer}>
+                  <div css={dateBox}>
+                    <div>DATE</div>
+                    <div css={disabledColor}>Please Select Date</div>
+                  </div>
+                  <Counter />
+                  <div>
+                    <Button css={blueButton}>Reset</Button>
+                    <Button css={whiteButton} onClick={showDrawer}>
+                      Select <DoubleRightOutlined />
+                    </Button>
+                  </div>
                 </div>
-                <div>
-                  <Button css={blueButton}>Reset</Button>
-                  <Button css={whiteButton} onClick={showDrawer}>
-                    Select <DoubleRightOutlined />
-                  </Button>
-                </div>
-              </div>
-              <div css={collapseContainer}>
-                <div style={{ width: "50%" }}>
-                  <Collapse
-                    css={collapse}
-                    size="small"
-                    style={{ color: "black" }}
-                  >
-                    <Panel header="MACHINE" key="1" />
-                  </Collapse>
-                </div>
-                <div style={{ width: "50%" }}>
-                  {/* {theArray.length ==0 ? (
+                <div css={collapseContainer}>
+                  <div style={{ width: "50%" }}>
+                    <Collapse
+                      css={collapse}
+                      size="small"
+                      style={{ color: "black" }}
+                    >
+                      <Panel header="MACHINE" key="1" />
+                    </Collapse>
+                  </div>
+                  <div style={{ width: "50%" }}>
+                    {/* {theArray.length ==0 ? (
 
                     <Collapse css={collapse} collapsible="disabled" >
                       <Panel header="CATEGORY" key="1"> Please Select Category</Panel>
@@ -382,125 +427,126 @@ function Mainrapid() {
 
                   )} */}
 
-                  <Collapse css={collapse}>
-                    <Panel header="CATEGORY" key="1">
-                      {theArray.length === 0 ? (
-                        <div>Please Select Panel</div>
-                      ) : (
-                        theArray.map((list) => (
-                          <Tag
-                            color="orange"
-                            style={{ marginTop: "3px", marginBottom: "3px" }}
-                          >
-                            {list}
-                          </Tag>
-                        ))
-                      )}
-                    </Panel>
-                  </Collapse>
-                </div>
-              </div>
-            </div>
-
-            <div css={tableContainer}>
-              <div css={empty}>
-                <Empty
-                  image={Empty.PRESENTED_IMAGE_SIMPLE}
-                  description={<span>Please Search for Data</span>}
-                />
-              </div>
-            </div>
-          </div>
-        </Content>
-
-        <Footer style={{ height: "55px", backgroundColor: "#D9D9D9" }}>
-          footer
-        </Footer>
-
-        <Drawer
-          title="Option Select"
-          placement="left"
-          onClose={onClose}
-          closable={false}
-          open={open}
-          size="large"
-        >
-          <div css={drawerContainter2}>
-            <div css={drawerContainter}>
-              <div css={drawerDateContainter}>
-                DATE
-                <RangePicker bordered={false} disabledDate={disabledDate} />
-              </div>
-              <Divider />
-
-              <div css={machineCategoryWrapper}>
-                <div css={drawerMachineWrapper}>
-                  <div css={machineHeaderWrapper}>MACHINE</div>
-                  <div>
-                    <Tabs
-                      defaultActiveKey="1"
-                      items={new Array(3).fill(null).map((_, i) => {
-                        const id = String(i + 1);
-                        return {
-                          label: `Fab_${id}`,
-                          key: id,
-                          children: (
-                            <Checkbox.Group
-                              style={{
-                                width: "100%",
-                              }}
+                    <Collapse css={collapse}>
+                      <Panel header="CATEGORY" key="1">
+                        {theArray.length === 0 ? (
+                          <div>Please Select Panel</div>
+                        ) : (
+                          theArray.map((list) => (
+                            <Tag
+                              color="orange"
+                              style={{ marginTop: "3px", marginBottom: "3px" }}
                             >
-                              <Space direction="vertical">
-                                <Checkbox value="A">A</Checkbox>
-                                <Checkbox value="A">A</Checkbox>
-                                <Checkbox value="A">A</Checkbox>
-                              </Space>
-                            </Checkbox.Group>
-                          ),
-                        };
-                      })}
-                      tabPosition="left"
-                    />
+                              {list}
+                            </Tag>
+                          ))
+                        )}
+                      </Panel>
+                    </Collapse>
                   </div>
                 </div>
-                <div>
-                  <div css={machineHeaderWrapper}>CATEGORY</div>
-                  <div>
-                    {/* <Tabs defaultActiveKey="1" items={items} tabPosition={"left"} /> */}
+              </div>
 
-                    <Checkbox.Group
-                      style={{
-                        width: "100%",
-                      }}
-                    >
-                      <Space direction="vertical">
-                        {/* <Checkbox value="A">A</Checkbox>
+              <div css={tableContainer}>
+                <div css={empty}>
+                  <Empty
+                    image={Empty.PRESENTED_IMAGE_SIMPLE}
+                    description={<span>Please Search for Data</span>}
+                  />
+                </div>
+              </div>
+            </div>
+          </Content>
+
+          <Footer style={{ height: "55px", backgroundColor: "#D9D9D9" }}>
+            footer
+          </Footer>
+
+          <Drawer
+            title="Option Select"
+            placement="left"
+            onClose={onClose}
+            closable={false}
+            open={open}
+            size="large"
+          >
+            <div css={drawerContainter2}>
+              <div css={drawerContainter}>
+                <div css={drawerDateContainter}>
+                  DATE
+                  <RangePicker bordered={false} disabledDate={disabledDate} />
+                </div>
+                <Divider />
+
+                <div css={machineCategoryWrapper}>
+                  <div css={drawerMachineWrapper}>
+                    <div css={machineHeaderWrapper}>MACHINE</div>
+                    <div>
+                      <Tabs
+                        defaultActiveKey="1"
+                        items={new Array(3).fill(null).map((_, i) => {
+                          const id = String(i + 1);
+                          return {
+                            label: `Fab_${id}`,
+                            key: id,
+                            children: (
+                              <Checkbox.Group
+                                style={{
+                                  width: "100%",
+                                }}
+                              >
+                                <Space direction="vertical">
+                                  <Checkbox value="A">A</Checkbox>
+                                  <Checkbox value="A">A</Checkbox>
+                                  <Checkbox value="A">A</Checkbox>
+                                </Space>
+                              </Checkbox.Group>
+                            ),
+                          };
+                        })}
+                        tabPosition="left"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div css={machineHeaderWrapper}>CATEGORY</div>
+                    <div>
+                      {/* <Tabs defaultActiveKey="1" items={items} tabPosition={"left"} /> */}
+
+                      <Checkbox.Group
+                        style={{
+                          width: "100%",
+                        }}
+                      >
+                        <Space direction="vertical">
+                          {/* <Checkbox value="A">A</Checkbox>
                           <Checkbox value="A">A</Checkbox>
                           <Checkbox value="A">A</Checkbox> */}
 
-                        {categoryList.map((list) => (
-                          <Checkbox
-                            value={list}
-                            onChange={(e) => handleChange(e)}
-                          >
-                            {list}
-                          </Checkbox>
-                        ))}
-                        <div>{theArray}</div>
-                      </Space>
-                    </Checkbox.Group>
+                          {categoryList.map((list) => (
+                            <Checkbox
+                              value={list}
+                              onChange={(e) => handleChange(e)}
+                            >
+                              {list}
+                            </Checkbox>
+                          ))}
+                          <div>{theArray}</div>
+                        </Space>
+                      </Checkbox.Group>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div css={drawerButtonWrapper}>
-              <Button css={blueButton}>Cancel</Button>
-              <Button css={whiteButton}>Save</Button>
+              <div css={drawerButtonWrapper}>
+                <Button css={blueButton}>Cancel</Button>
+                <Button css={whiteButton}>Save</Button>
+              </div>
             </div>
-          </div>
-        </Drawer>
-      </Layout>
+          </Drawer>
+        </Layout>
+      </Provider>
       <Outlet />
     </div>
   );
