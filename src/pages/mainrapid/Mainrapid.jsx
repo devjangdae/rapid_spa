@@ -458,10 +458,10 @@ function Mainrapid() {
                     <div>
                       <Tabs
                         defaultActiveKey="1"
-                        items={uniqueLine.map((machine, i) => {
+                        items={uniqueLine.map((line, i) => {
                           const id = String(i + 1);
                           return {
-                            label: machine.line,
+                            label: line.line,
                             key: id,
                             children: (
                               <Checkbox.Group
@@ -471,11 +471,11 @@ function Mainrapid() {
                               >
                                 <Space direction="vertical">
                                   {machineList &&
-                                    machineList.map((list, i) => (
+                                    machineList.map((machine, i) => (
                                       <Checkbox
-                                        value={i}
+                                        value={machineList[i].machineName}
                                       >
-                                        {i}
+                                        {machineList[i].machineName}
                                       </Checkbox>
                                     ))}
                                 </Space>
