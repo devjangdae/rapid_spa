@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { Form, Input, Button, message } from "antd";
 import axios from "axios";
 import * as md5 from "md5";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const loginTextWrap = css`
   display: flex;
@@ -35,12 +35,9 @@ const loginBox = css`
 function LoginBox() {
   const [id, setId] = useState();
   const [password, setPassword] = useState();
-
   const [userName, setUserName] = useState([]);
   const [userId, setUserId] = useState([]);
-  const [accessToken, setAccessToken] = useState([]);
-  const [refreshToken, setRefreshToken] = useState([]);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
@@ -51,14 +48,10 @@ function LoginBox() {
       setUserId(response.data.userId);
       console.log(userName);
       console.log(userId);
-
-      setAccessToken(response.data.accessToken);
-      setRefreshToken(response.data.refreshToken);
-      sessionStorage.setItem("accessToken", accessToken);
-      sessionStorage.setItem("refreshToken", refreshToken);
-
+      sessionStorage.setItem("accessToken", response.data.accessToken);
+      sessionStorage.setItem("refreshToken", response.data.refreshToken);
       message.success("Login Suceessful!");
-      // navigate("/mainrapid");
+      navigate("/mainrapid");
     } catch (e) {
       // console.log(e);
       message.error("Login Fail");

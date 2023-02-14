@@ -25,7 +25,7 @@ import {
   DoubleRightOutlined,
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 // 툴킷
 import { Provider, useSelector, useDispatch } from "react-redux";
@@ -204,9 +204,12 @@ const disabledDate = (current) => {
 };
 
 function Mainrapid() {
-  // const {
-  //   token: { colorBgContainer },
-  // } = theme.useToken();
+  const navigate = useNavigate();
+
+  const outLog = () => {
+    console.log("로그아웃버튼클릭.");
+    navigate("/");
+  };
 
   const [open, setOpen] = useState(false);
 
@@ -224,6 +227,11 @@ function Mainrapid() {
     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImV4cCI6MTY3NjAzNzkxNCwiaWF0IjoxNjc2MDIzNTE0LCJ1c2VySWQiOjEwMDAxLCJ1c2VyTmFtZSI6IjIwMjIwNDYzIiwicGVybWlzc2lvbiI6IiJ9.vsWxmrp0V0yvq0gzVlSdlYYjbVtwDto1sgOtGhiaXLE";
 
   useEffect(() => {
+    if (!sessionStorage.getItem("accessToken")) {
+      console.log("로그인 토큰 정보가 없습니다. 로그인페이지로 이동합니다.");
+      navigate("/");
+    }
+
     const fetchMachine = async () => {
       try {
         const response = await axios.get("/rss/api/system/machinesInfo/", {
@@ -350,7 +358,10 @@ function Mainrapid() {
                   20220463
                 </div>
                 <div css={logoutWrapper}>
-                  <LogoutOutlined style={{ fontSize: "15px" }} />
+                  <LogoutOutlined
+                    style={{ fontSize: "15px" }}
+                    onClick={outLog}
+                  />
                   Logout
                 </div>
               </div>
