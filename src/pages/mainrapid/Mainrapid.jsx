@@ -223,7 +223,7 @@ function Mainrapid() {
 
   const [categoryList, setCategoryList] = useState([]);
   const [machineList, setMachineList] = useState([]);
-  const [theArray, setTheArray] = useState([]);
+  const [selectedCategory, setselectedCategory] = useState([]);
   const [uniqueLine, setUniqueLine] = useState([]);
 
   const accessToken = sessionStorage.getItem("accessToken");
@@ -303,12 +303,12 @@ function Mainrapid() {
     // do whatever you want with isChecked value
 
     if (isChecked === true) {
-      const val = e.target.value;
-      setTheArray((theArray) => [...theArray, val]);
+      const checkedCategory = e.target.value;
+      setselectedCategory((selectedCategory) => [...selectedCategory, checkedCategory]);
       // setIsSelectedCategoryNull(false);
     } else if (isChecked === false) {
-      const val = e.target.value;
-      setTheArray(theArray.filter((item) => item !== val));
+      const checkedCategory = e.target.value;
+      setselectedCategory(selectedCategory.filter((item) => item !== checkedCategory));
       // setIsSelectedCategoryNull(true);
     }
   };
@@ -403,10 +403,10 @@ function Mainrapid() {
 
                     <Collapse css={collapse}>
                       <Panel header="CATEGORY" key="1">
-                        {theArray.length === 0 ? (
+                        {selectedCategory.length === 0 ? (
                           <div>Please Select Panel</div>
                         ) : (
-                          theArray.map((list) => (
+                          selectedCategory.map((list) => (
                             <Tag
                               color="orange"
                               style={{ marginTop: "3px", marginBottom: "3px" }}
