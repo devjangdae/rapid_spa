@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-shadow */
 /* eslint-disable react/no-unknown-property */
 /** @jsxImportSource @emotion/react */
@@ -223,10 +224,10 @@ function Mainrapid() {
   const [categoryList, setCategoryList] = useState([]);
   const [machineList, setMachineList] = useState([]);
   const [theArray, setTheArray] = useState([]);
-  const [theUnique, setTheUnique] = useState([]);
+  const [uniqueLine, setUniqueLine] = useState([]);
 
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImV4cCI6MTY3NjI5MTI4MSwiaWF0IjoxNjc2Mjc2ODgxLCJ1c2VySWQiOjEwMDAxLCJ1c2VyTmFtZSI6IjIwMjIwNDYzIiwicGVybWlzc2lvbiI6IiJ9.c36BxRX_otmTLP1ytenO9Ltp74gSolWyvA1kpO4s3uY";
+  const accessToken = sessionStorage.getItem("accessToken");
+
   useEffect(() => {
     if (!sessionStorage.getItem("accessToken")) {
       console.log("로그인 토큰 정보가 없습니다. 로그인페이지로 이동합니다.");
@@ -234,48 +235,23 @@ function Mainrapid() {
     }
 
     const fetchMachine = async () => {
+      
       try {
         const response = await axios.get("/rss/api/system/machinesInfo/", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        console.log(response.data.lists);
-        console.log(JSON.stringify(response.data.lists[1].line));
 
-        const arrayUniqueByKey = [
+        const arrayUniqueByLine = [
           ...new Map(
             response.data.lists.map((item) => [item.line, item])
           ).values(),
         ];
 
-        console.log(arrayUniqueByKey);
-
-        // for(let i=0; i<arrayUniqueByKey.length; i++){
-
-        //   console.log(arrayUniqueByKey.length);
-
-        //   lineArray.push(arrayUniqueByKey[i].line);
-        //   var lineArray3 =[];
-
-        //     for(let j=0; j<response.data.lists.length; j++){
-
-        //         if((arrayUniqueByKey[i].line === response.data.lists[j].line)){
-
-        //           lineArray3.push(response.data.lists[j].machineName);
-
-        //         }
-
-        //         lineArray.push(lineArray3);
-        //         console.log(lineArray3)
-
-        //     }
-
-        // }
-
+        setUniqueLine(arrayUniqueByLine);
         setMachineList(response.data.lists);
-        setTheUnique(arrayUniqueByKey);
-        console.log(machineList);
+
       } catch (e) {
         console.log(e);
       }
@@ -292,7 +268,6 @@ function Mainrapid() {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        console.log(response.data.lists);
 
         const tempList = [];
         for (let i = 0; i < response.data.lists.length; i += 1) {
@@ -301,8 +276,8 @@ function Mainrapid() {
           );
         }
 
-        console.log(tempList);
         setCategoryList(tempList);
+
       } catch (e) {
         console.log(e);
       }
@@ -483,8 +458,8 @@ function Mainrapid() {
                     <div>
                       <Tabs
                         defaultActiveKey="1"
-                        items={theUnique.map((machine) => {
-                          const id = String(machine + 1);
+                        items={uniqueLine.map((machine, i) => {
+                          const id = String(i + 1);
                           return {
                             label: machine.line,
                             key: id,
@@ -495,9 +470,14 @@ function Mainrapid() {
                                 }}
                               >
                                 <Space direction="vertical">
-                                  <Checkbox value="A">A</Checkbox>
-                                  <Checkbox value="A">A</Checkbox>
-                                  <Checkbox value="A">A</Checkbox>
+                                  {machineList &&
+                                    machineList.map((list, i) => (
+                                      <Checkbox
+                                        value={i}
+                                      >
+                                        {i}
+                                      </Checkbox>
+                                    ))}
                                 </Space>
                               </Checkbox.Group>
                             ),
@@ -530,7 +510,6 @@ function Mainrapid() {
                               {list}
                             </Checkbox>
                           ))}
-                          <div>{theArray}</div>
                         </Space>
                       </Checkbox.Group>
                     </div>
