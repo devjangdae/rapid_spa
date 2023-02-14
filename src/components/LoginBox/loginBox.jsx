@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import { Form, Input, Button, message } from "antd";
 import axios from "axios";
 import * as md5 from "md5";
+// import { useNavigate } from "react-router-dom";
 
 const loginTextWrap = css`
   display: flex;
@@ -35,20 +36,33 @@ function LoginBox() {
   const [id, setId] = useState();
   const [password, setPassword] = useState();
 
-  const handleSubmit = () => {
-    // Prevent the default submit and page reload
-    // e.preventDefault();
-    message.error("Fail");
+  const [userName, setUserName] = useState([]);
+  const [userId, setUserId] = useState([]);
+  const [accessToken, setAccessToken] = useState([]);
+  const [refreshToken, setRefreshToken] = useState([]);
+  // const navigate = useNavigate();
 
-    // Handle validations
-    axios
-      .post(`/rss/api/auths/login?username=${id}&password=${md5(password)}`)
-      .then((response) => {
-        console.log(response);
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.get(
+        `/rss/api/auths/login?username=${id}&password=${md5(password)}`
+      );
+      setUserName(response.data.userName);
+      setUserId(response.data.userId);
+      console.log(userName);
+      console.log(userId);
 
-        // Handle response
-        message.success("Login Suceessful!");
-      });
+      setAccessToken(response.data.accessToken);
+      setRefreshToken(response.data.refreshToken);
+      sessionStorage.setItem("accessToken", accessToken);
+      sessionStorage.setItem("refreshToken", refreshToken);
+
+      message.success("Login Suceessful!");
+      // navigate("/mainrapid");
+    } catch (e) {
+      // console.log(e);
+      message.error("Login Fail");
+    }
   };
 
   return (
