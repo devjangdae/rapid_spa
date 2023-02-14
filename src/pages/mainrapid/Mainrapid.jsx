@@ -42,7 +42,7 @@ function Cate() {
     <div>
       <button
         onClick={() => {
-          dispatch(caUpdate(3));
+          dispatch(caUpdate(5));
         }}
       >
         +
@@ -221,11 +221,12 @@ function Mainrapid() {
   };
 
   const [categoryList, setCategoryList] = useState([]);
+  const [machineList, setMachineList] = useState([]);
   const [theArray, setTheArray] = useState([]);
+  const [theUnique, setTheUnique] = useState([]);
 
   const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImV4cCI6MTY3NjAzNzkxNCwiaWF0IjoxNjc2MDIzNTE0LCJ1c2VySWQiOjEwMDAxLCJ1c2VyTmFtZSI6IjIwMjIwNDYzIiwicGVybWlzc2lvbiI6IiJ9.vsWxmrp0V0yvq0gzVlSdlYYjbVtwDto1sgOtGhiaXLE";
-
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NUb2tlbiIsImV4cCI6MTY3NjI5MTI4MSwiaWF0IjoxNjc2Mjc2ODgxLCJ1c2VySWQiOjEwMDAxLCJ1c2VyTmFtZSI6IjIwMjIwNDYzIiwicGVybWlzc2lvbiI6IiJ9.c36BxRX_otmTLP1ytenO9Ltp74gSolWyvA1kpO4s3uY";
   useEffect(() => {
     if (!sessionStorage.getItem("accessToken")) {
       console.log("로그인 토큰 정보가 없습니다. 로그인페이지로 이동합니다.");
@@ -271,6 +272,10 @@ function Mainrapid() {
         //     }
 
         // }
+
+        setMachineList(response.data.lists);
+        setTheUnique(arrayUniqueByKey);
+        console.log(machineList);
       } catch (e) {
         console.log(e);
       }
@@ -478,10 +483,10 @@ function Mainrapid() {
                     <div>
                       <Tabs
                         defaultActiveKey="1"
-                        items={new Array(3).fill(null).map((_, i) => {
-                          const id = String(i + 1);
+                        items={theUnique.map((machine) => {
+                          const id = String(machine + 1);
                           return {
-                            label: `Fab_${id}`,
+                            label: machine.line,
                             key: id,
                             children: (
                               <Checkbox.Group
