@@ -4,15 +4,19 @@ import "./loginrapid.css";
 
 function Loginrapid() {
   return (
-    <div className="basic-container">
-      <div className="basic-header"> </div>
+    <div className="basic-container" style={{ justifyContent: "center" }}>
+      <div className="basic-header" style={{ display: "none" }}>
+        {" "}
+      </div>
       <div className="content-container">
         <div className="login-container">
           <TitleBox />
           <LoginBox />
         </div>
       </div>
-      <div className="basic-footer"> </div>
+      <div className="basic-footer" style={{ display: "none" }}>
+        {" "}
+      </div>
     </div>
   );
 }

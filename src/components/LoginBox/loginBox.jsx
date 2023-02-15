@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { css } from "@emotion/react";
 import { Form, Input, Button, message } from "antd";
 import axios from "axios";
@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const loginTextWrap = css`
   display: flex;
+  font-weight: 500;
 `;
 
 const loginWrap = css`
@@ -38,6 +39,12 @@ function LoginBox() {
   const [userName, setUserName] = useState([]);
   const [userId, setUserId] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (sessionStorage.getItem("accessToken")) {
+      navigate("/mainrapid");
+    }
+  }, []);
 
   const handleSubmit = async () => {
     try {

@@ -10,10 +10,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Loginrapid />} />
-        <Route path="/mainrapid" element={<Mainrapid />}>
-          <Route path="/mainrapid" element={<OutletTest />} />
-        </Route>
+        <Route path="/mainrapid" element={<Mainrapid />} />
         <Route path="/maintest" element={<Maintest />} />
+        <Route path="/outlettest" element={<OutletTest />} />
       </Routes>
     </BrowserRouter>
   );

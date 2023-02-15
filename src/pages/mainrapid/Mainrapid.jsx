@@ -40,7 +40,7 @@ function Cate() {
     return state.categoryData.items.length;
   });
   return (
-    <div>
+    <div style={{display: "none"}}>
       <button
         onClick={() => {
           dispatch(caUpdate(5));
@@ -209,6 +209,7 @@ function Mainrapid() {
 
   const outLog = () => {
     console.log("로그아웃버튼클릭.");
+    sessionStorage.clear();
     navigate("/");
   };
 
@@ -432,8 +433,9 @@ function Mainrapid() {
             </div>
           </Content>
 
-          <Footer style={{ height: "55px", backgroundColor: "#D9D9D9" }}>
-            footer
+          <Footer style={{ backgroundColor: "#D9D9D9" ,display: "flex", justifyContent: "space-between"}}>
+            <div>version 2023.02.06</div>
+            <div>version 2023.02.06</div>
           </Footer>
 
           <Drawer
