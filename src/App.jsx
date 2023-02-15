@@ -4,6 +4,7 @@ import Loginrapid from "./pages/loginrapid/Loginrapid";
 import Mainrapid from "./pages/mainrapid/Mainrapid";
 import Maintest from "./pages/maintest/Maintest";
 import OutletTest from "./pages/outletTest/outletTest";
+import DataTableTest from "./components/DataTable/DataTable";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/mainrapid" element={<Mainrapid />} />
         <Route path="/maintest" element={<Maintest />} />
         <Route path="/outlettest" element={<OutletTest />} />
+        <Route path="/datatabletest" element={<DataTableTest />} />
       </Routes>
     </BrowserRouter>
   );

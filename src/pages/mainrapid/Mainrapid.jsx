@@ -435,7 +435,7 @@ function Mainrapid() {
 
           <Footer style={{ backgroundColor: "#D9D9D9" ,display: "flex", justifyContent: "space-between"}}>
             <div>version 2023.02.06</div>
-            <div>version 2023.02.06</div>
+            <div>copyroght(c)</div>
           </Footer>
 
           <Drawer
