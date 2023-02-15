@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 /* eslint-disable import/named */
 /* eslint-disable spaced-comment */
 /* eslint-disable camelcase */
@@ -39,8 +38,6 @@ import {
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-
-import DrawerRapid from "../../components/Drawer/DrawerRapid";
 
 // 툴킷
 import { Provider, useSelector, useDispatch } from "react-redux";
@@ -641,7 +638,98 @@ function Mainrapid() {
             <div>copyroght(c)</div>
           </Footer>
 
-          <DrawerRapid/>
+          <Drawer
+            title="Option Select"
+            placement="left"
+            onClose={closeDrawer}
+            closable={false}
+            open={open}
+            size="large"
+          >
+            <div css={drawerContainter2}>
+              <div css={drawerContainter}>
+                <div css={drawerDateContainter}>
+                  DATE
+                  <RangePicker showTime bordered={false} disabledDate={disabledDate}  onChange={(e)=>{selectDate(e)}}/>
+                </div>
+                <Divider />
+
+                <div css={machineCategoryWrapper}>
+                  <div css={drawerMachineWrapper}>
+                    <div css={machineHeaderWrapper}>MACHINE</div>
+                    <div>
+                      <Tabs
+                        defaultActiveKey="1"
+                        items={uniqueLine.map((machine, i) => {
+                          const id = String(i + 1);
+                          return {
+                            label: machine.line,
+                            key: id,
+                            children: (
+                              <Checkbox.Group
+                                style={{
+                                  width: "100%",
+                                }}
+                              >
+                                <Space direction="vertical">
+                                {machineList && machineList.map((list,j) => {
+                                if(machineList[j].line === machine.line){
+                                  return(
+                                    <Checkbox
+                                    value={machineList[j].machineName}
+                                    value2={machineList[j].line}
+                                    onChange={(e) => selectMachine(e)}
+                                  >
+                                    {machineList[j].machineName}
+                                  </Checkbox>
+                                  )
+                                }
+                              })}
+                                </Space>
+                              </Checkbox.Group>
+                            ),
+                          };
+                        })}
+                        tabPosition="left"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div css={machineHeaderWrapper}>CATEGORY</div>
+                    <div>
+                      {/* <Tabs defaultActiveKey="1" items={items} tabPosition={"left"} /> */}
+
+                      <Checkbox.Group
+                        style={{
+                          width: "100%",
+                        }}
+                      >
+                        <Space direction="vertical">
+                          {/* <Checkbox value="A">A</Checkbox>
+                          <Checkbox value="A">A</Checkbox>
+                          <Checkbox value="A">A</Checkbox> */}
+
+                          {categoryList.map((list) => (
+                            <Checkbox
+                              value={list}
+                              onChange={(e) => selectCategory(e)}
+                            >
+                              {list}
+                            </Checkbox>
+                          ))}
+                        </Space>
+                      </Checkbox.Group>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div css={drawerButtonWrapper}>
+                <Button css={blueButton}  onClick={closeDrawer}>Cancel</Button>
+                <Button css={whiteButton} onClick={searchBtn}>Search</Button>
+              </div>
+            </div>
+          </Drawer>
         </Layout>
       </Provider>
       <Outlet />
