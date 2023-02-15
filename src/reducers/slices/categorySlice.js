@@ -9,7 +9,7 @@ const items = [
 
 const categorySlice = createSlice({
   name: "category",
-  initialState: {item:[], seleted:[]},
+  initialState: {item:[], seleted:[], seletedCode:[], seletedName:[]},
   reducers: {
     caUpdate: (state, action) => {
       const testObj = {
@@ -30,8 +30,16 @@ const categorySlice = createSlice({
     caUpdate3: (state, action) => {   
       state.seleted.push(action.payload);
     },
+
+    caUpdate4: (state, action) => {   
+      state.seletedCode.push(action.payload);
+    },
+
+    caUpdate5: (state, action) => {   
+      state.seletedName.push(action.payload);
+    },
   },
 });
 
 export default categorySlice;
-export const { caUpdate, caUpdate2,caUpdate3 } = categorySlice.actions;
+export const { caUpdate, caUpdate2,caUpdate3, caUpdate4, caUpdate5} = categorySlice.actions;
