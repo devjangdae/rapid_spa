@@ -19,5 +19,7 @@ module.exports = {
     "prettier/prettier": ["error", { endOfLine: "auto" }],
     "react/no-unknown-property": ["error", { ignore: ["css"] }],
     "react/button-has-type": "off",
+    "import/prefer-default-export": "off",
+    "no-restricted-exports": "off",
   },
 };
