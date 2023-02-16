@@ -1,5 +1,5 @@
-import TitleBox from "../../components/TitleBox/titleBox";
-import LoginBox from "../../components/LoginBox/loginBox";
+import TitleBox from "../../components/TitleBox/TitleBox";
+import LoginBox from "../../components/LoginBox/LoginBox";
 import "./loginrapid.css";
 
 function Loginrapid() {

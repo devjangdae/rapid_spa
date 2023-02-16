@@ -8,8 +8,8 @@ import store from "../../reducers/store";
 import { up } from "../../reducers/slices/counterSlice";
 import { caUpdate } from "../../reducers/slices/categorySlice";
 
-import Header from "../../components/Header/header";
-import Footer from "../../components/Footer/footer";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
 function Counter() {
   const dispatch = useDispatch();
