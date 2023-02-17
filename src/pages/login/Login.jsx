@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 import TitleBox from "../../components/TitleBox/index";
 import LoginBox from "../../components/LoginBox/index";
-import "./loginrapid.css";
+// import "./loginrapid.css";
 
-function Loginrapid() {
+function Login() {
   return (
     <div className="basic-container" style={{ justifyContent: "center" }}>
       <div className="basic-header" style={{ display: "none" }}>
@@ -23,4 +23,4 @@ function Loginrapid() {
   );
 }
 
-export default Loginrapid;
+export default Login;

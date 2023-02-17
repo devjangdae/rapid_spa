@@ -258,7 +258,7 @@ function Mainrapid() {
   const outLog = () => {
     console.log("로그아웃버튼클릭.");
     sessionStorage.clear();
-    navigate("/");
+    navigate("/rss/page/loginrapid");
   };
 
   const [open, setOpen] = useState(false);
@@ -289,7 +289,7 @@ function Mainrapid() {
   useEffect(() => {
     if (!sessionStorage.getItem("accessToken")) {
       console.log("로그인 토큰 정보가 없습니다. 로그인페이지로 이동합니다.");
-      navigate("/");
+      navigate("/rss/page/loginrapid");
     }
 
     const fetchMachine = async () => {

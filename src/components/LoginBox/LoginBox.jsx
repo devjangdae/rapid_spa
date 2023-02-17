@@ -42,7 +42,7 @@ function LoginBox() {
 
   useEffect(() => {
     if (sessionStorage.getItem("accessToken")) {
-      navigate("/mainrapid");
+      navigate("/rss/page/mainrapid");
     }
   }, []);
 
@@ -58,7 +58,7 @@ function LoginBox() {
       sessionStorage.setItem("accessToken", response.data.accessToken);
       sessionStorage.setItem("refreshToken", response.data.refreshToken);
       message.success("Login Suceessful!");
-      navigate("/mainrapid");
+      navigate("/rss/page/mainrapid");
     } catch (e) {
       // console.log(e);
       message.error("Login Fail");

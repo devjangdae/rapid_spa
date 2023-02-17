@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-const outletBox = css`
+const notFoundStyle = css`
   font-size: 30px;
   font-weight: 800;
   background-color: #000f45;
@@ -9,12 +9,12 @@ const outletBox = css`
   padding: 30px;
 `;
 
-function OutletTest() {
+function NotFound() {
   return (
     <div>
-      <div css={[outletBox]}>OutletTest페이지</div>
+      <div css={[notFoundStyle]}>404 페이지입니다.</div>
     </div>
   );
 }
 
-export default OutletTest;
+export default NotFound;

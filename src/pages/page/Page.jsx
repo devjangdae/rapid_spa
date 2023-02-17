@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Outlet } from "react-router-dom";
 
-function Rss() {
+function Page() {
   return <Outlet />;
 }
 
-export default Rss;
+export default Page;
