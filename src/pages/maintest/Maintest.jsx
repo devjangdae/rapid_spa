@@ -6,10 +6,9 @@ import { useEffect, useState } from "react";
 import * as md5 from "md5";
 import store from "../../reducers/store";
 import { up } from "../../reducers/slices/counterSlice";
-import { caUpdate } from "../../reducers/slices/categorySlice";
 
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import Header from "../../components/Header/index";
+import Footer from "../../components/Footer/index";
 
 function Counter() {
   const dispatch = useDispatch();
@@ -27,26 +26,6 @@ function Counter() {
         +
       </button>
       {count}
-    </div>
-  );
-}
-
-function Cate() {
-  const dispatch = useDispatch();
-  const categorys = useSelector((state) => {
-    console.log(state); // 카테고리 객체 콘솔로그
-    return state.categoryData.items.length;
-  });
-  return (
-    <div>
-      <button
-        onClick={() => {
-          dispatch(caUpdate(3));
-        }}
-      >
-        +
-      </button>
-      {`객체의 2개씩추가 개수 :  ${categorys}`}
     </div>
   );
 }
@@ -106,7 +85,6 @@ function Maintest() {
           <div>
             <Provider store={store}>
               <Counter />
-              <Cate />
               <div style={{ backgroundColor: "pink", padding: "50px" }}>
                 <div>accessToken</div>
                 {accessToken}

@@ -1,10 +1,30 @@
 /** @jsxImportSource @emotion/react */
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import Header from "../../components/Header/index";
+import Footer from "../../components/Footer/index";
 
 function Manual() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("accessToken")) {
+      console.log("로그인 토큰 정보가 없습니다. 로그인페이지로 이동합니다.");
+      navigate("/maintest");
+    }
+  }, []);
+
   return (
-    <div>
-      <div>메인페이지</div>
+    <div className="basic-container">
+      <div className="basic-header">
+        <Header />
+      </div>
+      <div className="content-container">
+        <div>콘텐츠넣어야함</div>
+      </div>
+      <div className="basic-footer">
+        <Footer />
+      </div>
       <Outlet />
     </div>
   );
