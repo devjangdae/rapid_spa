@@ -17,7 +17,7 @@ const selectBoxWrap = css`
   width: 1440px;
 `;
 
-const dataList = 0;
+const dataList = 1;
 // 임시
 
 function ManualBox() {
@@ -26,7 +26,7 @@ function ManualBox() {
       <div className="row01" css={selectBoxWrap}>
         <SelectBox />
       </div>
-      <div className="row02">
+      <div className="row02" css={selectBoxWrap}>
         {dataList === 1 ? <DataTable /> : <DataEmpty />}
       </div>
     </div>

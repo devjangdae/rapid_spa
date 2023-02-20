@@ -6,6 +6,7 @@ body {
   height: 100%;
   margin: 0;
   font-family: 'Saira', sans-serif;
+  width: 100vw;
 }
 
 #root {
@@ -27,7 +28,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 0px 120px;
-  height: 100%;
+  background: #f0f2f5;
 }
 
 .basic-header {
