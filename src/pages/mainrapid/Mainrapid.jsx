@@ -1,18 +1,7 @@
-/* eslint-disable import/order */
-/* eslint-disable import/named */
-/* eslint-disable spaced-comment */
-/* eslint-disable camelcase */
-/* eslint-disable vars-on-top */
-/* eslint-disable no-var */
-/* eslint-disable array-callback-return */
-/* eslint-disable consistent-return */
-/* eslint-disable prefer-template */
-/* eslint-disable no-undef */
+/* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/self-closing-comp */
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-shadow */
-/* eslint-disable react/no-unknown-property */
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
@@ -40,10 +29,10 @@ import {
 import React, { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
+import { Provider, useSelector, useDispatch } from "react-redux";
 import DrawerRapid from "../../components/Drawer/DrawerRapid";
 
 // 툴킷
-import { Provider, useSelector, useDispatch } from "react-redux";
 import store from "../../reducers/store";
 import { caUpdate, caUpdate2} from "../../reducers/slices/categorySlice";
 
@@ -231,10 +220,6 @@ const empty = css`
   margin: 5px;
 `;
 
-const disabled_color = css`
-  color: #d9d9d9;
-`;
-
 
 
 const disabledDate = (current) => {
@@ -242,15 +227,15 @@ const disabledDate = (current) => {
   return current && current > dayjs().endOf("day");
 };
 
-var categoryCode2=[];
-var categoryName2=[];
-var startDate2="";
-var endDate2="";
-var fabName2 = [];
-var fabName3 = ['Line1'];
-var machineName2 = [];
-var searchId2;
-var resultId2;
+let categoryCode2=[];
+let categoryName2=[];
+let startDate2="";
+let endDate2="";
+let fabName2 = [];
+let fabName3 = ['Line1'];
+let machineName2 = [];
+let searchId2;
+let resultId2;
 
 function Mainrapid() {
   const navigate = useNavigate();
@@ -359,7 +344,7 @@ function Mainrapid() {
 
     setstartDate(e[0].format().substring(0,4)+ e[0].format().substring(5,7)+ e[0].format().substring(8,10)+ e[0].format().substring(11,13)+ e[0].format().substring(14,16)+ e[0].format().substring(17,19));
     setEndDate(e[1].format().substring(0,4)+ e[1].format().substring(5,7)+ e[1].format().substring(8,10)+ e[1].format().substring(11,13)+ e[1].format().substring(14,16)+ e[1].format().substring(17,19));
-    setDate(e[0].format().substring(0,10)+" "+e[0].format().substring(11,19)+" ~ "+e[1].format().substring(0,10)+" "+e[1].format().substring(11,19));
+    setDate(`${e[0].format().substring(0,10)} ${e[0].format().substring(11,19)} ~ ${e[1].format().substring(0,10)} ${e[1].format().substring(11,19)}`);
     startDate2 = e[0].format().substring(0,4)+ e[0].format().substring(5,7)+ e[0].format().substring(8,10)+ e[0].format().substring(11,13)+ e[0].format().substring(14,16)+ e[0].format().substring(17,19);
     endDate2 = e[1].format().substring(0,4)+ e[1].format().substring(5,7)+ e[1].format().substring(8,10)+ e[1].format().substring(11,13)+ e[1].format().substring(14,16)+ e[1].format().substring(17,19);
     
@@ -429,8 +414,8 @@ function Mainrapid() {
   const searchBtn = () => {
     setOpen(false);
 
-    var searchId2;
-    var resultId2;
+    let searchId2;
+    let resultId2;
 
     const fetchSearchURL = async () => {
       try {
@@ -454,7 +439,7 @@ function Mainrapid() {
 
         console.log(response.data.searchId);
         searchId2 = response.data.searchId;
-        //setSearchId3(response.data.searchId);
+        // setSearchId3(response.data.searchId);
 
         try {
           const response = await axios.get(`/rss/api/ftp/search/${searchId2}`, {
@@ -543,7 +528,7 @@ function Mainrapid() {
                   <div css={dateBox}>
                     <div>DATE</div>
                     {date.length === 0 ? (
-                      <div css={disabled_color}>Please Select Date</div>
+                      <div css={disabledColor}>Please Select Date</div>
                     ) : (
                         <Tag
                           color="green"
