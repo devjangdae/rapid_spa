@@ -46,6 +46,10 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 import store from "../../reducers/store";
 import { caUpdate, caUpdate2, caUpdate3} from "../../reducers/slices/categorySlice";
 
+import Category from "./Category";
+import Machine from "./Machine";
+import Date from "./Date";
+
 const { RangePicker } = DatePicker;
 
 function Cate() {
@@ -314,92 +318,7 @@ function DrawerRapid() {
     return JSON.stringify(state.categoryData.seleted);
  });
  
-  useEffect(() => {
-    const fetchMachine = async () => {
-      try {
-        const response = await axios.get("/rss/api/system/machinesInfo/", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
- 
-        const arrayUniqueByKey = [
-          ...new Map(
-            response.data.lists.map((item) => [item["line"], item])
-          ).values(),
-        ];
 
-        console.log(arrayUniqueByKey);
-
-        // for(let i=0; i<arrayUniqueByKey.length; i++){
-
-        //   console.log(arrayUniqueByKey.length);
-
-        //   lineArray.push(arrayUniqueByKey[i].line);
-
-
-        //     for(let j=0; j<response.data.lists.length; j++){
-
-        //         if((arrayUniqueByKey[i].line === response.data.lists[j].line)){
-
-        //           lineArray3.push(response.data.lists[j].machineName);
-
-        //         }
-
-        //         lineArray.push(lineArray3);
-        //         console.log(lineArray3)
-
-        //     }
-
-        // }
-
-        setMachineLine(arrayUniqueByKey);
-        //useDispatch
-        console.log(JSON.stringify(response.data.lists));
-
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    fetchMachine();
-  }, []);
-
-  useEffect(() => {
-    const fetchCategory = async () => {
-      try {
-        const response = await axios.get("/rss/api/system/categoryInfo/", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        console.log(response.data.lists);
-        //dispatch(caUpdate2(response.data.lists));
-        
-
-        var tempList = [];
-        for (let i = 0; i < response.data.lists.length; i++) {
-          tempList.push(
-            response.data.lists[i].categoryCode +
-              "_" +
-              response.data.lists[i].categoryName
-          );
-        }
-
-        console.log(tempList);
-        setCategoryList(tempList);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    fetchCategory();
-  }, []);
-
-  const disabledDate = (current) => {
-    // Can not select days before today and today
-    return current && current > dayjs().endOf("day");
-  };
   
   const showDrawer = () => {
     setOpen(true);
@@ -458,84 +377,13 @@ function DrawerRapid() {
     >
       <div css={drawerContainter2}>
         <div css={drawerContainter}>
-          <div css={drawerDateContainter}>
-            DATE
-            <RangePicker showTime bordered={false} disabledDate={disabledDate}  onChange={(e)=>{selectDate(e)}}/>
-          </div>
+          <Date/>
           <Divider />
-
           <div css={machineCategoryWrapper}>
-            <div css={drawerMachineWrapper}>
-              <div css={machineHeaderWrapper}>MACHINE</div>
-              <div>
-                <Tabs
-                  defaultActiveKey="1"
-                  items={machineLine.map((machine, i) => {
-                    const id = String(i + 1);
-                    return {
-                      label: machine.line,
-                      key: id,
-                      children: (
-                        <Checkbox.Group
-                          style={{
-                            width: "100%",
-                          }}
-                        >
-                          <Space direction="vertical">
-                          {machineList && machineList.map((list,j) => {
-                          if(machineList[j].line === machine.line){
-                            return(
-                              <Checkbox
-                              value={machineList[j].machineName}
-                              value2={machineList[j].line}
-                              //onChange={(e) => selectMachine(e)}
-                            >
-                              {machineList[j].machineName}
-                            </Checkbox>
-                            )
-                          }
-                        })}
-                          </Space>
-                        </Checkbox.Group>
-                      ),
-                    };
-                  })}
-                  tabPosition="left"
-                />
-              </div>
-            </div>
-            <div>
-              <div css={machineHeaderWrapper}>CATEGORY</div>
-              <div>
-                {/* <Tabs defaultActiveKey="1" items={items} tabPosition={"left"} /> */}
-
-                <Checkbox.Group
-                  style={{
-                    width: "100%",
-                  }}
-                >
-                  <Space direction="vertical">
-                    {/* <Checkbox value="A">A</Checkbox>
-                    <Checkbox value="A">A</Checkbox>
-                    <Checkbox value="A">A</Checkbox> */}
-
-                    {categoryList.map((list) => (
-                      <Checkbox
-                        value={list}
-                        onChange={(e) => selectCategory(e)}
-                      >
-                        {list}
-                      </Checkbox>
-                    ))}
-                  </Space>
-                </Checkbox.Group>
-                {/* <Cate></Cate> */}
-                {categoryLists}
-              </div>
-            </div>
+            <Machine/>
+            <Category/>
           </div>
         </div>
-
         <div css={drawerButtonWrapper}>
           <Button css={blueButton}  onClick={closeDrawer}>Cancel</Button>
           <Button css={whiteButton} onClick={searchBtn}>Search</Button>
