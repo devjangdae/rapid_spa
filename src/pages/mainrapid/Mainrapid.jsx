@@ -1,7 +1,3 @@
-/* eslint-disable prefer-const */
-/* eslint-disable no-unused-vars */
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-shadow */
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
@@ -34,7 +30,7 @@ import DrawerRapid from "../../components/Drawer/DrawerRapid";
 
 // 툴킷
 import store from "../../reducers/store";
-import { caUpdate, caUpdate2} from "../../reducers/slices/categorySlice";
+import { caUpdate, caUpdate2 } from "../../reducers/slices/categorySlice";
 
 function Cate() {
   const dispatch = useDispatch();
@@ -47,7 +43,7 @@ function Cate() {
   const categoryList = useSelector((state) => {
     console.log(state); // 카테고리 객체 콘솔로그
     return JSON.stringify(state.categoryData.items);
- });
+  });
 
   return (
     <div>
@@ -62,14 +58,13 @@ function Cate() {
 
       <button
         onClick={() => {
-          dispatch(caUpdate2({"hihi": "hihi"}));
+          dispatch(caUpdate2({ hihi: "hihi" }));
         }}
       >
         +
       </button>
       {`  ${categoryList}`}
     </div>
-    
   );
 }
 
@@ -220,19 +215,17 @@ const empty = css`
   margin: 5px;
 `;
 
-
-
 const disabledDate = (current) => {
   // Can not select days before today and today
   return current && current > dayjs().endOf("day");
 };
 
-let categoryCode2=[];
-let categoryName2=[];
-let startDate2="";
-let endDate2="";
+let categoryCode2 = [];
+let categoryName2 = [];
+let startDate2 = "";
+let endDate2 = "";
 let fabName2 = [];
-let fabName3 = ['Line1'];
+let fabName3 = ["Line1"];
 let machineName2 = [];
 let searchId2;
 let resultId2;
@@ -256,9 +249,6 @@ function Mainrapid() {
     setOpen(false);
   };
 
- 
-  
-
   const [categoryList, setCategoryList] = useState([]);
   const [machineList, setMachineList] = useState([]);
   const [selectedCategory, setselectedCategory] = useState([]);
@@ -268,12 +258,11 @@ function Mainrapid() {
   const [startDate, setstartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [date, setDate] = useState("");
-  
+
   const accessToken = sessionStorage.getItem("accessToken");
 
   useEffect(() => {
     const fetchMachine = async () => {
-      
       try {
         const response = await axios.get("/rss/api/system/machinesInfo/", {
           headers: {
@@ -289,7 +278,6 @@ function Mainrapid() {
 
         setUniqueLine(arrayUniqueByLine);
         setMachineList(response.data.lists);
-
       } catch (e) {
         console.log(e);
       }
@@ -315,7 +303,6 @@ function Mainrapid() {
         }
 
         setCategoryList(tempList);
-
       } catch (e) {
         console.log(e);
       }
@@ -336,45 +323,75 @@ function Mainrapid() {
   // `;
 
   const selectDate = (e) => {
+    setstartDate(
+      e[0].format().substring(0, 4) +
+        e[0].format().substring(5, 7) +
+        e[0].format().substring(8, 10) +
+        e[0].format().substring(11, 13) +
+        e[0].format().substring(14, 16) +
+        e[0].format().substring(17, 19)
+    );
+    setEndDate(
+      e[1].format().substring(0, 4) +
+        e[1].format().substring(5, 7) +
+        e[1].format().substring(8, 10) +
+        e[1].format().substring(11, 13) +
+        e[1].format().substring(14, 16) +
+        e[1].format().substring(17, 19)
+    );
+    setDate(
+      `${e[0].format().substring(0, 10)} ${e[0]
+        .format()
+        .substring(11, 19)} ~ ${e[1].format().substring(0, 10)} ${e[1]
+        .format()
+        .substring(11, 19)}`
+    );
+    startDate2 =
+      e[0].format().substring(0, 4) +
+      e[0].format().substring(5, 7) +
+      e[0].format().substring(8, 10) +
+      e[0].format().substring(11, 13) +
+      e[0].format().substring(14, 16) +
+      e[0].format().substring(17, 19);
+    endDate2 =
+      e[1].format().substring(0, 4) +
+      e[1].format().substring(5, 7) +
+      e[1].format().substring(8, 10) +
+      e[1].format().substring(11, 13) +
+      e[1].format().substring(14, 16) +
+      e[1].format().substring(17, 19);
+  };
 
-    setstartDate(e[0].format().substring(0,4)+ e[0].format().substring(5,7)+ e[0].format().substring(8,10)+ e[0].format().substring(11,13)+ e[0].format().substring(14,16)+ e[0].format().substring(17,19));
-    setEndDate(e[1].format().substring(0,4)+ e[1].format().substring(5,7)+ e[1].format().substring(8,10)+ e[1].format().substring(11,13)+ e[1].format().substring(14,16)+ e[1].format().substring(17,19));
-    setDate(`${e[0].format().substring(0,10)} ${e[0].format().substring(11,19)} ~ ${e[1].format().substring(0,10)} ${e[1].format().substring(11,19)}`);
-    startDate2 = e[0].format().substring(0,4)+ e[0].format().substring(5,7)+ e[0].format().substring(8,10)+ e[0].format().substring(11,13)+ e[0].format().substring(14,16)+ e[0].format().substring(17,19);
-    endDate2 = e[1].format().substring(0,4)+ e[1].format().substring(5,7)+ e[1].format().substring(8,10)+ e[1].format().substring(11,13)+ e[1].format().substring(14,16)+ e[1].format().substring(17,19);
-    
-}
-
-
-
-  const selectCategory  = (e) => {
+  const selectCategory = (e) => {
     const isChecked = e.target.checked;
     // let isChecked = e.target.value;
     // do whatever you want with isChecked value
 
-    
     const checkedCategory = e.target.value;
 
     if (isChecked === true) {
-
-      setselectedCategory((selectedCategory) => [...selectedCategory, checkedCategory]);
-      categoryCode2.push(checkedCategory.substring(0,3));
+      setselectedCategory((selectedCategory) => [
+        ...selectedCategory,
+        checkedCategory,
+      ]);
+      categoryCode2.push(checkedCategory.substring(0, 3));
       categoryName2.push(checkedCategory.substring(4));
-
     } else if (isChecked === false) {
+      setselectedCategory(
+        selectedCategory.filter((item) => item !== checkedCategory)
+      );
 
-      setselectedCategory(selectedCategory.filter((item) => item !== checkedCategory));
-
-      const index = categoryCode2.indexOf(checkedCategory.substring(0,3));
-      if (index > -1) { // only splice array when item is found
+      const index = categoryCode2.indexOf(checkedCategory.substring(0, 3));
+      if (index > -1) {
+        // only splice array when item is found
         categoryCode2.splice(index, 1); // 2nd parameter means remove one item only
       }
 
       const index2 = categoryCode2.indexOf(checkedCategory.substring(4));
-      if (index > -1) { // only splice array when item is found
+      if (index > -1) {
+        // only splice array when item is found
         categoryName2.splice(index2, 1); // 2nd parameter means remove one item only
       }
-
     }
   };
 
@@ -385,25 +402,23 @@ function Mainrapid() {
     const checkedLineOfMachine = e.target.value2;
 
     if (isChecked === true) {
-
-      setSeletedMachine((seletedMachine) => [...seletedMachine, checkedNameOfMachine]);
+      setSeletedMachine((seletedMachine) => [
+        ...seletedMachine,
+        checkedNameOfMachine,
+      ]);
 
       machineName2.push(checkedNameOfMachine);
       fabName2.push(checkedLineOfMachine);
-
-
     } else if (isChecked === false) {
-
-      setSeletedMachine(seletedMachine.filter((item) => item !== checkedNameOfMachine));
+      setSeletedMachine(
+        seletedMachine.filter((item) => item !== checkedNameOfMachine)
+      );
 
       const index = machineName2.indexOf(checkedNameOfMachine);
-      if (index > -1) { 
-        machineName2.splice(index, 1); 
+      if (index > -1) {
+        machineName2.splice(index, 1);
       }
-      
-
     }
-
   };
 
   const searchBtn = () => {
@@ -414,23 +429,23 @@ function Mainrapid() {
 
     const fetchSearchURL = async () => {
       try {
-        const response = await axios.post("/rss/api/ftp/search", {
-          
-            "fabNames": fabName3,
-            "machineNames": machineName2,
-            "categoryCodes": categoryCode2,
-            "categoryNames": categoryName2,
-            "startDate": startDate2,
-            "endDate": endDate2,
-            "folder": false, 
+        const response = await axios.post(
+          "/rss/api/ftp/search",
+          {
+            fabNames: fabName3,
+            machineNames: machineName2,
+            categoryCodes: categoryCode2,
+            categoryNames: categoryName2,
+            startDate: startDate2,
+            endDate: endDate2,
+            folder: false,
           },
           {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },}
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
         );
-
-
 
         console.log(response.data.searchId);
         searchId2 = response.data.searchId;
@@ -438,41 +453,36 @@ function Mainrapid() {
 
         try {
           const response = await axios.get(`/rss/api/ftp/search/${searchId2}`, {
-            params:{"searchId":searchId2},
+            params: { searchId: searchId2 },
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
           });
-  
+
           console.log(response);
           resultId2 = response.data.resultUrl;
 
           try {
             const response = await axios.get(`${resultId2}`, {
-              params:{"resultUrl":resultId2},
+              params: { resultUrl: resultId2 },
               headers: {
                 Authorization: `Bearer ${accessToken}`,
               },
             });
-    
-            console.log(response);
 
+            console.log(response);
           } catch (e) {
             console.log(e);
           }
-  
         } catch (e) {
           console.log(e);
         }
-
       } catch (e) {
         console.log(e);
       }
     };
 
     fetchSearchURL();
-
-  
   };
 
   return (
@@ -525,12 +535,12 @@ function Mainrapid() {
                     {date.length === 0 ? (
                       <div css={disabledColor}>Please Select Date</div>
                     ) : (
-                        <Tag
-                          color="green"
-                          style={{ marginTop: "3px", marginBottom: "3px" }}
-                        >
-                          {date}
-                        </Tag>
+                      <Tag
+                        color="green"
+                        style={{ marginTop: "3px", marginBottom: "3px" }}
+                      >
+                        {date}
+                      </Tag>
                     )}
                   </div>
                   <Cate />
@@ -548,20 +558,20 @@ function Mainrapid() {
                       size="small"
                       style={{ color: "black" }}
                     >
-                    <Panel header="MACHINE" key="1">
-                  {seletedMachine.length === 0 ? (
-                      <div>Please select at least one machine.</div>
-                    ) : (
-                      seletedMachine.map((list) => (
-                        <Tag
-                          color="purple"
-                          style={{ marginTop: "3px", marginBottom: "3px" }}
-                        >
-                          {list}
-                        </Tag>
-                      ))
-                    )}
-                  </Panel>                    
+                      <Panel header="MACHINE" key="1">
+                        {seletedMachine.length === 0 ? (
+                          <div>Please select at least one machine.</div>
+                        ) : (
+                          seletedMachine.map((list) => (
+                            <Tag
+                              color="purple"
+                              style={{ marginTop: "3px", marginBottom: "3px" }}
+                            >
+                              {list}
+                            </Tag>
+                          ))
+                        )}
+                      </Panel>
                     </Collapse>
                   </div>
                   <div style={{ width: "50%" }}>
@@ -616,12 +626,18 @@ function Mainrapid() {
             </div>
           </Content>
 
-          <Footer style={{ backgroundColor: "#D9D9D9" ,display: "flex", justifyContent: "space-between"}}>
+          <Footer
+            style={{
+              backgroundColor: "#D9D9D9",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
             <div>version 2023.02.06</div>
             <div>copyroght(c)</div>
           </Footer>
 
-          <DrawerRapid/>
+          <DrawerRapid />
         </Layout>
       </Provider>
       <Outlet />

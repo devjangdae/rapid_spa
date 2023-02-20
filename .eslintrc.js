@@ -23,5 +23,8 @@ module.exports = {
     "no-restricted-exports": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "no-param-reassign": "off",
+    "prefer-const": "off",
+    "no-unused-vars": "off",
+    "no-shadow": "off",
   },
 };
