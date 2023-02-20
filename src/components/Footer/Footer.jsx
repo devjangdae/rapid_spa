@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /** @jsxImportSource @emotion/react */
 import { Provider, useSelector, useDispatch } from "react-redux";
 import axios from "axios";

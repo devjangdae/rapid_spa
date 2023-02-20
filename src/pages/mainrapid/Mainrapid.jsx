@@ -287,11 +287,6 @@ function Mainrapid() {
   const accessToken = sessionStorage.getItem("accessToken");
 
   useEffect(() => {
-    if (!sessionStorage.getItem("accessToken")) {
-      console.log("로그인 토큰 정보가 없습니다. 로그인페이지로 이동합니다.");
-      navigate("/rss/page/loginrapid");
-    }
-
     const fetchMachine = async () => {
       
       try {

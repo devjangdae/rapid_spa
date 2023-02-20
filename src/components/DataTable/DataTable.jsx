@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /** @jsxImportSource @emotion/react */
 import { Table } from "antd";
 import { dataSource } from "../../constants/dataSource";
