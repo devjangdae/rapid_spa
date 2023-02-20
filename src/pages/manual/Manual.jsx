@@ -1,8 +1,12 @@
-/** @jsxImportSource @emotion/react */
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { Provider } from "react-redux";
+
 import Header from "../../components/Header/index";
 import Footer from "../../components/Footer/index";
+import store from "../../reducers/store";
+import ManualBox from "../../components/Manual/index";
+import DrawerRapid from "../../components/Drawer/DrawerRapid";
 
 function Manual() {
   const navigate = useNavigate();
@@ -16,16 +20,19 @@ function Manual() {
 
   return (
     <div className="basic-container">
-      <div className="basic-header">
-        <Header />
-      </div>
-      <div className="content-container">
-        <div>콘텐츠넣어야함</div>
-      </div>
-      <div className="basic-footer">
-        <Footer />
-      </div>
-      <Outlet />
+      <Provider store={store}>
+        <div className="basic-header">
+          <Header />
+        </div>
+        <div className="content-container">
+          <ManualBox />
+          <DrawerRapid />
+        </div>
+        <div className="basic-footer">
+          <Footer />
+        </div>
+        <Outlet />
+      </Provider>
     </div>
   );
 }
