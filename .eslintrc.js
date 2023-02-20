@@ -21,5 +21,6 @@ module.exports = {
     "react/button-has-type": "off",
     "import/prefer-default-export": "off",
     "no-restricted-exports": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
   },
 };

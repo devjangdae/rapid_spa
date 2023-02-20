@@ -1,8 +1,8 @@
-/* eslint-disable no-param-reassign */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Avatar } from "antd";
 import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const wrapper = css`
   display: flex;
@@ -27,6 +27,14 @@ const numberWrapper = css`
 `;
 
 function Header() {
+  const navigate = useNavigate();
+
+  const outLog = () => {
+    console.log("로그아웃버튼클릭.");
+    sessionStorage.clear();
+    navigate("/page/login");
+  };
+
   return (
     <div css={[wrapper]}>
       <div>Rapid Collector</div>
@@ -36,8 +44,14 @@ function Header() {
           20220463
         </div>
         <div css={[logoutWrapper]}>
-          <LogoutOutlined style={{ fontSize: "15px" }} />
-          Logout
+          <span
+            role="presentation"
+            onClick={outLog}
+            style={{ cursor: "pointer" }}
+          >
+            <LogoutOutlined style={{ fontSize: "15px" }} />
+            Logout
+          </span>
         </div>
       </div>
     </div>
