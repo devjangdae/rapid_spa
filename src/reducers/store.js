@@ -3,6 +3,7 @@ import counterSlice from "./slices/counterSlice";
 import categorySlice from "./slices/categorySlice";
 import machineSlice from "./slices/machineSlice";
 import dateSlice from "./slices/dateSlice";
+import drawerSlice from "./slices/drawerSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     categoryData: categorySlice.reducer,
     machineData: machineSlice.reducer,
     dateData: dateSlice.reducer,
+    drawerData: drawerSlice.reducer,
   },
 });
 
