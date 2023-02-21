@@ -28,6 +28,7 @@ const numberWrapper = css`
 
 function Header() {
   const navigate = useNavigate();
+  const userName = sessionStorage.getItem("userName");
 
   const outLog = () => {
     console.log("로그아웃버튼클릭.");
@@ -41,7 +42,7 @@ function Header() {
       <div css={[profileWrapper]}>
         <div css={[numberWrapper]}>
           <Avatar size={22} icon={<UserOutlined />} />
-          20220463
+          <span>{userName}</span>
         </div>
         <div css={[logoutWrapper]}>
           <span
