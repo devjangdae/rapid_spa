@@ -38,10 +38,6 @@ import {
   checkedMachineNameUpdate,
   checkedMachineLineDelete,
   checkedMachineLineUpdate,
-  checkedMainUpdate,
-  checkedMainReset,
-  checkedMainDelete,
-  validLineUpdate,
 } from "../../reducers/slices/machineSlice";
 
 const drawerMachineWrapper = css`
@@ -65,7 +61,6 @@ function Machine() {
   const [machineList, setMachineList] = useState([]);
 
   const [indeterminate, setIndeterminate] = useState(false);
-  const [checkAll, setCheckAll] = useState(false);
 
   const accessToken = sessionStorage.getItem("accessToken");
 
@@ -84,22 +79,14 @@ function Machine() {
   const checked2 = useSelector((state) => state.machineData.checked);
 
   const checkedLine = useSelector((state) => state.machineData.checkedLine);
-  const checkedMain = useSelector((state) => state.machineData.checkedMain);
 
-  const checkedMachineName = useSelector(
-    (state) => state.machineData.checkedMachineName
-  );
+  const checkedMachineName = useSelector((state) => state.machineData.checkedMachineName);
 
-  const checkedMachineLine = useSelector(
-    (state) => state.machineData.checkedMachineLine
-  );
+  const checkedMachineLine = useSelector((state) => state.machineData.checkedMachineLine);
 
   const valMa = useSelector((state) => state.machineData.validMachine);
-  const valLi = useSelector((state) => state.machineData.validLine);
 
   useEffect(() => {
-    let tempList = [];
-
     const fetchMachine = async () => {
       try {
         const response = await axios.get("/rss/api/system/machinesInfo/", {
@@ -128,29 +115,15 @@ function Machine() {
             response.data.lists[i].vftpConnected === true
           ) {
             dispatch(validMachineUpdate(response.data.lists[i].machineName));
-            dispatch(validLineUpdate(response.data.lists[i].line))
-            tempList.push(response.data.lists[i].machineName);
           }
         }
       } catch (e) {
         console.log(e);
       }
-
-      setIndeterminate(
-        checked2.length && checked2.length !== tempList.length
-      );
-      setCheckAll(checked2.length === tempList.length);
     };
 
     fetchMachine();
   }, []);
-
-  useEffect(() => {
-    setIndeterminate(
-      checked2.length && checked2.length !== valMa.length
-    );
-    setCheckAll(checked2.length === valMa.length);
-  }, [checked2]);
 
   const selectMachine = (e, checkedNameOfMachine, checkedLineOfMachine) => {
     const isChecked = e.target.checked;
@@ -159,42 +132,96 @@ function Machine() {
 
     if (isChecked === true) {
       dispatch(checkedUpdate(checkedNameOfMachine));
-      dispatch(checkedMainUpdate(`${checkedLineOfMachine}>${checkedNameOfMachine}`));
+      dispatch(checkedLineUpdate(checkedLineOfMachine));
+      dispatch(checkedMachineNameUpdate(checkedNameOfMachine));
+      dispatch(checkedMachineLineUpdate(checkedLineOfMachine))
     } else if (isChecked === false) {
+      console.log("fdvdf");
       dispatch(checkedDelete(checkedNameOfMachine));
-      dispatch(checkedMainDelete(`${checkedLineOfMachine}>${checkedNameOfMachine}`));
+      dispatch(checkedLineDelete(checkedLineOfMachine));
+      dispatch(checkedMachineNameDelete(checkedNameOfMachine));
+      dispatch(checkedMachineLineDelete(checkedLineOfMachine));
     }
   };
 
+  const func_ = (line) => {
+    for (let i = 0; i < machineList.length; i++) {
+      if (machineList[i].line === line) {
+        if (machineList[i].vftpConnected === true) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  };
+
+  const func2_ = (line) => {
+    let cnt1 = 0;
+    let cnt2 = 0;
+
+    for (let i = 0; i < machineList.length; i++) {
+      if (machineList[i].line === line) {
+        if (machineList[i].vftpConnected === true) {
+          cnt1++;
+        }
+      }
+    }
+
+    for (let i = 0; i < checkedMachineLine.length; i++) {
+      if (checkedMachineLine[i] === line) {
+        cnt2++;
+      }
+    }
+
+    if (cnt1 === cnt2) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const onCheckAllChange = (e, line) => {
 
-    setCheckAll(e.target.checked);
-    
+    dispatch(checkedLineReset());
     dispatch(checkedReset());
-    dispatch(checkedMainReset());
 
     if (e.target.checked === true) {
-      for (let i = 0; i < valMa.length; i++) {
-        dispatch(checkedUpdate(valMa[i]));
-        dispatch(checkedMainUpdate(`${valLi[i]}>${valMa[i]}`));
+      for (let i = 0; i < machineList.length; i++) {
+        if (machineList[i].line === line) {
+          if (machineList[i].vftpConnected === true) {
+            dispatch(checkedUpdate(machineList[i].machineName));
+            dispatch(checkedLineUpdate(machineList[i].line));
+            dispatch(checkedMachineNameUpdate(machineList[i].machineName));
+            dispatch(checkedMachineLineUpdate(machineList[i].line));
+          }
+        }
       }
-    } 
+      
+    } else if (e.target.checked === false) {
+      // for (let i = 0; i < machineList.length; i++) {
+      //   if (machineList[i].line === line) {
+      //     if (machineList[i].vftpConnected === true) {
+      //       dispatch(checkedDelete(machineList[i].machineName));
+      //       dispatch(checkedLineDelete(machineList[i].line));
+      //     }
+      //   }
+      // }
+
+      for(let i = 0; i < checked2.length; i++){
+        dispatch(checkedMachineNameDelete(checked2[i]));
+      }
+
+      for(let i = 0; i < checkedLine.length; i++){
+        dispatch(checkedMachineLineDelete(checkedLine[i]));
+      }
+    }
+
   };
 
   return (
     <div css={drawerMachineWrapper}>
-      <div css={machineHeaderWrapper}>
-        MACHINE
-        <Checkbox
-          indeterminate={indeterminate}
-          onChange={onCheckAllChange}
-          checked={checkAll}
-          style={{ marginLeft: "50px" }}
-        >
-          All
-        </Checkbox>
-      </div>
+      <div css={machineHeaderWrapper}>MACHINE</div>
       <div>
         <Tabs
           defaultActiveKey="1"
@@ -208,15 +235,22 @@ function Machine() {
                 children: (
                   <div>
                     <Space direction="vertical">
+                      <Checkbox
+                        disabled={func_(machine.line)}
+                        indeterminate={indeterminate}
+                        onChange={(e) => onCheckAllChange(e, machine.line)}
+                        checked={func2_(machine.line)}
+                      >
+                        All
+                      </Checkbox>
+
                       {machineList.map((list, j) => {
                         if (list.line === machine.line) {
                           return (
                             <Checkbox
                               value={machineList[j].machineName}
                               value2={machineList[j].line}
-                              checked={checked2.includes(
-                                list.machineName
-                              )}
+                              checked={checkedMachineName.includes(list.machineName)}
                               disabled={!list.vftpConnected}
                               onChange={(e) =>
                                 selectMachine(e, list.machineName, list.line)
@@ -236,8 +270,8 @@ function Machine() {
           tabPosition="left"
         />
       </div>
-      <div>{checkedMain}</div>
       <div>{checked2}</div>
+      <div>{checkedLine}</div>
       <div>경계선</div>
       <div>{checkedMachineName}</div>
       <div>{checkedMachineLine}</div>
