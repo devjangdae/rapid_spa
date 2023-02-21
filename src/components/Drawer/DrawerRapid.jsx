@@ -132,7 +132,7 @@ function DrawerRapid() {
     } else {
       dispatch(sortCheckedCategory());
       dispatch(closeDrawer(false));
-      // asd
+      // 검색로직
     }
   };
 
