@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Table } from "antd";
-import { dataSource } from "../../constants/dataSource";
-import { columns } from "../../constants/columns";
+import { Col, Row, Statistic } from "antd";
+import TableData from "../TableData/index";
 
 const totalWrap = css`
   display: flex;
-  padding: 16px;
+  padding-top: 16px;
   max-width: 1440px;
+  width: 100%;
+  padding-left: 60px;
 `;
 
 const tableWrap = css`
@@ -28,28 +29,27 @@ const dataBoxEmpty = css`
   margin-top: 16px;
   margin-bottom: 16px;
   width: 1440px;
-  gap: 16px;
-`;
-
-const tableStyle = css`
-  table-layout: auto;
-  width: 100%;
 `;
 
 function DataTable() {
   return (
     <div style={{ padding: "0px" }} css={dataBoxEmpty}>
       <div css={totalWrap}>
-        <div>total</div>
-        <div>total</div>
+        <Row gutter={16}>
+          <Col span={30}>
+            <span style={{ textAlign: "right" }}>
+              <Statistic title="Total Result" value={12345} />
+            </span>
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col span={30}>
+            <Statistic title="&nbsp;" value="&nbsp;Files" />
+          </Col>
+        </Row>
       </div>
       <div css={tableWrap}>
-        <Table
-          className="tableStyle"
-          css={tableStyle}
-          dataSource={dataSource}
-          columns={columns}
-        />
+        <TableData />
       </div>
     </div>
   );
