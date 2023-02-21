@@ -33,6 +33,132 @@ const userId = "20220464";
 const userPw = "20220464";
 
 function Maintest() {
+  // const accessToken = sessionStorage.getItem("accessToken");
+  // console.log(`엑세스토큰${accessToken}`);
+
+  // const [machineList, setMachineList] = useState([]);
+  // const [uniqueLine, setUniqueLine] = useState([]);
+  // const [categoryList, setCategoryList] = useState([]);
+  // let finalListData;
+
+  // useEffect(() => {
+  //   // MACHINE
+  //   const fetchMachine = async () => {
+  //     try {
+  //       const response = await axios.get("/rss/api/system/machinesInfo/", {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       });
+
+  //       const arrayUniqueByLine = [
+  //         ...new Map(
+  //           response.data.lists.map((item) => [item.line, item])
+  //         ).values(),
+  //       ];
+
+  //       setUniqueLine(arrayUniqueByLine);
+  //       setMachineList(response.data.lists);
+  //       console.log(`machineList${machineList}`);
+  //       console.log(`uniqueLine${uniqueLine}`);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+
+  //   fetchMachine();
+
+  //   // CATEGORY
+  //   const fetchCategory = async () => {
+  //     try {
+  //       const response = await axios.get("/rss/api/system/categoryInfo/", {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       });
+
+  //       const tempList = [];
+  //       for (let i = 0; i < response.data.lists.length; i += 1) {
+  //         tempList.push(
+  //           `${response.data.lists[i].categoryCode}_${response.data.lists[i].categoryName}`
+  //         );
+  //       }
+
+  //       setCategoryList(tempList);
+  //       console.log(`tempList${tempList}`);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+
+  //   fetchCategory();
+
+  //   // SEARCH URL
+  //   let searchId2;
+  //   let resultId2;
+  //   const fetchSearchURL = async () => {
+  //     try {
+  //       const response = await axios.post(
+  //         "/rss/api/ftp/search",
+  //         {
+  //           fabNames: ["Line1"],
+  //           machineNames: ["MPA_208"],
+  //           categoryCodes: ["001"],
+  //           categoryNames: ["RUNNING_STATUS"],
+  //           startDate: "20221001144108",
+  //           endDate: "20230215144113",
+  //           folder: false,
+  //         },
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${accessToken}`,
+  //           },
+  //         }
+  //       );
+
+  //       console.log(response.data.searchId);
+  //       searchId2 = response.data.searchId;
+  //       // setSearchId3(response.data.searchId);
+
+  //       try {
+  //         const response = await axios.get(`/rss/api/ftp/search/${searchId2}`, {
+  //           params: { searchId: searchId2 },
+  //           headers: {
+  //             Authorization: `Bearer ${accessToken}`,
+  //           },
+  //         });
+
+  //         console.log(response);
+  //         resultId2 = response.data.resultUrl;
+
+  //         try {
+  //           const response = await axios.get(
+  //             `/rss/api/ftp/search/result/SFTP-20230221141712552-5171`,
+  //             {
+  //               params: { resultUrl: resultId2 },
+  //               headers: {
+  //                 Authorization: `Bearer ${accessToken}`,
+  //               },
+  //             }
+  //           );
+  //           finalListData = response.data.lists;
+  //           console.log(finalListData);
+  //           // /rss/api/ftp/search/result/SFTP-20230221135513619-5137
+  //         } catch (e) {
+  //           console.log(e);
+  //         }
+  //       } catch (e) {
+  //         console.log(e);
+  //       }
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+
+  //   fetchSearchURL();
+  //   // SFTP-20230221135043558-5127
+  // }, []);
+
   console.log(1);
   const [accessToken, setAccessToken] = useState([]);
   const [refreshToken, setRefreshToken] = useState([]);
@@ -81,6 +207,7 @@ function Maintest() {
           <div>메인test페이지</div>
           <div>메인test페이지</div>
           <div>메인test페이지</div>
+
           <div>
             <Provider store={store}>
               <Counter />
