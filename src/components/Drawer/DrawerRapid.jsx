@@ -9,6 +9,7 @@ import React, { useState, useEffect } from "react";
 
 // 툴킷
 import { Provider, useSelector, useDispatch } from "react-redux";
+import { asyncUpFetch, up } from "../../reducers/slices/drawerSlice";
 import store from "../../reducers/store";
 import {
   openDrawer,
@@ -26,6 +27,7 @@ import Machine from "./Machine";
 import Date from "./Date";
 import { updateDateErrorMsg } from "../../reducers/slices/dateSlice";
 import { updateMachineErrorMsg } from "../../reducers/slices/machineSlice";
+import LoadingBox from "../LoadingBox/index";
 
 const { RangePicker } = DatePicker;
 
@@ -64,6 +66,38 @@ const drawerButtonWrapper = css`
   align-items: flex-end;
 `;
 
+function Asdasdasd() {
+  const dispatch = useDispatch();
+  const count = useSelector((state) => {
+    return state.asdasdasd.value;
+  });
+  const status = useSelector((state) => {
+    return state.asdasdasd.status;
+  });
+  return (
+    <div>
+      <Button
+        onClick={() => {
+          dispatch(up(2));
+        }}
+      >
+        +
+      </Button>
+      <button
+        onClick={() => {
+          dispatch(asyncUpFetch());
+        }}
+      >
+        + async fetch
+      </button>
+      <br />
+      <div>
+        {count} | {status}
+      </div>
+    </div>
+  );
+}
+
 function DrawerRapid() {
   const [open, setOpen] = useState("");
   const [dateError, setdateError] = useState("");
@@ -98,6 +132,7 @@ function DrawerRapid() {
     } else {
       dispatch(sortCheckedCategory());
       dispatch(closeDrawer(false));
+      // asd
     }
   };
 
@@ -124,6 +159,11 @@ function DrawerRapid() {
           <Button css={blueButton} onClick={closeDrawerRapid}>
             Cancel
           </Button>
+          <Provider store={store}>
+            <Asdasdasd />
+            <LoadingBox />
+          </Provider>
+
           <Button css={whiteButton} onClick={searchBtn}>
             Search
           </Button>

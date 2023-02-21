@@ -13,6 +13,7 @@ const store = configureStore({
     machineData: machineSlice.reducer,
     dateData: dateSlice.reducer,
     mainData: mainSlice.reducer,
+    asdasdasd: drawerSlice.reducer,
   },
 });
 
