@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import Header from "../../components/Header/index";
 import Footer from "../../components/Footer/index";
 import store from "../../reducers/store";
-import ManualBox from "../../components/Manual/index";
+import ManualBox from "../../components/ManualBox/index";
 import DrawerRapid from "../../components/Drawer/DrawerRapid";
 
 function Manual() {
