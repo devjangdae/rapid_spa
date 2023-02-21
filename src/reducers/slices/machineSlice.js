@@ -46,7 +46,11 @@ const machineSlice = createSlice({
       state.checked = [];
     },
 
-    validMachine: (state, action) => {
+    validMachineInitiate: (state, action) => {
+      state.validMachine = [];
+    },
+
+    validMachineUpdate: (state, action) => {
       state.validMachine.push(action.payload);
     },
   },
@@ -60,7 +64,8 @@ export const {
   lineSelectedUpdate_,
   nameSelectedUpdate,
   checkedUpdate,
-  validMachine,
+  validMachineUpdate,
+  validMachineInitiate,
   checkedDefault,
   checkedAll,
 } = machineSlice.actions;

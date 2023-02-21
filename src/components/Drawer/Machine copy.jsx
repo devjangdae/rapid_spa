@@ -143,7 +143,7 @@ function Machine() {
 
   const onCheckAllChange = (e) => {
 
-    setChecked(e.target.checked ? machineList.map((item) => item.machineName) : []);
+    //setChecked(e.target.checked ? machineList.map((item) => item.machineName) : []);
     setCheckAll(e.target.checked);
     
     // if(e.target.checked === true){
@@ -183,7 +183,7 @@ function Machine() {
                                 style={{
                                   width: "100%",
                                 }}
-                                value={checked}
+                                value={[]}
 
                                 onChange={(checkedValues) => {
                                     setChecked(checkedValues);

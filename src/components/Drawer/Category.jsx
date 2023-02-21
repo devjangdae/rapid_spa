@@ -265,7 +265,6 @@ function Category() {
                   }}
                   value={checked}
                   onChange={(checkedValues) => {
-                    console.log(checkedValues);
                     setChecked(checkedValues);
                   }}
 
