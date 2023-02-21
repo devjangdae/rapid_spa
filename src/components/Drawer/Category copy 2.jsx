@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable no-plusplus */
 /** @jsxImportSource @emotion/react */
 
@@ -46,9 +45,7 @@ function Category() {
 
   const dispatch = useDispatch();
 
-  const checkedCategory = useSelector(
-    (state) => state.categoryData.checkedCategory
-  );
+  const a = useSelector((state) => state.categoryData.checkedCategory);
   const errorMsg = useSelector((state) => state.categoryData.categoryErrorMsg);
 
   useEffect(() => {
@@ -73,35 +70,31 @@ function Category() {
         console.log(e);
       }
 
-      setIndeterminate(
-        checkedCategory.length && checkedCategory.length !== tempList.length
-      );
-      setCheckAll(checkedCategory.length === tempList.length);
+      setIndeterminate(checked.length && checked.length !== tempList.length);
+      setCheckAll(checked.length === tempList.length);
     };
 
     fetchCategory();
   }, []);
 
   useEffect(() => {
-    setIndeterminate(
-      checkedCategory.length && checkedCategory.length !== categoryList.length
-    );
-    setCheckAll(checkedCategory.length === categoryList.length);
-  }, [checkedCategory]);
+    setIndeterminate(checked.length && checked.length !== categoryList.length);
+    setCheckAll(checked.length === categoryList.length);
+  }, [checked]);
 
-  const checkCategory = (e, categoryValue) => {
+  const checkCategory = (e) => {
     const isChecked = e.target.checked;
-
+    const checkedCategory = e.target.value;
     dispatch(categoryErrorMsg());
 
     if (isChecked === true) {
-      dispatch(updateCheckedCategory(categoryValue));
-      dispatch(updateCheckedCategoryCode(categoryValue.substring(0, 3)));
-      dispatch(updateCheckedCategoryName(categoryValue.substring(4)));
+      dispatch(updateCheckedCategory(checkedCategory));
+      dispatch(updateCheckedCategoryCode(checkedCategory.substring(0, 3)));
+      dispatch(updateCheckedCategoryName(checkedCategory.substring(4)));
     } else if (isChecked === false) {
-      dispatch(deleteCheckedCategory(categoryValue));
-      dispatch(deleteCheckedCategoryCode(categoryValue.substring(0, 3)));
-      dispatch(deleteCheckedCategoryName(categoryValue.substring(4)));
+      dispatch(deleteCheckedCategory(checkedCategory));
+      dispatch(deleteCheckedCategoryCode(checkedCategory.substring(0, 3)));
+      dispatch(deleteCheckedCategoryName(checkedCategory.substring(4)));
     }
   };
 
@@ -135,7 +128,7 @@ function Category() {
         </Checkbox>
       </div>
       <div>
-        {/* <Checkbox.Group
+        <Checkbox.Group
           style={{
             width: "100%",
           }}
@@ -151,19 +144,7 @@ function Category() {
               </Checkbox>
             ))}
           </Space>
-        </Checkbox.Group> */}
-
-        <Space direction="vertical">
-          {categoryList.map((list) => (
-            <Checkbox
-              checked={checkedCategory.includes(list)}
-              onChange={(e) => checkCategory(e, list)}
-            >
-              {list}
-            </Checkbox>
-          ))}
-        </Space>
-        {checkedCategory}
+        </Checkbox.Group>
         <div css={error}>{errorMsg}</div>
       </div>
     </div>

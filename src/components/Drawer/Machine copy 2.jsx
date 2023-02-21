@@ -1,6 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-console */
-/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable dot-notation */
 /* eslint-disable no-plusplus */
 /* eslint-disable import/named */
@@ -45,7 +42,7 @@ import {
 
 const drawerMachineWrapper = css`
   margin-right: 80px;
-  width: 300px;
+  width:300px;
 `;
 
 const machineHeaderWrapper = css`
@@ -82,12 +79,13 @@ function Machine() {
     return JSON.stringify(state.machineData.seletedLine);
   });
 
-  const checked2 = useSelector((state) => (
-    state.machineData.checked
-  ));
-  const valMa = useSelector((state) => (
-    state.machineData.validMachine
-  ));
+  const checked2 = useSelector((state) => {
+    return JSON.stringify(state.machineData.checked);
+  });
+
+  const valMa = useSelector((state) => {
+    return JSON.stringify(state.machineData.validMachine);
+  });
 
   var tempList = [];
 
@@ -120,7 +118,6 @@ function Machine() {
             response.data.lists[i].vftpConnected === true
           ) {
             dispatch(validMachineUpdate(response.data.lists[i].machineName));
-            console.log('0000'+valMa);
           }
         }
 
@@ -151,18 +148,18 @@ function Machine() {
         console.log(e);
       }
 
-      // setIndeterminate(checked2.length && checked2.length !== valMa.length);
-      // setCheckAll(checked2.length === valMa.length);
-      // setMachineList2(tempList);
+      setIndeterminate(checked2.length && checked2.length !== valMa.length);
+      setCheckAll(checked2.length === valMa.length);
+      setMachineList2(tempList);
     };
 
     fetchMachine();
   }, []);
 
-  // useEffect(() => {
-  //   setIndeterminate(checked2.length && checked2.length !== valMa.length);
-  //   setCheckAll(checked2.length === valMa.length);
-  // }, [checked2]);
+  useEffect(() => {
+    setIndeterminate(checked2.length && checked2.length !== valMa.length);
+    setCheckAll(checked2.length === valMa.length);
+  }, [checked2]);
 
   const selectMachine = (e) => {
     const isChecked = e.target.checked;
@@ -196,45 +193,11 @@ function Machine() {
     }
   };
 
-  const func_ = (line) => {
-
-    for(let i=0; i <machineList.length; i++){
-      if(machineList[i].line === line){
-        if(machineList[i].vftpConnected === true){
-          return false;  
-        }
-      }
-    }
-
-    return true;
-  };
-
-  // const func2_ = (line) => {
-
-  //   for(let i=0; i <machineList.length; i++){
-  //     if(machineList[i].line === line){
-  //       if(machineList[i].vftpConnected === true){
-  //         return false;  
-  //       }
-  //     }
-  //   }
-
-  //   return true;
-  // };
-
-  const onCheckAllChange = (e, line) => {
-    //setChecked(e.target.checked ? valMa : []);
+  const onCheckAllChange = (e) => {
+    setChecked(e.target.checked ? valMa : []);
 
     if (e.target.checked === true) {
-      //dispatch(checkedAll());
-      for(let i=0; i <machineList.length; i++){
-        if(machineList[i].line === line){
-          if(machineList[i].vftpConnected === true){
-            dispatch(checkedUpdate(machineList[i].machineName));
-          }
-        }
-      }
-
+      dispatch(checkedAll());
     } else if (e.target.checked === false) {
       dispatch(checkedDefault());
     }
@@ -280,33 +243,52 @@ function Machine() {
                 key: id,
                 children: (
                   <div>
-                    <Space direction="vertical">
-                      <Checkbox
-                        disabled ={ func_(machine.line) }
-                        // value={machine.line}
-                        indeterminate={indeterminate}
-                        onChange={(e)=>onCheckAllChange(e, machine.line)}
-                      >
-                        All
-                      </Checkbox>
+                    {/* <Checkbox
+                    key={machine.line}
+                    value={machine.line}
+                      indeterminate={indeterminate}
+                      onChange={onCheckAllChange}
+                      checked={checkAll}
+                    >
+                      All
+                    </Checkbox> */}
+                    <Checkbox.Group
+                      style={{
+                        width: "100%",
+                      }}
+                      value={checked2}
+                      onChange={(checkedValues) => {
+                        console.log(checked2);
+                        //dispatch(checkedUpdate(checkedValues));
+                      }}
+                    >
+                      <Space direction="vertical">
+                        {machineList.map((list, j) => {
+                          if (machineList[j].line === machine.line) {
+                            if (machineList[j].vftpConnected === true) {
+                              return (
+                                
+                                <Checkbox 
+                                  value={machineList[j].machineName}
+                                  value2={machineList[j].line}
+                                  onChange={(e) => selectMachine(e)}
+                                >
+                                  {machineList[j].machineName}
+                                </Checkbox>
+                              );
+                            }
+                            if (machineList[j].vftpConnected === false) {
+                              return (
+                                <Checkbox defaultChecked={false} disabled>
+                                  {machineList[j].machineName}
+                                </Checkbox>
+                              );
+                            }
+                          }
+                        })}
+                      </Space>
+                    </Checkbox.Group>
 
-                      {machineList.map((list, j) => {
-                        if (list.line === machine.line) {
-
-                            return (
-                              <Checkbox
-                                value={machineList[j].machineName}
-                                value2={machineList[j].line}
-                                disabled ={!list.vftpConnected}
-                                onChange={(e) => selectMachine(e)}
-                              >
-                                {list.machineName}
-                              </Checkbox>
-                            );
-                        
-                        }
-                      })}
-                    </Space>
                   </div>
                 ),
               };
@@ -315,8 +297,6 @@ function Machine() {
           tabPosition="left"
         />
       </div>
-      {valMa}
-      {checked2}
       <div css={error}>{errorMsg}</div>
     </div>
   );

@@ -2,7 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const categorySlice = createSlice({
   name: "category",
-  initialState: { item: [], seleted: [], seletedCode: [], seletedName: [] },
+  initialState: {
+    item: [],
+    checkedCategory: [],
+    checkedCategoryCode: [],
+    checkedCategoryName: [],
+    categoryErrorMsg: "",
+  },
   reducers: {
     caUpdate: (state, action) => {
       const testObj = {
@@ -18,36 +24,49 @@ const categorySlice = createSlice({
       state.items.push(action.payload);
     },
 
-    caUpdate3: (state, action) => {
-      state.seleted.push(action.payload);
+    updateCheckedCategory: (state, action) => {
+      state.checkedCategory.push(action.payload);
     },
 
-    caUpdate3_: (state, action) => {
-      state.seleted = state.seleted.filter((item) => item !== action.payload);
-    },
-
-    caUpdate4: (state, action) => {
-      state.seletedCode.push(action.payload);
-    },
-
-    caUpdate4_: (state, action) => {
-      state.seletedCode = state.seletedCode.filter(
+    deleteCheckedCategory: (state, action) => {
+      state.checkedCategory = state.checkedCategory.filter(
         (item) => item !== action.payload
       );
     },
 
-    caUpdate5: (state, action) => {
-      state.seletedName.push(action.payload);
+    updateCheckedCategoryCode: (state, action) => {
+      state.checkedCategoryCode.push(action.payload);
     },
 
-    caUpdate5_: (state, action) => {
-      state.seletedName = state.seletedName.filter(
+    deleteCheckedCategoryCode: (state, action) => {
+      state.checkedCategoryCode = state.checkedCategoryCode.filter(
         (item) => item !== action.payload
       );
     },
 
-    seletedDefault: (state, action) => {
-      state.seleted = [];
+    updateCheckedCategoryName: (state, action) => {
+      state.checkedCategoryName.push(action.payload);
+    },
+
+    deleteCheckedCategoryName: (state, action) => {
+      state.checkedCategoryName = state.checkedCategoryName.filter(
+        (item) => item !== action.payload
+      );
+    },
+
+    initiateCheckedCategory: (state, action) => {
+      state.checkedCategory = [];
+    },
+
+    sortCheckedCategory: (state, action) => {
+      state.checkedCategory = state.checkedCategory.sort();
+    },
+
+    updateCategoryErrorMsg: (state, action) => {
+      state.categoryErrorMsg = "! Please select at least One Category";
+    },
+    categoryErrorMsg: (state, action) => {
+      state.categoryErrorMsg = "";
     },
   },
 });
@@ -56,9 +75,14 @@ export default categorySlice;
 export const {
   caUpdate,
   caUpdate2,
-  caUpdate3,
-  caUpdate4,
-  caUpdate5,
-  caUpdate3_,
-  seletedDefault,
+  updateCheckedCategory,
+  deleteCheckedCategory,
+  updateCheckedCategoryCode,
+  deleteCheckedCategoryCode,
+  updateCheckedCategoryName,
+  deleteCheckedCategoryName,
+  initiateCheckedCategory,
+  updateCategoryErrorMsg,
+  categoryErrorMsg,
+  sortCheckedCategory,
 } = categorySlice.actions;

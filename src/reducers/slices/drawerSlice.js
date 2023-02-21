@@ -8,7 +8,7 @@ const drawerSlice = createSlice({
       state.isOpened = true;
     },
     closeDrawer: (state, action) => {
-      state.isOpened = action.payload;
+      state.isOpened = false;
     },
   },
 });

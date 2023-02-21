@@ -9,6 +9,7 @@ const machineSlice = createSlice({
     seletedLine: [],
     checked: [],
     validMachine: [],
+    machineErrorMsg: "",
   },
   reducers: {
     machineSelectedUpdate: (state, action) => {
@@ -53,6 +54,13 @@ const machineSlice = createSlice({
     validMachineUpdate: (state, action) => {
       state.validMachine.push(action.payload);
     },
+
+    updateMachineErrorMsg: (state, action) => {
+      state.machineErrorMsg = "! Please select at least One Machine";
+    },
+    machineErrorMsg: (state, action) => {
+      state.machineErrorMsg = "";
+    },
   },
 });
 
@@ -68,4 +76,6 @@ export const {
   validMachineInitiate,
   checkedDefault,
   checkedAll,
+  machineErrorMsg,
+  updateMachineErrorMsg,
 } = machineSlice.actions;

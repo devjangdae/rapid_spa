@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
@@ -9,11 +10,22 @@ import React, { useState, useEffect } from "react";
 // 툴킷
 import { Provider, useSelector, useDispatch } from "react-redux";
 import store from "../../reducers/store";
-import { openDrawer, closeDrawer } from "../../reducers/slices/drawerSlice";
+import {
+  openDrawer,
+  closeDrawer,
+  clickResetButton,
+  clickSearchButton,
+} from "../../reducers/slices/mainSlice";
+import {
+  updateCategoryErrorMsg,
+  sortCheckedCategory,
+} from "../../reducers/slices/categorySlice";
 
 import Category from "./Category";
 import Machine from "./Machine";
 import Date from "./Date";
+import { updateDateErrorMsg } from "../../reducers/slices/dateSlice";
+import { updateMachineErrorMsg } from "../../reducers/slices/machineSlice";
 
 const { RangePicker } = DatePicker;
 
@@ -53,26 +65,40 @@ const drawerButtonWrapper = css`
 `;
 
 function DrawerRapid() {
-  const [open, setOpen] = useState(true);
-  const [machineLine, setMachineLine] = useState([]);
-  const [machineList, setMachineList] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
-
-  const accessToken = sessionStorage.getItem("accessToken");
+  const [open, setOpen] = useState("");
+  const [dateError, setdateError] = useState("");
+  const [machineError, setMachineError] = useState("");
+  const [categoryError, setCategoryError] = useState("");
 
   const dispatch = useDispatch();
 
-  const drawerIsOpen = useSelector((state) => {
-    // console.log(state.drawerData.isOpened);
-    return JSON.stringify(state.drawerData.isOpened);
-  });
+  const drawerIsOpen = useSelector((state) => state.mainData.isOpened);
+
+  const checkedCategory = useSelector(
+    (state) => state.categoryData.checkedCategory
+  );
+
+  const checkedMachine = useSelector((state) => state.machineData.checked);
+
+  const date = useSelector((state) => state.dateData.date);
 
   const closeDrawerRapid = () => {
     dispatch(closeDrawer());
   };
 
   const searchBtn = () => {
-    dispatch(closeDrawer(false));
+    if (
+      checkedCategory.length === 0 ||
+      date.length === 0 ||
+      checkedMachine.length === 0
+    ) {
+      if (checkedCategory.length === 0) dispatch(updateCategoryErrorMsg());
+      if (date.length === 0) dispatch(updateDateErrorMsg());
+      if (checkedMachine.length === 0) dispatch(updateMachineErrorMsg());
+    } else {
+      dispatch(sortCheckedCategory());
+      dispatch(closeDrawer(false));
+    }
   };
 
   return (
@@ -82,6 +108,7 @@ function DrawerRapid() {
       // onClose={closeDrawer}
       closable={false}
       open={drawerIsOpen}
+      // style={{ width: "900px" }}
       size="large"
     >
       <div css={drawerContainter2}>
@@ -100,7 +127,6 @@ function DrawerRapid() {
           <Button css={whiteButton} onClick={searchBtn}>
             Search
           </Button>
-          {drawerIsOpen}
         </div>
       </div>
     </Drawer>
