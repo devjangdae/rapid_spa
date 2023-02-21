@@ -20,7 +20,7 @@ const dateSlice = createSlice({
       state.dateErrorMsg = "! Please select Date";
     },
 
-    dateMsg: (state, action) => {
+    resetDateErrorMsg: (state, action) => {
       state.dateErrorMsg = "";
     },
   },
@@ -32,6 +32,6 @@ export const {
   dateUpdate,
   startDateUpdate,
   endDateUpdate,
-  dateMsg,
+  resetDateErrorMsg,
   updateDateErrorMsg,
 } = dateSlice.actions;

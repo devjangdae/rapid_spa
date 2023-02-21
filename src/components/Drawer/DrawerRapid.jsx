@@ -98,6 +98,7 @@ function DrawerRapid() {
     } else {
       dispatch(sortCheckedCategory());
       dispatch(closeDrawer(false));
+      // 검색로직
     }
   };
 

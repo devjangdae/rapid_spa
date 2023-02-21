@@ -11,7 +11,7 @@ import {
   startDateUpdate,
   endDateUpdate,
   updateDateErrorMsg,
-  dateMsg,
+  resetDateErrorMsg,
 } from "../../reducers/slices/dateSlice";
 
 const { RangePicker } = DatePicker;
@@ -38,7 +38,7 @@ function Date() {
   };
 
   const selectDate = (e) => {
-    dispatch(dateMsg());
+    dispatch(resetDateErrorMsg());
 
     dispatch(
       startDateUpdate(

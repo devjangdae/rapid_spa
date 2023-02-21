@@ -76,6 +76,7 @@ function SelectBox() {
   const isSearching = useSelector((state) => state.mainData.isSearching);
   const date = useSelector((state) => state.dateData.date);
   const category = useSelector((state) => state.categoryData.checkedCategory);
+  const machine = useSelector((state) => state.machineData.checkedMain);
 
   const selectBtn = () => {
     dispatch(openDrawer());
@@ -110,7 +111,18 @@ function SelectBox() {
         <div style={{ width: "50%" }} className="collapse">
           <Collapse css={collapse} size="small" style={{ color: "black" }}>
             <Panel header="MACHINE" key="1">
-              <div>Please select at least one category</div>
+              {machine.length !== 0 && drawerIsOpen === false ? (
+                machine.map((list) => (
+                  <Tag
+                    color="purple"
+                    style={{ marginTop: "3px", marginBottom: "3px" }}
+                  >
+                    {list}
+                  </Tag>
+                ))
+              ) : (
+                <div>Please select at least one Machine</div>
+              )}
             </Panel>
           </Collapse>
         </div>
