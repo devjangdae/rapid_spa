@@ -74,10 +74,12 @@ function SelectBox() {
 
   const drawerIsOpen = useSelector((state) => state.mainData.isOpened);
   const isSearching = useSelector((state) => state.mainData.isSearching);
-  const date = useSelector((state) => state.dateData.date);
-  const category = useSelector((state) => state.categoryData.checkedCategory);
-  const machine = useSelector(
-    (state) => state.machineData.checkedFabMachineName
+  const currentDate = useSelector((state) => state.mainData.currentDate);
+  const currentCategory = useSelector(
+    (state) => state.mainData.currentCategory
+  );
+  const currentFabMachineName = useSelector(
+    (state) => state.mainData.currentFabMachineName
   );
 
   const selectBtn = () => {
@@ -89,12 +91,12 @@ function SelectBox() {
       <div className="dateBoxButtonWrap" css={dateBoxButtonWrap}>
         <div className="dateBox" css={dateBox}>
           <div>DATE</div>
-          {date.length !== 0 && drawerIsOpen === false ? (
+          {currentDate.length !== 0 ? (
             <Tag
               color="green"
               style={{ marginTop: "3px", marginBottom: "3px" }}
             >
-              {date}
+              {currentDate}
             </Tag>
           ) : (
             <div css={disabledColor}>Please Select Date</div>
@@ -113,8 +115,8 @@ function SelectBox() {
         <div style={{ width: "50%" }} className="collapse">
           <Collapse css={collapse} size="small" style={{ color: "black" }}>
             <Panel header="MACHINE" key="1">
-              {machine.length !== 0 && drawerIsOpen === false ? (
-                machine.map((list) => (
+              {currentFabMachineName.length !== 0 ? (
+                currentFabMachineName.map((list) => (
                   <Tag
                     color="purple"
                     style={{ marginTop: "3px", marginBottom: "3px" }}
@@ -131,8 +133,8 @@ function SelectBox() {
         <div style={{ width: "50%" }} className="collapse">
           <Collapse css={collapse}>
             <Panel header="CATEGORY" key="1">
-              {category.length !== 0 && drawerIsOpen === false ? (
-                category.map((list) => (
+              {currentCategory.length !== 0 ? (
+                currentCategory.map((list) => (
                   <Tag
                     color="orange"
                     style={{ marginTop: "3px", marginBottom: "3px" }}

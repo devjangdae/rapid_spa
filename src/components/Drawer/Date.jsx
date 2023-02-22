@@ -7,11 +7,10 @@ import { DatePicker } from "antd";
 // 툴킷
 import { Provider, useSelector, useDispatch } from "react-redux";
 import {
-  dateUpdate,
-  startDateUpdate,
-  endDateUpdate,
-  updateDateErrorMsg,
-  resetDateErrorMsg,
+  checkedDateUpdate,
+  checkedStartDateUpdate,
+  checkedEndDateUpdate,
+  dateErrorMsgReset,
 } from "../../reducers/slices/dateSlice";
 
 const { RangePicker } = DatePicker;
@@ -38,10 +37,20 @@ function Date() {
   };
 
   const selectDate = (e) => {
-    dispatch(resetDateErrorMsg());
+    dispatch(dateErrorMsgReset());
 
     dispatch(
-      startDateUpdate(
+      checkedEndDateUpdate(
+        e[1].format().substring(0, 4) +
+          e[1].format().substring(5, 7) +
+          e[1].format().substring(8, 10) +
+          e[1].format().substring(11, 13) +
+          e[1].format().substring(14, 16) +
+          e[1].format().substring(17, 19)
+      )
+    );
+    dispatch(
+      checkedStartDateUpdate(
         e[0].format().substring(0, 4) +
           e[0].format().substring(5, 7) +
           e[0].format().substring(8, 10) +
@@ -52,7 +61,7 @@ function Date() {
     );
 
     dispatch(
-      endDateUpdate(
+      checkedEndDateUpdate(
         e[1].format().substring(0, 4) +
           e[1].format().substring(5, 7) +
           e[1].format().substring(8, 10) +
@@ -63,7 +72,7 @@ function Date() {
     );
 
     dispatch(
-      dateUpdate(
+      checkedDateUpdate(
         `${e[0].format().substring(0, 10)} ${e[0]
           .format()
           .substring(11, 19)} ~ ${e[1].format().substring(0, 10)} ${e[1]
