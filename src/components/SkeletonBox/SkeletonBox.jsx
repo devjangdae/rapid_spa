@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import { Skeleton } from "antd";
 
-const dataBoxEmpty = css`
+const skeletonBox = css`
   display: flex;
   min-height: 70vh;
   justify-content: center;
@@ -19,7 +19,7 @@ const skeletonStyle = css`
 
 function SkeletonBox() {
   return (
-    <div className="dataBoxEmpty" css={dataBoxEmpty}>
+    <div className="skeletonBox" css={skeletonBox}>
       <Skeleton
         css={skeletonStyle}
         active
