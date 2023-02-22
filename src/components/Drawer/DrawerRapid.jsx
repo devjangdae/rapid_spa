@@ -68,12 +68,37 @@ const drawerButtonWrapper = css`
 
 function Asdasdasd() {
   const dispatch = useDispatch();
+
   const count = useSelector((state) => {
     return state.asdasdasd.value;
   });
+
   const status = useSelector((state) => {
     return state.asdasdasd.status;
   });
+
+  // fabNames  machineNames  categoryCodes  categoryName  startDate  endDate         "folder":false,        "depth":999
+  // ArrayList<String> ArrayList<String>ArrayList<String>  String String             Boolean                Integer
+
+  const fabNames = useSelector((state) => {
+    return state.machineData.fabNames;
+  });
+  const machineNames = useSelector((state) => {
+    return state.machineData.checked;
+  });
+  const categoryCodes = useSelector((state) => {
+    return state.categoryData.checkedCategoryCode;
+  });
+  const categoryName = useSelector((state) => {
+    return state.categoryData.checkedCategoryName;
+  });
+  const startDate = useSelector((state) => {
+    return state.dateData.startDate;
+  });
+  const endDate = useSelector((state) => {
+    return state.dateData.endDate;
+  });
+
   return (
     <div>
       <Button
@@ -92,8 +117,14 @@ function Asdasdasd() {
       </button>
       <br />
       <div>
-        {count} | {status}
+        {count} | {status} |
       </div>
+      <div>fabNames:{fabNames}</div>
+      <div>machineNames:{machineNames}</div>
+      <div>categoryCodes:{categoryCodes}</div>
+      <div>categoryName:{categoryName}</div>
+      <div>startDate:{startDate}</div>
+      <div>endDate:{endDate}</div>
     </div>
   );
 }
