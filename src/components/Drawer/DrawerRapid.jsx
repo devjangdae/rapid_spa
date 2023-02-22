@@ -80,16 +80,16 @@ function Asdasdasd() {
   // fabNames  machineNames  categoryCodes  categoryName  startDate  endDate         "folder":false,        "depth":999
   // ArrayList<String> ArrayList<String>ArrayList<String>  String String             Boolean                Integer
 
-  const fabNames = useSelector((state) => {
-    return state.machineData.fabNames;
+  const checkedFabName = useSelector((state) => {
+    return state.machineData.checkedFabName;
   });
-  const machineNames = useSelector((state) => {
-    return state.machineData.checked;
+  const checkedMachineName = useSelector((state) => {
+    return state.machineData.checkedMachineName2;
   });
-  const categoryCodes = useSelector((state) => {
+  const checkedCategoryCode = useSelector((state) => {
     return state.categoryData.checkedCategoryCode;
   });
-  const categoryName = useSelector((state) => {
+  const checkedCategoryName = useSelector((state) => {
     return state.categoryData.checkedCategoryName;
   });
   const startDate = useSelector((state) => {
@@ -119,10 +119,10 @@ function Asdasdasd() {
       <div>
         {count} | {status} |
       </div>
-      <div>fabNames:{fabNames}</div>
-      <div>machineNames:{machineNames}</div>
-      <div>categoryCodes:{categoryCodes}</div>
-      <div>categoryName:{categoryName}</div>
+      <div>fabNames:{checkedFabName}</div>
+      <div>machineNames:{checkedMachineName}</div>
+      <div>categoryCodes:{checkedCategoryCode}</div>
+      <div>categoryName:{checkedCategoryName}</div>
       <div>startDate:{startDate}</div>
       <div>endDate:{endDate}</div>
     </div>

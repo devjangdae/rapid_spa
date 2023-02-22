@@ -1,10 +1,6 @@
-/* eslint-disable import/named */
-/* eslint-disable no-else-return */
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-plusplus */
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
-/* eslint-disable prettier/prettier */
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
@@ -17,31 +13,19 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import store from "../../reducers/store";
 import {
-  machineSelectedUpdate,
-  machineSelectedUpdate_,
-  lineSelectedUpdate,
-  lineSelectedUpdate_,
-  nameSelectedUpdate,
-  checkedUpdate,
   validMachineUpdate,
   validMachineInitiate,
-  checkedDefault,
-  checkedDelete,
-  checkedLineDelete,
-  checkedLineUpdate,
-  checkedAll,
-  updateMachineErrorMsg,
-  machineErrorMsg,
-  checkedReset,
-  checkedLineReset,
-  checkedMachineNameDelete,
-  checkedMachineNameUpdate,
-  checkedMachineLineDelete,
-  checkedMachineLineUpdate,
-  checkedMainUpdate,
-  checkedMainReset,
-  checkedMainDelete,
   validLineUpdate,
+  machineErrorMsg,
+  checkedFabMachineNameUpdate,
+  checkedFabMachineNameDelete,
+  checkedFabMachineNameReset,
+  checkedMachineName2Update,
+  checkedMachineName2Delete,
+  checkedMachineName2Reset,
+  checkedFabNameUpdate,
+  checkedFabNameDelete,
+  checkedFabNameReset,
 } from "../../reducers/slices/machineSlice";
 
 const drawerMachineWrapper = css`
@@ -61,41 +45,28 @@ const error = css`
 `;
 
 function Machine() {
+  const accessToken = sessionStorage.getItem("accessToken");
+
   const [machineLine, setMachineLine] = useState([]);
   const [machineList, setMachineList] = useState([]);
 
   const [indeterminate, setIndeterminate] = useState(false);
   const [checkAll, setCheckAll] = useState(false);
 
-  const accessToken = sessionStorage.getItem("accessToken");
-
   const dispatch = useDispatch();
-
-  const errorMsg = useSelector((state) => state.machineData.machineErrorMsg);
-
-  const selectedMachineLists = useSelector((state) => {
-    return JSON.stringify(state.machineData.seleted);
-  });
-
-  const selectedLineLists = useSelector((state) => {
-    return JSON.stringify(state.machineData.seletedLine);
-  });
-
-  const checked2 = useSelector((state) => state.machineData.checked);
-
-  const checkedLine = useSelector((state) => state.machineData.checkedLine);
-  const checkedMain = useSelector((state) => state.machineData.checkedMain);
-
-  const checkedMachineName = useSelector(
-    (state) => state.machineData.checkedMachineName
-  );
-
-  const checkedMachineLine = useSelector(
-    (state) => state.machineData.checkedMachineLine
-  );
-
   const valMa = useSelector((state) => state.machineData.validMachine);
   const valLi = useSelector((state) => state.machineData.validLine);
+  const errorMsg = useSelector((state) => state.machineData.machineErrorMsg);
+
+  const checkedFabMachineName = useSelector(
+    (state) => state.machineData.checkedFabMachineName
+  );
+  const checkedMachineName = useSelector(
+    (state) => state.machineData.checkedMachineName2
+  );
+  const checkedFabName = useSelector(
+    (state) => state.machineData.checkedFabName
+  );
 
   useEffect(() => {
     let tempList = [];
@@ -128,7 +99,7 @@ function Machine() {
             response.data.lists[i].vftpConnected === true
           ) {
             dispatch(validMachineUpdate(response.data.lists[i].machineName));
-            dispatch(validLineUpdate(response.data.lists[i].line))
+            dispatch(validLineUpdate(response.data.lists[i].line));
             tempList.push(response.data.lists[i].machineName);
           }
         }
@@ -137,9 +108,10 @@ function Machine() {
       }
 
       setIndeterminate(
-        checked2.length && checked2.length !== tempList.length
+        checkedFabMachineName.length &&
+          checkedFabMachineName.length !== tempList.length
       );
-      setCheckAll(checked2.length === tempList.length);
+      setCheckAll(checkedFabMachineName.length === tempList.length);
     };
 
     fetchMachine();
@@ -147,10 +119,11 @@ function Machine() {
 
   useEffect(() => {
     setIndeterminate(
-      checked2.length && checked2.length !== valMa.length
+      checkedFabMachineName.length &&
+        checkedFabMachineName.length !== valMa.length
     );
-    setCheckAll(checked2.length === valMa.length);
-  }, [checked2]);
+    setCheckAll(checkedFabMachineName.length === valMa.length);
+  }, [checkedFabMachineName]);
 
   const selectMachine = (e, checkedNameOfMachine, checkedLineOfMachine) => {
     const isChecked = e.target.checked;
@@ -158,28 +131,38 @@ function Machine() {
     dispatch(machineErrorMsg());
 
     if (isChecked === true) {
-      dispatch(checkedUpdate(checkedNameOfMachine));
-      dispatch(checkedMainUpdate(`${checkedLineOfMachine}>${checkedNameOfMachine}`));
+      dispatch(
+        checkedFabMachineNameUpdate(
+          `${checkedLineOfMachine}>${checkedNameOfMachine}`
+        )
+      );
+      dispatch(checkedMachineName2Update(checkedNameOfMachine));
+      dispatch(checkedFabNameUpdate(checkedLineOfMachine));
     } else if (isChecked === false) {
-      dispatch(checkedDelete(checkedNameOfMachine));
-      dispatch(checkedMainDelete(`${checkedLineOfMachine}>${checkedNameOfMachine}`));
+      dispatch(
+        checkedFabMachineNameDelete(
+          `${checkedLineOfMachine}>${checkedNameOfMachine}`
+        )
+      );
+      dispatch(checkedMachineName2Delete(checkedNameOfMachine));
+      dispatch(checkedFabNameDelete(checkedLineOfMachine));
     }
   };
 
-
   const onCheckAllChange = (e, line) => {
-
     setCheckAll(e.target.checked);
-    
-    dispatch(checkedReset());
-    dispatch(checkedMainReset());
+
+    dispatch(checkedFabMachineNameReset());
+    dispatch(checkedMachineName2Reset());
+    dispatch(checkedFabNameReset());
 
     if (e.target.checked === true) {
       for (let i = 0; i < valMa.length; i++) {
-        dispatch(checkedUpdate(valMa[i]));
-        dispatch(checkedMainUpdate(`${valLi[i]}>${valMa[i]}`));
+        dispatch(checkedFabMachineNameUpdate(`${valLi[i]}>${valMa[i]}`));
+        dispatch(checkedMachineName2Update(valMa[i]));
+        dispatch(checkedFabNameUpdate(valLi[i]));
       }
-    } 
+    }
   };
 
   return (
@@ -214,8 +197,8 @@ function Machine() {
                             <Checkbox
                               value={machineList[j].machineName}
                               value2={machineList[j].line}
-                              checked={checked2.includes(
-                                list.machineName
+                              checked={checkedFabMachineName.includes(
+                                `${list.line}>${list.machineName}`
                               )}
                               disabled={!list.vftpConnected}
                               onChange={(e) =>
@@ -236,11 +219,6 @@ function Machine() {
           tabPosition="left"
         />
       </div>
-      <div>{checkedMain}</div>
-      <div>{checked2}</div>
-      <div>경계선</div>
-      <div>{checkedMachineName}</div>
-      <div>{checkedMachineLine}</div>
       <div css={error}>{errorMsg}</div>
     </div>
   );
