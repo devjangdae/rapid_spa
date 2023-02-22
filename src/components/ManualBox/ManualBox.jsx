@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import SelectBox from "../SelectBox/index";
 import DataEmpty from "../DataEmpty/index";
 import DataTable from "../DataTable/index";
+import SkeletonBox from "../SkeletonBox/index";
 
 const contentWrap = css`
   display: flex;
@@ -17,7 +18,7 @@ const selectBoxWrap = css`
   width: 1440px;
 `;
 
-const dataList = 1;
+const dataList = 0;
 // 임시
 
 function ManualBox() {
@@ -27,7 +28,7 @@ function ManualBox() {
         <SelectBox />
       </div>
       <div className="row02" css={selectBoxWrap}>
-        {dataList === 1 ? <DataTable /> : <DataEmpty />}
+        {dataList === 1 ? <DataEmpty /> : <SkeletonBox />}
       </div>
     </div>
   );
