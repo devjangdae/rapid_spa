@@ -9,6 +9,15 @@ import React, { useState, useEffect } from "react";
 // 툴킷
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { asyncUpFetch, up } from "../../reducers/slices/drawerSlice";
+import {
+  setFabNames,
+  setMachineNames,
+  setCategoryCodes,
+  setCategoryName,
+  setStartDate,
+  setEndDate,
+  asyncSearchThunk,
+} from "../../reducers/slices/searchSlice";
 import store from "../../reducers/store";
 import {
   openDrawer,
@@ -76,6 +85,14 @@ function Asdasdasd() {
     return state.asdasdasd.status;
   });
 
+  const searchStatus = useSelector((state) => {
+    return state.search.status;
+  });
+
+  const searchIdString = useSelector((state) => {
+    return state.search.searchId;
+  });
+
   // fabNames  machineNames  categoryCodes  categoryName  startDate  endDate         "folder":false,        "depth":999
   // ArrayList<String> ArrayList<String>ArrayList<String>  String String             Boolean                Integer
 
@@ -116,7 +133,7 @@ function Asdasdasd() {
       </button>
       <br />
       <div>
-        {count} | {status} |
+        {count} | {status} | {searchStatus} | {searchIdString}
       </div>
       <div>fabNames:{checkedFabName}</div>
       <div>machineNames:{checkedMachineName}</div>
@@ -124,6 +141,25 @@ function Asdasdasd() {
       <div>categoryName:{checkedCategoryName}</div>
       <div>startDate:{startDate}</div>
       <div>endDate:{endDate}</div>
+      <button
+        onClick={() => {
+          dispatch(setFabNames(checkedFabName));
+          dispatch(setMachineNames(checkedMachineName));
+          dispatch(setCategoryCodes(checkedCategoryCode));
+          dispatch(setCategoryName(checkedCategoryName));
+          dispatch(setStartDate(startDate));
+          dispatch(setEndDate(endDate));
+        }}
+      >
+        + searchDatasSend
+      </button>
+      <button
+        onClick={() => {
+          dispatch(asyncSearchThunk());
+        }}
+      >
+        + async SearchThunk fetch
+      </button>
     </div>
   );
 }

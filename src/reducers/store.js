@@ -5,6 +5,7 @@ import machineSlice from "./slices/machineSlice";
 import dateSlice from "./slices/dateSlice";
 import drawerSlice from "./slices/drawerSlice";
 import mainSlice from "./slices/mainSlice";
+import searchSlice from "./slices/searchSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     dateData: dateSlice.reducer,
     mainData: mainSlice.reducer,
     asdasdasd: drawerSlice.reducer,
+    search: searchSlice.reducer,
   },
 });
 
