@@ -2,11 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const accessToken = sessionStorage.getItem("accessToken");
-let searchId2;
 
 const asyncSearchThunk = createAsyncThunk(
   "searchSlice/asyncSearchThunk",
   async () => {
+    // 1 File Search ID 정보 취득
     const response = await axios.post(
       "/rss/api/ftp/search",
       {
@@ -25,7 +25,25 @@ const asyncSearchThunk = createAsyncThunk(
       }
     );
     const searchId = await response.data.searchId;
-    return searchId;
+
+    // 2 File Search 상태 및 Result URL 취득
+    const response2 = await axios.get(`/rss/api/ftp/search/${searchId}`, {
+      params: { searchId },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    const resultUrl = await response2.data.resultUrl;
+
+    // 3 File Search Result 정보 취득
+    const response3 = await axios.get(`${resultUrl}`, {
+      params: { resultUrl },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return response3.data.lists;
   }
 );
 
@@ -40,6 +58,8 @@ const searchSlice = createSlice({
     endDate: "",
     status: "Welcome!!!",
     searchId: "",
+    resultUrl: "",
+    finalListData: [],
   },
 
   reducers: {
@@ -68,7 +88,7 @@ const searchSlice = createSlice({
       state.status = "loading!!!";
     });
     builder.addCase(asyncSearchThunk.fulfilled, (state, action) => {
-      state.value = action.payload;
+      state.finalListData = action.payload;
       state.status = "complete!!!";
     });
     builder.addCase(asyncSearchThunk.rejected, (state, action) => {
