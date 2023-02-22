@@ -6,14 +6,14 @@ const mainSlice = createSlice({
     isSearching: false,
     isOpened: true,
     currentDate: "",
-    currentStartDate: "",
-    currentEndDate: "",
+    currentStartDate: "", //
+    currentEndDate: "", //
     currentCategory: [],
-    currentCategoryCode: [],
-    currentCategoryName: [],
+    currentCategoryCode: [], //
+    currentCategoryName: [], //
     currentFabMachineName: [],
-    currentFabName: [],
-    currentMachineName: [],
+    currentFabName: ["asasdd"], //
+    currentMachineName: [], //
   },
   reducers: {
     clickSearchButton: (state, action) => {
@@ -59,7 +59,7 @@ const mainSlice = createSlice({
   },
 });
 
-export default mainSlice;
+export default mainSlice.reducer;
 export const {
   clickResetButton,
   clickSearchButton,

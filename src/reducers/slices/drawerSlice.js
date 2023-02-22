@@ -38,6 +38,6 @@ const drawerSlice = createSlice({
   },
 });
 
-export default drawerSlice;
+export default drawerSlice.reducer;
 export const { up, openDrawer, closeDrawer } = drawerSlice.actions;
 export { asyncUpFetch };

@@ -131,6 +131,10 @@ function SelectBox() {
     return state.mainData.currentEndDate;
   });
 
+  const currentFabName2 = useSelector((state) => {
+    return state.mainData.currentFabName;
+  });
+
   const selectBtn = () => {
     dispatch(openDrawer());
 
@@ -176,6 +180,7 @@ function SelectBox() {
           )}
         </div>
         <div>
+          <div>{currentFabName2}</div>
           <Button className="selectButton" css={selectButton}>
             Reset
           </Button>

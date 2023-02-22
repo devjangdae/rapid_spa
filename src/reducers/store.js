@@ -9,13 +9,13 @@ import searchSlice from "./slices/searchSlice";
 
 const store = configureStore({
   reducer: {
-    counter123: counterSlice.reducer,
-    categoryData: categorySlice.reducer,
-    machineData: machineSlice.reducer,
-    dateData: dateSlice.reducer,
-    mainData: mainSlice.reducer,
-    asdasdasd: drawerSlice.reducer,
-    search: searchSlice.reducer,
+    counter123: counterSlice,
+    categoryData: categorySlice,
+    machineData: machineSlice,
+    dateData: dateSlice,
+    mainData: mainSlice,
+    asdasdasd: drawerSlice,
+    search: searchSlice,
   },
 });
 

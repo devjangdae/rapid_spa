@@ -31,7 +31,7 @@ const dateSlice = createSlice({
   },
 });
 
-export default dateSlice;
+export default dateSlice.reducer;
 // eslint-disable-next-line no-empty-pattern
 export const {
   checkedDateUpdate,
