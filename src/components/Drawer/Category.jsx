@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable no-plusplus */
 /** @jsxImportSource @emotion/react */
 
@@ -135,24 +134,6 @@ function Category() {
         </Checkbox>
       </div>
       <div>
-        {/* <Checkbox.Group
-          style={{
-            width: "100%",
-          }}
-          value={checked}
-          onChange={(checkedValues) => {
-            setChecked(checkedValues);
-          }}
-        >
-          <Space direction="vertical">
-            {categoryList.map((list) => (
-              <Checkbox value={list} onChange={(e) => checkCategory(e)}>
-                {list}
-              </Checkbox>
-            ))}
-          </Space>
-        </Checkbox.Group> */}
-
         <Space direction="vertical">
           {categoryList.map((list) => (
             <Checkbox
@@ -163,7 +144,6 @@ function Category() {
             </Checkbox>
           ))}
         </Space>
-        {checkedCategory}
         <div css={error}>{errorMsg}</div>
       </div>
     </div>

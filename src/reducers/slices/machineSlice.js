@@ -80,10 +80,10 @@ const machineSlice = createSlice({
       state.validLine.push(action.payload);
     },
 
-    updateMachineErrorMsg: (state, action) => {
-      state.machineErrorMsg = "! Please select at least One Machine";
+    machineErrorMsgUpdate: (state, action) => {
+      state.machineErrorMsg = "! Please select at least one Machine";
     },
-    machineErrorMsg: (state, action) => {
+    machineErrorMsgReset: (state, action) => {
       state.machineErrorMsg = "";
     },
     // =============================================
@@ -149,8 +149,8 @@ export const {
   validMachineUpdate,
   validMachineInitiate,
   checkedAll,
-  machineErrorMsg,
-  updateMachineErrorMsg,
+  machineErrorMsgReset,
+  machineErrorMsgUpdate,
   checkedMachineNameDelete,
   checkedMachineNameUpdate,
   checkedMachineLineUpdate,

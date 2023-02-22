@@ -16,7 +16,7 @@ import {
   validMachineUpdate,
   validMachineInitiate,
   validLineUpdate,
-  machineErrorMsg,
+  machineErrorMsgReset,
   checkedFabMachineNameUpdate,
   checkedFabMachineNameDelete,
   checkedFabMachineNameReset,
@@ -128,7 +128,7 @@ function Machine() {
   const selectMachine = (e, checkedNameOfMachine, checkedLineOfMachine) => {
     const isChecked = e.target.checked;
 
-    dispatch(machineErrorMsg());
+    dispatch(machineErrorMsgReset());
 
     if (isChecked === true) {
       dispatch(

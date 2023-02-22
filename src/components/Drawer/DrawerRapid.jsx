@@ -26,7 +26,7 @@ import Category from "./Category";
 import Machine from "./Machine";
 import Date from "./Date";
 import { updateDateErrorMsg } from "../../reducers/slices/dateSlice";
-import { updateMachineErrorMsg } from "../../reducers/slices/machineSlice";
+import { machineErrorMsgUpdate } from "../../reducers/slices/machineSlice";
 import LoadingBox from "../LoadingBox/index";
 
 const { RangePicker } = DatePicker;
@@ -159,7 +159,7 @@ function DrawerRapid() {
     ) {
       if (checkedCategory.length === 0) dispatch(updateCategoryErrorMsg());
       if (date.length === 0) dispatch(updateDateErrorMsg());
-      if (checkedMachine.length === 0) dispatch(updateMachineErrorMsg());
+      if (checkedMachine.length === 0) dispatch(machineErrorMsgUpdate());
     } else {
       dispatch(sortCheckedCategory());
       dispatch(closeDrawer(false));
