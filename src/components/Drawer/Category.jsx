@@ -15,7 +15,9 @@ import {
   deleteCheckedCategoryCode,
   updateCheckedCategoryName,
   deleteCheckedCategoryName,
-  initiateCheckedCategory,
+  checkedCategoryReset,
+  checkedCategoryCodeReset,
+  checkedCategoryNameReset,
   categoryErrorMsg,
 } from "../../reducers/slices/categorySlice";
 
@@ -47,6 +49,14 @@ function Category() {
 
   const checkedCategory = useSelector(
     (state) => state.categoryData.checkedCategory
+  );
+
+  const checkedCategoryCode = useSelector(
+    (state) => state.categoryData.checkedCategoryCode
+  );
+
+  const checkedCategoryName = useSelector(
+    (state) => state.categoryData.checkedCategoryName
   );
   const errorMsg = useSelector((state) => state.categoryData.categoryErrorMsg);
 
@@ -105,18 +115,24 @@ function Category() {
   };
 
   const onCheckAllChange = (e) => {
-    setChecked(e.target.checked ? categoryList.map((item) => item) : []);
+    // setChecked(e.target.checked ? categoryList.map((item) => item) : []);
     setCheckAll(e.target.checked);
     dispatch(categoryErrorMsg());
 
     if (e.target.checked === true) {
-      dispatch(initiateCheckedCategory());
+      dispatch(checkedCategoryReset());
+      dispatch(checkedCategoryCodeReset());
+      dispatch(checkedCategoryNameReset());
 
       for (let i = 0; i < categoryList.length; i++) {
         dispatch(updateCheckedCategory(categoryList[i]));
+        dispatch(updateCheckedCategoryCode(categoryList[i].substring(0, 3)));
+        dispatch(updateCheckedCategoryName(categoryList[i].substring(4)));
       }
     } else if (e.target.checked === false) {
-      dispatch(initiateCheckedCategory());
+      dispatch(checkedCategoryReset());
+      dispatch(checkedCategoryCodeReset());
+      dispatch(checkedCategoryNameReset());
     }
   };
 
@@ -145,6 +161,8 @@ function Category() {
           ))}
         </Space>
         <div css={error}>{errorMsg}</div>
+        <div>{checkedCategoryCode}</div>
+        <div>{checkedCategoryName}</div>
       </div>
     </div>
   );

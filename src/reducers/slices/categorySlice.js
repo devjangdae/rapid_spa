@@ -54,8 +54,16 @@ const categorySlice = createSlice({
       );
     },
 
-    initiateCheckedCategory: (state, action) => {
+    checkedCategoryReset: (state, action) => {
       state.checkedCategory = [];
+    },
+
+    checkedCategoryCodeReset: (state, action) => {
+      state.checkedCategoryCode = [];
+    },
+
+    checkedCategoryNameReset: (state, action) => {
+      state.checkedCategoryName = [];
     },
 
     sortCheckedCategory: (state, action) => {
@@ -81,8 +89,10 @@ export const {
   deleteCheckedCategoryCode,
   updateCheckedCategoryName,
   deleteCheckedCategoryName,
-  initiateCheckedCategory,
   updateCategoryErrorMsg,
   categoryErrorMsg,
   sortCheckedCategory,
+  checkedCategoryReset,
+  checkedCategoryCodeReset,
+  checkedCategoryNameReset,
 } = categorySlice.actions;
