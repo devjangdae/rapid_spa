@@ -139,7 +139,7 @@ const machineSlice = createSlice({
   },
 });
 
-export default machineSlice;
+export default machineSlice.reducer;
 export const {
   machineSelectedUpdate,
   machineSelectedUpdate_,

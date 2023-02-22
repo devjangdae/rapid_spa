@@ -40,7 +40,7 @@ import React, { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 // 툴킷
-import { Provider, useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import store from "../../reducers/store";
 import { caUpdate, caUpdate2} from "../../reducers/slices/categorySlice";
 
@@ -494,7 +494,6 @@ function Mainrapid() {
 
   return (
     <div>
-      <Provider store={store}>
         <Layout
           style={{
             fontFamily: "Saira",
@@ -731,7 +730,6 @@ function Mainrapid() {
             </div>
           </Drawer>
         </Layout>
-      </Provider>
       <Outlet />
     </div>
   );

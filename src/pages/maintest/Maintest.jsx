@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Provider, useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import * as md5 from "md5";
@@ -209,17 +209,15 @@ function Maintest() {
           <div>메인test페이지</div>
 
           <div>
-            <Provider store={store}>
-              <Counter />
-              <div style={{ backgroundColor: "pink", padding: "50px" }}>
-                <div>accessToken</div>
-                {accessToken}
-              </div>
-              <div style={{ backgroundColor: "blue", padding: "50px" }}>
-                <div>refreshToken</div>
-                {refreshToken}
-              </div>
-            </Provider>
+            <Counter />
+            <div style={{ backgroundColor: "pink", padding: "50px" }}>
+              <div>accessToken</div>
+              {accessToken}
+            </div>
+            <div style={{ backgroundColor: "blue", padding: "50px" }}>
+              <div>refreshToken</div>
+              {refreshToken}
+            </div>
           </div>
         </div>
       </div>

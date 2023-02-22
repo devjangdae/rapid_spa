@@ -79,7 +79,7 @@ const categorySlice = createSlice({
   },
 });
 
-export default categorySlice;
+export default categorySlice.reducer;
 export const {
   caUpdate,
   caUpdate2,

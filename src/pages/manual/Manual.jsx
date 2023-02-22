@@ -1,6 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { Provider } from "react-redux";
 
 import Header from "../../components/Header/index";
 import Footer from "../../components/Footer/index";
@@ -20,19 +19,17 @@ function Manual() {
 
   return (
     <div className="basic-container">
-      <Provider store={store}>
-        <div className="basic-header">
-          <Header />
-        </div>
-        <div className="content-container">
-          <ManualBox />
-          <DrawerRapid />
-        </div>
-        <div className="basic-footer">
-          <Footer />
-        </div>
-        <Outlet />
-      </Provider>
+      <div className="basic-header">
+        <Header />
+      </div>
+      <div className="content-container">
+        <ManualBox />
+        <DrawerRapid />
+      </div>
+      <div className="basic-footer">
+        <Footer />
+      </div>
+      <Outlet />
     </div>
   );
 }

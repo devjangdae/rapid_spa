@@ -84,96 +84,6 @@ const drawerButtonWrapper = css`
   align-items: flex-end;
 `;
 
-function Asdasdasd() {
-  const dispatch = useDispatch();
-
-  const count = useSelector((state) => {
-    return state.asdasdasd.value;
-  });
-
-  const status = useSelector((state) => {
-    return state.asdasdasd.status;
-  });
-
-  const searchStatus = useSelector((state) => {
-    return state.search.status;
-  });
-
-  const searchIdString = useSelector((state) => {
-    return state.search.searchId;
-  });
-
-  // fabNames  machineNames  categoryCodes  categoryName  startDate  endDate         "folder":false,        "depth":999
-  // ArrayList<String> ArrayList<String>ArrayList<String>  String String             Boolean                Integer
-
-  const currentFabName = useSelector((state) => {
-    return state.mainData.currentFabName;
-  });
-  const currentMachineName = useSelector((state) => {
-    return state.mainData.currentMachineName;
-  });
-  const currentCategoryCode = useSelector((state) => {
-    return state.mainData.currentCategoryCode;
-  });
-  const currentCategoryName = useSelector((state) => {
-    return state.mainData.currentCategoryName;
-  });
-  const currentStartDate = useSelector((state) => {
-    return state.mainData.currentStartDate;
-  });
-  const currentEndDate = useSelector((state) => {
-    return state.mainData.currentEndDate;
-  });
-
-  return (
-    <div>
-      <Button
-        onClick={() => {
-          dispatch(up(2));
-        }}
-      >
-        +
-      </Button>
-      <button
-        onClick={() => {
-          dispatch(asyncUpFetch());
-        }}
-      >
-        + async fetch
-      </button>
-      <br />
-      <div>
-        {count} | {status} | {searchStatus} | {searchIdString}
-      </div>
-      {/* <div>fabNames:{currentFabName}</div>
-      <div>machineNames:{currentMachineName}</div>
-      <div>categoryCodes:{currentCategoryCode}</div>
-      <div>categoryName:{currentCategoryName}</div>
-      <div>startDate:{currentStartDate}</div>
-      <div>endDate:{currentEndDate}</div> */}
-      <button
-        onClick={() => {
-          dispatch(setFabNames(currentFabName));
-          dispatch(setMachineNames(currentMachineName));
-          dispatch(setCategoryCodes(currentCategoryCode));
-          dispatch(setCategoryName(currentCategoryName));
-          dispatch(setStartDate(currentStartDate));
-          dispatch(setEndDate(currentEndDate));
-        }}
-      >
-        + searchDatasSend
-      </button>
-      <button
-        onClick={() => {
-          dispatch(asyncSearchThunk());
-        }}
-      >
-        + async SearchThunk fetch
-      </button>
-    </div>
-  );
-}
-
 function DrawerRapid() {
   const [open, setOpen] = useState("");
   const [dateError, setdateError] = useState("");
@@ -214,9 +124,31 @@ function DrawerRapid() {
     (state) => state.machineData.checkedFabName
   );
 
+  // search 정보들
+  const currentFabName = useSelector((state) => {
+    return state.mainData.currentFabName;
+  });
+  const currentMachineName = useSelector((state) => {
+    return state.mainData.currentMachineName;
+  });
+  const currentCategoryCode = useSelector((state) => {
+    return state.mainData.currentCategoryCode;
+  });
+  const currentCategoryName = useSelector((state) => {
+    return state.mainData.currentCategoryName;
+  });
+  const currentStartDate = useSelector((state) => {
+    return state.mainData.currentStartDate;
+  });
+  const currentEndDate = useSelector((state) => {
+    return state.mainData.currentEndDate;
+  });
+
   const closeDrawerRapid = () => {
     dispatch(closeDrawer());
   };
+
+  const [isRequest, setRequest] = useState(false);
 
   const searchBtn = () => {
     if (
@@ -233,21 +165,39 @@ function DrawerRapid() {
       dispatch(currentEndDateUpdate(checkedEndDate));
 
       for (let i = 0; i < checkedCategory.length; i++) {
-        dispatch(currentCategoryUpdate(checkedCategory));
-        dispatch(currentCategoryCodeUpdate(checkedCategoryCode));
-        dispatch(currentCategoryNameUpdate(checkedCategoryName));
+        dispatch(currentCategoryUpdate(checkedCategory[i]));
+        dispatch(currentCategoryCodeUpdate(checkedCategoryCode[i]));
+        dispatch(currentCategoryNameUpdate(checkedCategoryName[i]));
       }
-
       for (let i = 0; i < checkedFabMachine.length; i++) {
-        dispatch(currentFabMachineNameUpdate(checkedFabMachine));
-        dispatch(currentMachineNameUpdate(checkedMachineName));
-        dispatch(currentFabNameUpdate(checkedFabName));
+        dispatch(currentFabMachineNameUpdate(checkedFabMachine[i]));
+        dispatch(currentMachineNameUpdate(checkedMachineName[i]));
+        dispatch(currentFabNameUpdate(checkedFabName[i]));
       }
       // dispatch(sortCheckedCategory());
       dispatch(closeDrawer(false));
-      // 검색로직
+
+      // search 시작
+
+      // dispatch(setFabNames(currentFabName));
+      // dispatch(setMachineNames(currentMachineName));
+      // dispatch(setCategoryCodes(currentCategoryCode));
+      // dispatch(setCategoryName(currentCategoryName));
+      // dispatch(setStartDate(currentStartDate));
+      // dispatch(setEndDate(currentEndDate));
+      // console.log("currentFabName", currentFabName);
+      // dispatch(asyncSearchThunk(currentFabName));
+      setRequest(true);
     }
   };
+
+  useEffect(() => {
+    if (isRequest) {
+      console.log(currentFabName);
+      dispatch(asyncSearchThunk(currentFabName));
+      setRequest(false);
+    }
+  }, [isRequest]);
 
   return (
     <Drawer
@@ -272,10 +222,7 @@ function DrawerRapid() {
           <Button css={blueButton} onClick={closeDrawerRapid}>
             Cancel
           </Button>
-          <Provider store={store}>
-            <Asdasdasd />
-            <LoadingBox />
-          </Provider>
+          <LoadingBox />
 
           <Button css={whiteButton} onClick={searchBtn}>
             Search
