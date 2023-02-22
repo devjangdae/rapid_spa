@@ -1,4 +1,3 @@
-/* eslint-disable no-else-return */
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
@@ -143,7 +142,9 @@ function DrawerRapid() {
     (state) => state.categoryData.checkedCategory
   );
 
-  const checkedMachine = useSelector((state) => state.machineData.checked);
+  const checkedFabMachine = useSelector(
+    (state) => state.machineData.checkedFabMachineName
+  );
 
   const date = useSelector((state) => state.dateData.date);
 
@@ -155,11 +156,11 @@ function DrawerRapid() {
     if (
       checkedCategory.length === 0 ||
       date.length === 0 ||
-      checkedMachine.length === 0
+      checkedFabMachine.length === 0
     ) {
       if (checkedCategory.length === 0) dispatch(updateCategoryErrorMsg());
       if (date.length === 0) dispatch(updateDateErrorMsg());
-      if (checkedMachine.length === 0) dispatch(machineErrorMsgUpdate());
+      if (checkedFabMachine.length === 0) dispatch(machineErrorMsgUpdate());
     } else {
       dispatch(sortCheckedCategory());
       dispatch(closeDrawer(false));
