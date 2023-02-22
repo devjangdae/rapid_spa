@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
@@ -24,6 +25,15 @@ import {
   closeDrawer,
   clickResetButton,
   clickSearchButton,
+  currentDateUpdate,
+  currentStartDateUpdate,
+  currentEndDateUpdate,
+  currentCategoryUpdate,
+  currentCategoryCodeUpdate,
+  currentCategoryNameUpdate,
+  currentFabMachineNameUpdate,
+  currentMachineNameUpdate,
+  currentFabNameUpdate,
 } from "../../reducers/slices/mainSlice";
 import {
   updateCategoryErrorMsg,
@@ -33,7 +43,7 @@ import {
 import Category from "./Category";
 import Machine from "./Machine";
 import Date from "./Date";
-import { updateDateErrorMsg } from "../../reducers/slices/dateSlice";
+import { dateErrorMsgUpdate } from "../../reducers/slices/dateSlice";
 import { machineErrorMsgUpdate } from "../../reducers/slices/machineSlice";
 import LoadingBox from "../LoadingBox/index";
 
@@ -96,23 +106,23 @@ function Asdasdasd() {
   // fabNames  machineNames  categoryCodes  categoryName  startDate  endDate         "folder":false,        "depth":999
   // ArrayList<String> ArrayList<String>ArrayList<String>  String String             Boolean                Integer
 
-  const checkedFabName = useSelector((state) => {
-    return state.machineData.checkedFabName;
+  const currentFabName = useSelector((state) => {
+    return state.mainData.currentFabName;
   });
-  const checkedMachineName = useSelector((state) => {
-    return state.machineData.checkedMachineName2;
+  const currentMachineName = useSelector((state) => {
+    return state.mainData.currentMachineName;
   });
-  const checkedCategoryCode = useSelector((state) => {
-    return state.categoryData.checkedCategoryCode;
+  const currentCategoryCode = useSelector((state) => {
+    return state.mainData.currentCategoryCode;
   });
-  const checkedCategoryName = useSelector((state) => {
-    return state.categoryData.checkedCategoryName;
+  const currentCategoryName = useSelector((state) => {
+    return state.mainData.currentCategoryName;
   });
-  const startDate = useSelector((state) => {
-    return state.dateData.startDate;
+  const currentStartDate = useSelector((state) => {
+    return state.mainData.currentStartDate;
   });
-  const endDate = useSelector((state) => {
-    return state.dateData.endDate;
+  const currentEndDate = useSelector((state) => {
+    return state.mainData.currentEndDate;
   });
 
   return (
@@ -135,20 +145,20 @@ function Asdasdasd() {
       <div>
         {count} | {status} | {searchStatus} | {searchIdString}
       </div>
-      <div>fabNames:{checkedFabName}</div>
-      <div>machineNames:{checkedMachineName}</div>
-      <div>categoryCodes:{checkedCategoryCode}</div>
-      <div>categoryName:{checkedCategoryName}</div>
-      <div>startDate:{startDate}</div>
-      <div>endDate:{endDate}</div>
+      {/* <div>fabNames:{currentFabName}</div>
+      <div>machineNames:{currentMachineName}</div>
+      <div>categoryCodes:{currentCategoryCode}</div>
+      <div>categoryName:{currentCategoryName}</div>
+      <div>startDate:{currentStartDate}</div>
+      <div>endDate:{currentEndDate}</div> */}
       <button
         onClick={() => {
-          dispatch(setFabNames(checkedFabName));
-          dispatch(setMachineNames(checkedMachineName));
-          dispatch(setCategoryCodes(checkedCategoryCode));
-          dispatch(setCategoryName(checkedCategoryName));
-          dispatch(setStartDate(startDate));
-          dispatch(setEndDate(endDate));
+          dispatch(setFabNames(currentFabName));
+          dispatch(setMachineNames(currentMachineName));
+          dispatch(setCategoryCodes(currentCategoryCode));
+          dispatch(setCategoryName(currentCategoryName));
+          dispatch(setStartDate(currentStartDate));
+          dispatch(setEndDate(currentEndDate));
         }}
       >
         + searchDatasSend
@@ -174,15 +184,35 @@ function DrawerRapid() {
 
   const drawerIsOpen = useSelector((state) => state.mainData.isOpened);
 
+  const checkedDate = useSelector((state) => state.dateData.checkedDate);
+  const checkedStartDate = useSelector(
+    (state) => state.dateData.checkedStartDate
+  );
+  const checkedEndDate = useSelector((state) => state.dateData.checkedEndDate);
+
   const checkedCategory = useSelector(
     (state) => state.categoryData.checkedCategory
+  );
+
+  const checkedCategoryCode = useSelector(
+    (state) => state.categoryData.checkedCategoryCode
+  );
+
+  const checkedCategoryName = useSelector(
+    (state) => state.categoryData.checkedCategoryName
   );
 
   const checkedFabMachine = useSelector(
     (state) => state.machineData.checkedFabMachineName
   );
 
-  const date = useSelector((state) => state.dateData.date);
+  const checkedMachineName = useSelector(
+    (state) => state.machineData.checkedMachineName2
+  );
+
+  const checkedFabName = useSelector(
+    (state) => state.machineData.checkedFabName
+  );
 
   const closeDrawerRapid = () => {
     dispatch(closeDrawer());
@@ -191,14 +221,29 @@ function DrawerRapid() {
   const searchBtn = () => {
     if (
       checkedCategory.length === 0 ||
-      date.length === 0 ||
+      checkedDate.length === 0 ||
       checkedFabMachine.length === 0
     ) {
       if (checkedCategory.length === 0) dispatch(updateCategoryErrorMsg());
-      if (date.length === 0) dispatch(updateDateErrorMsg());
+      if (checkedDate.length === 0) dispatch(dateErrorMsgUpdate());
       if (checkedFabMachine.length === 0) dispatch(machineErrorMsgUpdate());
     } else {
-      dispatch(sortCheckedCategory());
+      dispatch(currentDateUpdate(checkedDate));
+      dispatch(currentStartDateUpdate(checkedStartDate));
+      dispatch(currentEndDateUpdate(checkedEndDate));
+
+      for (let i = 0; i < checkedCategory.length; i++) {
+        dispatch(currentCategoryUpdate(checkedCategory));
+        dispatch(currentCategoryCodeUpdate(checkedCategoryCode));
+        dispatch(currentCategoryNameUpdate(checkedCategoryName));
+      }
+
+      for (let i = 0; i < checkedFabMachine.length; i++) {
+        dispatch(currentFabMachineNameUpdate(checkedFabMachine));
+        dispatch(currentMachineNameUpdate(checkedMachineName));
+        dispatch(currentFabNameUpdate(checkedFabName));
+      }
+      // dispatch(sortCheckedCategory());
       dispatch(closeDrawer(false));
       // 검색로직
     }

@@ -2,25 +2,30 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const dateSlice = createSlice({
   name: "date",
-  initialState: { date: "", startDate: "", endDate: "", dateErrorMsg: "" },
+  initialState: {
+    checkedDate: "",
+    checkedStartDate: "",
+    checkedEndDate: "",
+    dateErrorMsg: "",
+  },
   reducers: {
-    dateUpdate: (state, action) => {
-      state.date = action.payload;
+    checkedDateUpdate: (state, action) => {
+      state.checkedDate = action.payload;
     },
 
-    startDateUpdate: (state, action) => {
-      state.startDate = action.payload;
+    checkedStartDateUpdate: (state, action) => {
+      state.checkedStartDate = action.payload;
     },
 
-    endDateUpdate: (state, action) => {
-      state.endDate = action.payload;
+    checkedEndDateUpdate: (state, action) => {
+      state.checkedEndDate = action.payload;
     },
 
-    updateDateErrorMsg: (state, action) => {
+    dateErrorMsgUpdate: (state, action) => {
       state.dateErrorMsg = "! Please select Date";
     },
 
-    resetDateErrorMsg: (state, action) => {
+    dateErrorMsgReset: (state, action) => {
       state.dateErrorMsg = "";
     },
   },
@@ -29,9 +34,9 @@ const dateSlice = createSlice({
 export default dateSlice;
 // eslint-disable-next-line no-empty-pattern
 export const {
-  dateUpdate,
-  startDateUpdate,
-  endDateUpdate,
-  resetDateErrorMsg,
-  updateDateErrorMsg,
+  checkedDateUpdate,
+  checkedStartDateUpdate,
+  checkedEndDateUpdate,
+  dateErrorMsgUpdate,
+  dateErrorMsgReset,
 } = dateSlice.actions;
