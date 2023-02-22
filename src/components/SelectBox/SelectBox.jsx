@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Collapse, Button, Tag } from "antd";
@@ -9,6 +10,33 @@ import {
   clickResetButton,
   clickSearchButton,
 } from "../../reducers/slices/mainSlice";
+
+import {
+  updateCategoryErrorMsg,
+  sortCheckedCategory,
+  updateCheckedCategory,
+  updateCheckedCategoryCode,
+  updateCheckedCategoryName,
+  checkedCategoryReset,
+  checkedCategoryCodeReset,
+  checkedCategoryNameReset,
+} from "../../reducers/slices/categorySlice";
+
+import {
+  dateErrorMsgUpdate,
+  checkedDateUpdate,
+  checkedStartDateUpdate,
+  checkedEndDateUpdate,
+} from "../../reducers/slices/dateSlice";
+import {
+  machineErrorMsgUpdate,
+  checkedFabMachineNameUpdate,
+  checkedFabNameUpdate,
+  checkedMachineName2Update,
+  checkedFabMachineNameReset,
+  checkedFabNameReset,
+  checkedMachineName2Reset,
+} from "../../reducers/slices/machineSlice";
 
 const { Panel } = Collapse;
 
@@ -74,16 +102,61 @@ function SelectBox() {
 
   const drawerIsOpen = useSelector((state) => state.mainData.isOpened);
   const isSearching = useSelector((state) => state.mainData.isSearching);
-  const currentDate = useSelector((state) => state.mainData.currentDate);
-  const currentCategory = useSelector(
-    (state) => state.mainData.currentCategory
-  );
-  const currentFabMachineName = useSelector(
-    (state) => state.mainData.currentFabMachineName
-  );
+
+  const currentFabMachineName = useSelector((state) => {
+    return state.mainData.currentFabMachineName;
+  });
+  const currentFabName = useSelector((state) => {
+    return state.mainData.currentFabName;
+  });
+  const currentMachineName = useSelector((state) => {
+    return state.mainData.currentMachineName;
+  });
+  const currentCategory = useSelector((state) => {
+    return state.mainData.currentCategory;
+  });
+  const currentCategoryCode = useSelector((state) => {
+    return state.mainData.currentCategoryCode;
+  });
+  const currentCategoryName = useSelector((state) => {
+    return state.mainData.currentCategoryName;
+  });
+  const currentDate = useSelector((state) => {
+    return state.mainData.currentDate;
+  });
+  const currentStartDate = useSelector((state) => {
+    return state.mainData.currentStartDate;
+  });
+  const currentEndDate = useSelector((state) => {
+    return state.mainData.currentEndDate;
+  });
 
   const selectBtn = () => {
     dispatch(openDrawer());
+
+    dispatch(checkedCategoryReset());
+    dispatch(checkedCategoryCodeReset());
+    dispatch(checkedCategoryNameReset());
+
+    dispatch(checkedFabMachineNameReset());
+    dispatch(checkedFabNameReset());
+    dispatch(checkedMachineName2Reset());
+
+    dispatch(checkedDateUpdate(currentDate));
+    dispatch(checkedStartDateUpdate(currentStartDate));
+    dispatch(checkedEndDateUpdate(currentEndDate));
+
+    for (let i = 0; i < currentCategory.length; i++) {
+      dispatch(updateCheckedCategory(currentCategory[i]));
+      dispatch(updateCheckedCategoryCode(currentCategoryCode[i]));
+      dispatch(updateCheckedCategoryName(currentCategoryName[i]));
+    }
+
+    for (let i = 0; i < currentFabMachineName.length; i++) {
+      dispatch(checkedFabMachineNameUpdate(currentFabMachineName[i]));
+      dispatch(checkedMachineName2Update(currentMachineName[i]));
+      dispatch(checkedFabNameUpdate(currentFabName[i]));
+    }
   };
 
   return (
