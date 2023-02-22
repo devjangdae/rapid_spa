@@ -9,12 +9,12 @@ const machineSlice = createSlice({
     seletedLine: [],
     checkedMachineName: [],
     checkedMachineLine: [],
-    checked: [],
-    checkedMain: [],
-    checkedLine: [],
     validMachine: [],
     validLine: [],
     machineErrorMsg: "",
+    checkedMachineName2: [],
+    checkedFabMachineName: [],
+    checkedFabName: [],
   },
   reducers: {
     machineSelectedUpdate: (state, action) => {
@@ -38,32 +38,6 @@ const machineSlice = createSlice({
 
     nameSelectedUpdate: (state, action) => {
       state.seletedName.push(action.payload);
-    },
-
-    checkedUpdate: (state, action) => {
-      state.checked.push(action.payload);
-    },
-
-    checkedMainUpdate: (state, action) => {
-      state.checkedMain.push(action.payload);
-    },
-
-    checkedMainDelete: (state, action) => {
-      // state.checkedLine = state.checkedLine.filter((item) => item !== action.payload);
-
-      const index = state.checkedMain.indexOf(action.payload);
-
-      if (index > -1) {
-        state.checkedMain.splice(index, 1);
-      }
-    },
-
-    checkedMainReset: (state, action) => {
-      state.checkedMain = [];
-    },
-
-    checkedDelete: (state, action) => {
-      state.checked = state.checked.filter((item) => item !== action.payload);
     },
 
     checkedMachineNameUpdate: (state, action) => {
@@ -90,30 +64,8 @@ const machineSlice = createSlice({
       }
     },
 
-    checkedLineUpdate: (state, action) => {
-      state.checkedLine.push(action.payload);
-    },
-
-    checkedLineDelete: (state, action) => {
-      // state.checkedLine = state.checkedLine.filter((item) => item !== action.payload);
-
-      const index = state.checkedLine.indexOf(action.payload);
-
-      if (index > -1) {
-        state.checkedLine.splice(index, 1);
-      }
-    },
-
     checkedAll: (state, action) => {
       state.checked = state.validMachine;
-    },
-
-    checkedReset: (state, action) => {
-      state.checked = [];
-    },
-
-    checkedLineReset: (state, action) => {
-      state.checkedLine = [];
     },
 
     validMachineInitiate: (state, action) => {
@@ -134,6 +86,56 @@ const machineSlice = createSlice({
     machineErrorMsg: (state, action) => {
       state.machineErrorMsg = "";
     },
+    // =============================================
+    checkedFabMachineNameUpdate: (state, action) => {
+      state.checkedFabMachineName.push(action.payload);
+    },
+
+    checkedFabMachineNameDelete: (state, action) => {
+      // state.checkedLine = state.checkedLine.filter((item) => item !== action.payload);
+
+      const index = state.checkedFabMachineName.indexOf(action.payload);
+
+      if (index > -1) {
+        state.checkedFabMachineName.splice(index, 1);
+      }
+    },
+
+    checkedFabMachineNameReset: (state, action) => {
+      state.checkedFabMachineName = [];
+    },
+
+    checkedMachineName2Update: (state, action) => {
+      state.checkedMachineName2.push(action.payload);
+    },
+
+    checkedMachineName2Delete: (state, action) => {
+      state.checkedMachineName2 = state.checkedMachineName2.filter(
+        (item) => item !== action.payload
+      );
+    },
+
+    checkedMachineName2Reset: (state, action) => {
+      state.checkedMachineName2 = [];
+    },
+
+    checkedFabNameUpdate: (state, action) => {
+      state.checkedFabName.push(action.payload);
+    },
+
+    checkedFabNameDelete: (state, action) => {
+      // state.checkedLine = state.checkedLine.filter((item) => item !== action.payload);
+
+      const index = state.checkedFabName.indexOf(action.payload);
+
+      if (index > -1) {
+        state.checkedFabName.splice(index, 1);
+      }
+    },
+
+    checkedFabNameReset: (state, action) => {
+      state.checkedFabName = [];
+    },
   },
 });
 
@@ -144,24 +146,23 @@ export const {
   lineSelectedUpdate,
   lineSelectedUpdate_,
   nameSelectedUpdate,
-  checkedUpdate,
   validMachineUpdate,
   validMachineInitiate,
-  checkedDefault,
-  checkedDelete,
   checkedAll,
-  checkedReset,
-  checkedLineReset,
   machineErrorMsg,
   updateMachineErrorMsg,
-  checkedLineDelete,
-  checkedLineUpdate,
   checkedMachineNameDelete,
   checkedMachineNameUpdate,
   checkedMachineLineUpdate,
   checkedMachineLineDelete,
-  checkedMainUpdate,
-  checkedMainReset,
-  checkedMainDelete,
   validLineUpdate,
+  checkedFabMachineNameUpdate,
+  checkedFabMachineNameDelete,
+  checkedFabMachineNameReset,
+  checkedMachineName2Update,
+  checkedMachineName2Delete,
+  checkedMachineName2Reset,
+  checkedFabNameUpdate,
+  checkedFabNameDelete,
+  checkedFabNameReset,
 } = machineSlice.actions;

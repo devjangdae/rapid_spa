@@ -76,7 +76,9 @@ function SelectBox() {
   const isSearching = useSelector((state) => state.mainData.isSearching);
   const date = useSelector((state) => state.dateData.date);
   const category = useSelector((state) => state.categoryData.checkedCategory);
-  const machine = useSelector((state) => state.machineData.checkedMain);
+  const machine = useSelector(
+    (state) => state.machineData.checkedFabMachineName
+  );
 
   const selectBtn = () => {
     dispatch(openDrawer());
