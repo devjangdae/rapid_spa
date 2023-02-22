@@ -27,6 +27,8 @@ import {
   checkedFabNameDelete,
   checkedFabNameReset,
 } from "../../reducers/slices/machineSlice";
+import { getRequest } from "../../libs/axios/configure";
+import { URL_SYSTEM_M } from "../../constants/URL";
 
 const drawerMachineWrapper = css`
   margin-right: 80px;
@@ -73,10 +75,9 @@ function Machine() {
 
     const fetchMachine = async () => {
       try {
-        const response = await axios.get("/rss/api/system/machinesInfo/", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+        const response = await getRequest({
+          url: URL_SYSTEM_M,
+          token: accessToken,
         });
 
         const arrayUniqueByKey = [

@@ -12,7 +12,7 @@ const mainSlice = createSlice({
     currentCategoryCode: [], //
     currentCategoryName: [], //
     currentFabMachineName: [],
-    currentFabName: ["asasdd"], //
+    currentFabName: [], //
     currentMachineName: [], //
   },
   reducers: {

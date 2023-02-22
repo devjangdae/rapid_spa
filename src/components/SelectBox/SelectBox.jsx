@@ -86,15 +86,19 @@ const collapse = css`
   font-family: "Saira";
 `;
 
-const content = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
 const disabledColor = css`
   color: #d9d9d9;
+`;
+
+const tagMargin = css`
+  margin-top: 3px;
+  margin-bottom: 3px;
+`;
+
+const panelHeader = css`
+  display: flex;
+  background: #f9f9f9;
+  justify-content: space-between;
 `;
 
 function SelectBox() {
@@ -169,12 +173,7 @@ function SelectBox() {
         <div className="dateBox" css={dateBox}>
           <div>DATE</div>
           {currentDate.length !== 0 ? (
-            <Tag
-              color="green"
-              style={{ marginTop: "3px", marginBottom: "3px" }}
-            >
-              {currentDate}
-            </Tag>
+            <Tag color="green">{currentDate}</Tag>
           ) : (
             <div css={disabledColor}>Please Select Date</div>
           )}
@@ -191,14 +190,19 @@ function SelectBox() {
       </div>
       <div style={{ display: "flex" }}>
         <div style={{ width: "50%" }} className="collapse">
-          <Collapse css={collapse} size="small" style={{ color: "black" }}>
-            <Panel header="MACHINE" key="1">
+          <Collapse css={collapse} size="small">
+            <Panel
+              header={
+                <div css={panelHeader}>
+                  <div>MACHINE</div>
+                  <div>Total:</div>
+                </div>
+              }
+              key="1"
+            >
               {currentFabMachineName.length !== 0 ? (
                 currentFabMachineName.map((list) => (
-                  <Tag
-                    color="purple"
-                    style={{ marginTop: "3px", marginBottom: "3px" }}
-                  >
+                  <Tag color="purple" css={tagMargin}>
                     {list}
                   </Tag>
                 ))
@@ -210,13 +214,18 @@ function SelectBox() {
         </div>
         <div style={{ width: "50%" }} className="collapse">
           <Collapse css={collapse}>
-            <Panel header="CATEGORY" key="1">
+            <Panel
+              header={
+                <div css={panelHeader}>
+                  <div>Category</div>
+                  <div>Total:</div>
+                </div>
+              }
+              key="1"
+            >
               {currentCategory.length !== 0 ? (
                 currentCategory.map((list) => (
-                  <Tag
-                    color="orange"
-                    style={{ marginTop: "3px", marginBottom: "3px" }}
-                  >
+                  <Tag color="orange" css={tagMargin}>
                     {list}
                   </Tag>
                 ))

@@ -185,19 +185,19 @@ function DrawerRapid() {
       // dispatch(setCategoryName(currentCategoryName));
       // dispatch(setStartDate(currentStartDate));
       // dispatch(setEndDate(currentEndDate));
-      // console.log("currentFabName", currentFabName);
+      console.log("currentFabName", currentStartDate);
       // dispatch(asyncSearchThunk(currentFabName));
-      setRequest(true);
+      // setRequest(true);
     }
   };
 
-  useEffect(() => {
-    if (isRequest) {
-      console.log(currentFabName);
-      dispatch(asyncSearchThunk(currentFabName));
-      setRequest(false);
-    }
-  }, [isRequest]);
+  // useEffect(() => {
+  //   if (isRequest) {
+  //     console.log(currentFabName);
+  //     dispatch(asyncSearchThunk(currentFabName));
+  //     setRequest(false);
+  //   }
+  // }, [isRequest]);
 
   return (
     <Drawer

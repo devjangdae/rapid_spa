@@ -160,9 +160,9 @@ function Category() {
             </Checkbox>
           ))}
         </Space>
-        <div css={error}>{errorMsg}</div>
+        {/* <div css={error}>{errorMsg}</div>
         <div>{checkedCategoryCode}</div>
-        <div>{checkedCategoryName}</div>
+        <div>{checkedCategoryName}</div> */}
       </div>
     </div>
   );
