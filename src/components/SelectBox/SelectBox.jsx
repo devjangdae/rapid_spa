@@ -65,7 +65,6 @@ const dateBox = css`
   background: #ffffff;
   border-radius: 8px;
   padding-left: 40px;
-  padding-right: 20px;
   margin-right: 0px;
   justify-content: space-between;
   border: 1px solid #d9d9d9;
@@ -93,6 +92,11 @@ const disabledColor = css`
   color: #d9d9d9;
 `;
 
+const disabledDate = css`
+  color: #d9d9d9;
+  margin-right: 20px;
+`;
+
 const tagMargin = css`
   margin-top: 3px;
   margin-bottom: 3px;
@@ -103,6 +107,22 @@ const panelHeader = css`
   display: flex;
   background: #f9f9f9;
   justify-content: space-between;
+`;
+
+const tagsBox = css`
+  display: flex;
+`;
+
+const totalNumber = css`
+  color: #1890ff;
+`;
+
+const collapseWrapper = css`
+  width: 50%;
+`;
+
+const collapseContainer = css`
+  display: flex;
 `;
 
 function SelectBox() {
@@ -186,13 +206,13 @@ function SelectBox() {
 
   return (
     <div>
-      <div className="dateBoxButtonWrap" css={dateBoxButtonWrap}>
-        <div className="dateBox" css={dateBox}>
+      <div css={dateBoxButtonWrap}>
+        <div css={dateBox}>
           <div css={currentDate.length ? null : disabledColor}>DATE</div>
           {currentDate.length !== 0 ? (
             <Tag color="green">{currentDate}</Tag>
           ) : (
-            <div css={disabledColor}>Please Select Date</div>
+            <div css={disabledDate}>Please Select Date</div>
           )}
         </div>
         <div>
@@ -204,8 +224,8 @@ function SelectBox() {
           </Button>
         </div>
       </div>
-      <div style={{ display: "flex" }}>
-        <div style={{ width: "50%" }}>
+      <div css={collapseContainer}>
+        <div css={collapseWrapper}>
           <Collapse
             css={collapse}
             collapsible={currentCategory.length ? null : "disabled"}
@@ -215,7 +235,9 @@ function SelectBox() {
                 <div css={panelHeader}>
                   <div>MACHINE</div>
                   {currentFabMachineName.length ? (
-                    <div>Total:{currentFabMachineName.length}</div>
+                    <div css={totalNumber}>
+                      Total:&nbsp;{currentFabMachineName.length}
+                    </div>
                   ) : (
                     <div css={disabledColor}>
                       Please select at least one Machine
@@ -225,23 +247,25 @@ function SelectBox() {
               }
               key="1"
             >
-              {currentFabMachineName.length !== 0 ? (
-                currentFabMachineName.map((list) => (
-                  <div key={list}>
-                    <Tag color="purple" css={tagMargin}>
-                      {list}
-                    </Tag>
+              <div css={tagsBox}>
+                {currentFabMachineName.length !== 0 ? (
+                  currentFabMachineName.map((list) => (
+                    <div key={list}>
+                      <Tag color="purple" css={tagMargin}>
+                        {list}
+                      </Tag>
+                    </div>
+                  ))
+                ) : (
+                  <div css={disabledColor}>
+                    Please select at least one Machine
                   </div>
-                ))
-              ) : (
-                <div css={disabledColor}>
-                  Please select at least one Machine
-                </div>
-              )}
+                )}
+              </div>
             </Panel>
           </Collapse>
         </div>
-        <div style={{ width: "50%" }}>
+        <div css={collapseWrapper}>
           <Collapse
             css={collapse}
             collapsible={currentCategory.length ? null : "disabled"}
@@ -251,7 +275,9 @@ function SelectBox() {
                 <div css={panelHeader}>
                   <div>CATEGORY</div>
                   {currentCategory.length ? (
-                    <div>Total:{currentCategory.length}</div>
+                    <div css={totalNumber}>
+                      Total:&nbsp;{currentCategory.length}
+                    </div>
                   ) : (
                     <div css={disabledColor}>
                       Please select at least one category
@@ -261,19 +287,21 @@ function SelectBox() {
               }
               key="1"
             >
-              {currentCategory.length !== 0 ? (
-                currentCategory.map((list) => (
-                  <div key={list}>
-                    <Tag color="orange" css={tagMargin} key={list}>
-                      {list}
-                    </Tag>
+              <div css={tagsBox}>
+                {currentCategory.length !== 0 ? (
+                  currentCategory.map((list) => (
+                    <div key={list}>
+                      <Tag color="orange" css={tagMargin} key={list}>
+                        {list}
+                      </Tag>
+                    </div>
+                  ))
+                ) : (
+                  <div css={disabledColor}>
+                    Please select at least one Category
                   </div>
-                ))
-              ) : (
-                <div css={disabledColor}>
-                  Please select at least one Category
-                </div>
-              )}
+                )}
+              </div>
             </Panel>
           </Collapse>
         </div>
