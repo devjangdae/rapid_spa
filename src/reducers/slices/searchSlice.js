@@ -18,7 +18,7 @@ const asyncSearchThunk = createAsyncThunk(
       },
       {
         headers: {
-          Authorization: `Bearer ${thunkParameterArray[6]}`,
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },
       }
     );
@@ -30,7 +30,7 @@ const asyncSearchThunk = createAsyncThunk(
       {
         params: { searchId },
         headers: {
-          Authorization: `Bearer ${thunkParameterArray[6]}`,
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },
       }
     );
@@ -40,7 +40,7 @@ const asyncSearchThunk = createAsyncThunk(
     const responseResultLists = await axios.get(`${resultUrl}`, {
       params: { resultUrl },
       headers: {
-        Authorization: `Bearer ${thunkParameterArray[6]}`,
+        Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
       },
     });
 

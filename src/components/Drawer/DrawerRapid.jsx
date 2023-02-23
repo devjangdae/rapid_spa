@@ -180,7 +180,6 @@ function DrawerRapid() {
         checkedCategoryName,
         checkedStartDate,
         checkedEndDate,
-        accessToken,
       ];
       dispatch(asyncSearchThunk(thunkParameterArray));
     }
