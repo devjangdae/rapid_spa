@@ -10,27 +10,17 @@ const dataBoxEmpty = css`
   align-items: center;
   background: #ffffff;
   border-radius: 10px;
-  border: 10px #000000;
   margin: 5px;
   width: 1440px;
 `;
-
-const notFoundMsg = css`
-  font-size: 23px;
-`;
-
-function DataEmpty() {
+function DataNotSearched() {
   const status = useSelector((state) => state.search.status);
   const totalData = useSelector((state) => state.search.finalListData.length);
   return (
     <div className="dataBoxEmpty" css={dataBoxEmpty}>
-      <Empty
-        // image={Empty.PRESENTED_IMAGE_SIMPLE}
-        imageStyle={{ height: 100 }}
-        description={<span css={notFoundMsg}>Logs Not Found</span>}
-      />
+      <Result title="Search Has Not Started Yet" />
     </div>
   );
 }
 
-export default DataEmpty;
+export default DataNotSearched;

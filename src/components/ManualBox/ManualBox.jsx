@@ -4,6 +4,8 @@ import { css } from "@emotion/react";
 import { useSelector } from "react-redux";
 import SelectBox from "../SelectBox/index";
 import DataEmpty from "../DataEmpty/index";
+import DataNotSearched from "../DataNotSearched";
+import DataSearchFailed from "../DataSearchFailed";
 import DataTable from "../DataTable/index";
 import SkeletonBox from "../SkeletonBox/index";
 
@@ -32,11 +34,11 @@ function ManualBox() {
       </div>
       <div className="row02" css={selectBoxWrap}>
         {status === "Welcome!!!" ? (
-          <DataEmpty />
+          <DataNotSearched />
         ) : status === "loading!!!" ? (
           <SkeletonBox />
         ) : status === "fail!!!" ? (
-          <DataEmpty />
+          <DataNotSearched />
         ) : status === "complete!!!" && totalData === 0 ? (
           <DataEmpty />
         ) : (
