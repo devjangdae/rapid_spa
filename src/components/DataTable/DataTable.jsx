@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Col, Row, Statistic } from "antd";
+import { useSelector } from "react-redux";
 import TableData from "../TableData/index";
 
 const totalWrap = css`
@@ -32,13 +33,15 @@ const dataBoxEmpty = css`
 `;
 
 function DataTable() {
+  const totalData = useSelector((state) => state.search.finalListData.length);
+
   return (
     <div style={{ padding: "0px" }} css={dataBoxEmpty}>
       <div css={totalWrap}>
         <Row gutter={16}>
           <Col span={30}>
             <span style={{ textAlign: "right" }}>
-              <Statistic title="Total Result" value={12345} />
+              <Statistic title="Total Result" value={totalData} />
             </span>
           </Col>
         </Row>
