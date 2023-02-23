@@ -6,8 +6,6 @@ const dateSlice = createSlice({
     checkedDate: "",
     checkedStartDate: "",
     checkedEndDate: "",
-    checkedDefaultStartDate: "",
-    checkedDefaultEndDate: "",
     dateErrorMsg: "",
   },
   reducers: {
@@ -21,14 +19,6 @@ const dateSlice = createSlice({
 
     checkedEndDateUpdate: (state, action) => {
       state.checkedEndDate = action.payload;
-    },
-
-    checkedDefaultStartDateUpdate: (state, action) => {
-      state.checkedDefaultStartDate = action.payload;
-    },
-
-    checkedDefaultEndDateUpdate: (state, action) => {
-      state.checkedDefaultEndDate = action.payload;
     },
 
     dateErrorMsgUpdate: (state, action) => {
@@ -47,8 +37,6 @@ export const {
   checkedDateUpdate,
   checkedStartDateUpdate,
   checkedEndDateUpdate,
-  checkedDefaultStartDateUpdate,
-  checkedDefaultEndDateUpdate,
   dateErrorMsgUpdate,
   dateErrorMsgReset,
 } = dateSlice.actions;

@@ -10,8 +10,6 @@ import {
   checkedDateUpdate,
   checkedStartDateUpdate,
   checkedEndDateUpdate,
-  checkedDefaultStartDateUpdate,
-  checkedDefaultEndDateUpdate,
   dateErrorMsgReset,
 } from "../../reducers/slices/dateSlice";
 
@@ -31,12 +29,10 @@ const error = css`
 function Date() {
   const dispatch = useDispatch();
 
-  const checkedDefaultStartDate = useSelector(
-    (state) => state.dateData.checkedDefaultStartDate
+  const checkedStartDate = useSelector(
+    (state) => state.dateData.checkedStartDate
   );
-  const checkedDefaultEndDate = useSelector(
-    (state) => state.dateData.checkedDefaultEndDate
-  );
+  const checkedEndDate = useSelector((state) => state.dateData.checkedEndDate);
   const errorMsg = useSelector((state) => state.dateData.dateErrorMsg);
 
   const disabledDate = (current) => {
@@ -47,7 +43,6 @@ function Date() {
   const selectDate = (e) => {
     dispatch(dateErrorMsgReset());
 
-    dispatch(checkedDefaultStartDateUpdate(e[0].format()));
     dispatch(
       checkedStartDateUpdate(
         e[0].format().substring(0, 4) +
@@ -59,7 +54,6 @@ function Date() {
       )
     );
 
-    dispatch(checkedDefaultEndDateUpdate(e[1].format()));
     dispatch(
       checkedEndDateUpdate(
         e[1].format().substring(0, 4) +
@@ -105,8 +99,8 @@ function Date() {
             selectDate(e);
           }}
           value={
-            checkedDefaultStartDate.length && checkedDefaultEndDate.length
-              ? [dayjs(checkedDefaultStartDate), dayjs(checkedDefaultEndDate)]
+            checkedStartDate.length && checkedEndDate.length
+              ? [dayjs(checkedStartDate), dayjs(checkedEndDate)]
               : null
           }
         />

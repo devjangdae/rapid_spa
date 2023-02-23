@@ -146,8 +146,8 @@ function SelectBox() {
     dispatch(currentEndDateReset());
 
     dispatch(currentCategoryReset());
-    dispatch(currentCategoryReset());
-    dispatch(currentCategoryReset());
+    dispatch(currentCategoryCodeReset());
+    dispatch(currentCategoryNameReset());
 
     dispatch(currentFabMachineNameReset());
     dispatch(currentFabNameReset());

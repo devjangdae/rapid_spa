@@ -8,8 +8,6 @@ const mainSlice = createSlice({
     currentDate: "",
     currentStartDate: "", //
     currentEndDate: "", //
-    currentDefaultStartDate: "",
-    currentDefaultEndDate: "",
     currentCategory: [],
     currentCategoryCode: [], //
     currentCategoryName: [], //
@@ -40,12 +38,6 @@ const mainSlice = createSlice({
     currentEndDateUpdate: (state, action) => {
       state.currentEndDate = action.payload;
     },
-    currentDefaultStartDateUpdate: (state, action) => {
-      state.currentDefaultStartDate = action.payload;
-    },
-    currentDefaultEndDateUpdate: (state, action) => {
-      state.currentDefaultEndDate = action.payload;
-    },
     currentCategoryUpdate: (state, action) => {
       state.currentCategory.push(action.payload);
     },
@@ -72,12 +64,6 @@ const mainSlice = createSlice({
     },
     currentEndDateReset: (state, action) => {
       state.currentEndDate = "";
-    },
-    currentDefaultStartDateReset: (state, action) => {
-      state.currentDefaultStartDate = "";
-    },
-    currentDefaultEndDateReset: (state, action) => {
-      state.currentDefaultEndDate = "";
     },
     currentCategoryReset: (state, action) => {
       state.currentCategory = [];
@@ -109,8 +95,6 @@ export const {
   currentDateUpdate,
   currentStartDateUpdate,
   currentEndDateUpdate,
-  currentDefaultStartDateUpdate,
-  currentDefaultEndDateUpdate,
   currentCategoryUpdate,
   currentCategoryCodeUpdate,
   currentCategoryNameUpdate,
@@ -120,8 +104,6 @@ export const {
   currentDateReset,
   currentStartDateReset,
   currentEndDateReset,
-  currentDefaultStartDateReset,
-  currentDefaultEndDateReset,
   currentCategoryReset,
   currentCategoryCodeReset,
   currentCategoryNameReset,
