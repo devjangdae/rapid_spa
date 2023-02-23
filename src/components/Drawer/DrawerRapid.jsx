@@ -92,6 +92,7 @@ const drawerButtonWrapper = css`
 `;
 
 function DrawerRapid() {
+  const accessToken = sessionStorage.getItem("accessToken");
   const [open, setOpen] = useState("");
   const [dateError, setdateError] = useState("");
   const [machineError, setMachineError] = useState("");
@@ -183,6 +184,7 @@ function DrawerRapid() {
         checkedCategoryName,
         checkedStartDate,
         checkedEndDate,
+        accessToken,
       ];
       dispatch(asyncSearchThunk(thunkParameterArray));
     }

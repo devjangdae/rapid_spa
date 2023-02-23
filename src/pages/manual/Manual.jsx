@@ -3,7 +3,6 @@ import { useEffect } from "react";
 
 import Header from "../../components/Header/index";
 import Footer from "../../components/Footer/index";
-import store from "../../reducers/store";
 import ManualBox from "../../components/ManualBox/index";
 import DrawerRapid from "../../components/Drawer/DrawerRapid";
 

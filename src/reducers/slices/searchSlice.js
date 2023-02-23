@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const accessToken = sessionStorage.getItem("accessToken");
-
 const asyncSearchThunk = createAsyncThunk(
   "searchSlice/asyncSearchThunk",
   async (thunkParameterArray) => {
@@ -20,7 +18,7 @@ const asyncSearchThunk = createAsyncThunk(
       },
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${thunkParameterArray[6]}`,
         },
       }
     );
@@ -32,7 +30,7 @@ const asyncSearchThunk = createAsyncThunk(
       {
         params: { searchId },
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${thunkParameterArray[6]}`,
         },
       }
     );
@@ -42,7 +40,7 @@ const asyncSearchThunk = createAsyncThunk(
     const responseResultLists = await axios.get(`${resultUrl}`, {
       params: { resultUrl },
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${thunkParameterArray[6]}`,
       },
     });
 
