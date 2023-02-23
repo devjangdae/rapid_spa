@@ -18,11 +18,12 @@ const selectBoxWrap = css`
   display: flex;
   flex-direction: column;
   width: 1440px;
+  padding-left: 50px;
+  padding-right: 50px;
 `;
 
 function ManualBox() {
   const status = useSelector((state) => state.search.status);
-  console.log("status", status);
   return (
     <div className="contentWrap" css={contentWrap}>
       <div className="row01" css={selectBoxWrap}>

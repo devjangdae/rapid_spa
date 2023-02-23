@@ -53,8 +53,8 @@ function LoginBox() {
       );
       setUserName(response.data.userName);
       setUserId(response.data.userId);
-      console.log(userName);
-      console.log(userId);
+      // console.log(userName);
+      // console.log(userId);
       sessionStorage.setItem("userName", response.data.userName);
       sessionStorage.setItem("accessToken", response.data.accessToken);
       sessionStorage.setItem("refreshToken", response.data.refreshToken);
