@@ -152,12 +152,14 @@ function Category() {
       <div>
         <Space direction="vertical">
           {categoryList.map((list) => (
-            <Checkbox
-              checked={checkedCategory.includes(list)}
-              onChange={(e) => checkCategory(e, list)}
-            >
-              {list}
-            </Checkbox>
+            <div key={list}>
+              <Checkbox
+                checked={checkedCategory.includes(list)}
+                onChange={(e) => checkCategory(e, list)}
+              >
+                {list}
+              </Checkbox>
+            </div>
           ))}
         </Space>
         <div css={error}>{errorMsg}</div>

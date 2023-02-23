@@ -7,24 +7,17 @@ import { DoubleRightOutlined } from "@ant-design/icons";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { current } from "@reduxjs/toolkit";
 import {
-  closeDrawer,
   openDrawer,
-  clickResetButton,
-  clickSearchButton,
   currentDateReset,
   currentStartDateReset,
   currentEndDateReset,
   currentCategoryReset,
-  currentCategoryCodeReset,
-  currentCategoryNameReset,
   currentFabMachineNameReset,
   currentMachineNameReset,
   currentFabNameReset,
 } from "../../reducers/slices/mainSlice";
 
 import {
-  categoryErrorMsgUpdate,
-  sortCheckedCategory,
   updateCheckedCategory,
   updateCheckedCategoryCode,
   updateCheckedCategoryName,
@@ -35,13 +28,11 @@ import {
 } from "../../reducers/slices/categorySlice";
 
 import {
-  dateErrorMsgUpdate,
   checkedDateUpdate,
   checkedStartDateUpdate,
   checkedEndDateUpdate,
 } from "../../reducers/slices/dateSlice";
 import {
-  machineErrorMsgUpdate,
   checkedFabMachineNameUpdate,
   checkedFabNameUpdate,
   checkedMachineName2Update,
@@ -165,6 +156,7 @@ function SelectBox() {
     dispatch(openDrawer());
 
     // reset all... slicer안에 함수 구현해서 한번에 리셋할 예정
+    // assign 또한 silcer에서 한번에 가능하지 않을까...??
     dispatch(checkedCategoryReset());
     dispatch(checkedCategoryCodeReset());
     dispatch(checkedCategoryNameReset());
@@ -233,9 +225,11 @@ function SelectBox() {
             >
               {currentFabMachineName.length !== 0 ? (
                 currentFabMachineName.map((list) => (
-                  <Tag color="purple" css={tagMargin}>
-                    {list}
-                  </Tag>
+                  <div key={list}>
+                    <Tag color="purple" css={tagMargin}>
+                      {list}
+                    </Tag>
+                  </div>
                 ))
               ) : (
                 <div css={disabledColor}>
@@ -267,13 +261,15 @@ function SelectBox() {
             >
               {currentCategory.length !== 0 ? (
                 currentCategory.map((list) => (
-                  <Tag color="orange" css={tagMargin}>
-                    {list}
-                  </Tag>
+                  <div key={list}>
+                    <Tag color="orange" css={tagMargin} key={list}>
+                      {list}
+                    </Tag>
+                  </div>
                 ))
               ) : (
                 <div css={disabledColor}>
-                  Please select at least one category
+                  Please select at least one Category
                 </div>
               )}
             </Panel>

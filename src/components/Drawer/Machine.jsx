@@ -86,15 +86,12 @@ function Machine() {
           ).values(),
         ];
 
-        console.log(response);
-
         setMachineLine(arrayUniqueByKey);
         setMachineList(response.data.lists);
 
         dispatch(validMachineInitiate());
 
         for (let i = 0; i < response.data.lists.length; i++) {
-          console.log(response.data.lists[i].line);
           if (
             response.data.lists[i].line != null &&
             response.data.lists[i].vftpConnected === true
@@ -195,19 +192,21 @@ function Machine() {
                       {machineList.map((list, j) => {
                         if (list.line === machine.line) {
                           return (
-                            <Checkbox
-                              value={machineList[j].machineName}
-                              value2={machineList[j].line}
-                              checked={checkedFabMachineName.includes(
-                                `${list.line}>${list.machineName}`
-                              )}
-                              disabled={!list.vftpConnected}
-                              onChange={(e) =>
-                                selectMachine(e, list.machineName, list.line)
-                              }
-                            >
-                              {list.machineName}
-                            </Checkbox>
+                            <div key={list.machineName}>
+                              <Checkbox
+                                value={machineList[j].machineName}
+                                value2={machineList[j].line}
+                                checked={checkedFabMachineName.includes(
+                                  `${list.line}>${list.machineName}`
+                                )}
+                                disabled={!list.vftpConnected}
+                                onChange={(e) =>
+                                  selectMachine(e, list.machineName, list.line)
+                                }
+                              >
+                                {list.machineName}
+                              </Checkbox>
+                            </div>
                           );
                         }
                       })}
