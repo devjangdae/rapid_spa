@@ -8,18 +8,8 @@ import { Button, Drawer, DatePicker, Divider } from "antd";
 import React, { useState, useEffect } from "react";
 
 // 툴킷
-import { Provider, useSelector, useDispatch } from "react-redux";
-import { asyncUpFetch, up } from "../../reducers/slices/drawerSlice";
-import {
-  setFabNames,
-  setMachineNames,
-  setCategoryCodes,
-  setCategoryName,
-  setStartDate,
-  setEndDate,
-  asyncSearchThunk,
-} from "../../reducers/slices/searchSlice";
-import store from "../../reducers/store";
+import { useSelector, useDispatch } from "react-redux";
+import { asyncSearchThunk } from "../../reducers/slices/searchSlice";
 import {
   openDrawer,
   closeDrawer,
@@ -124,26 +114,6 @@ function DrawerRapid() {
     (state) => state.machineData.checkedFabName
   );
 
-  // search 정보들
-  const currentFabName = useSelector((state) => {
-    return state.mainData.currentFabName;
-  });
-  const currentMachineName = useSelector((state) => {
-    return state.mainData.currentMachineName;
-  });
-  const currentCategoryCode = useSelector((state) => {
-    return state.mainData.currentCategoryCode;
-  });
-  const currentCategoryName = useSelector((state) => {
-    return state.mainData.currentCategoryName;
-  });
-  const currentStartDate = useSelector((state) => {
-    return state.mainData.currentStartDate;
-  });
-  const currentEndDate = useSelector((state) => {
-    return state.mainData.currentEndDate;
-  });
-
   const closeDrawerRapid = () => {
     dispatch(closeDrawer());
   };
@@ -178,26 +148,17 @@ function DrawerRapid() {
       dispatch(closeDrawer(false));
 
       // search 시작
-
-      // dispatch(setFabNames(currentFabName));
-      // dispatch(setMachineNames(currentMachineName));
-      // dispatch(setCategoryCodes(currentCategoryCode));
-      // dispatch(setCategoryName(currentCategoryName));
-      // dispatch(setStartDate(currentStartDate));
-      // dispatch(setEndDate(currentEndDate));
-      console.log("currentFabName", currentStartDate);
-      // dispatch(asyncSearchThunk(currentFabName));
-      // setRequest(true);
+      const thunkParameterArray = [
+        checkedFabName,
+        checkedMachineName,
+        checkedCategoryCode,
+        checkedCategoryName,
+        checkedStartDate,
+        checkedEndDate,
+      ];
+      dispatch(asyncSearchThunk(thunkParameterArray));
     }
   };
-
-  // useEffect(() => {
-  //   if (isRequest) {
-  //     console.log(currentFabName);
-  //     dispatch(asyncSearchThunk(currentFabName));
-  //     setRequest(false);
-  //   }
-  // }, [isRequest]);
 
   return (
     <Drawer

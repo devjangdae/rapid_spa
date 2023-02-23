@@ -1,29 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 import axios from "axios";
 
 const accessToken = sessionStorage.getItem("accessToken");
 
 const asyncSearchThunk = createAsyncThunk(
   "searchSlice/asyncSearchThunk",
-  async (aa) => {
+  async (thunkParameterArray) => {
     // 1 File Search ID 정보 취득
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@");
-    console.log(`aa:${aa}`);
-    // console.log(`bb:${JSON.stringify(bb)}`);
-    // console.log(`cc:${cc}`);
-    // console.log(`dd:${dd}`);
-    // console.log(`ee:${ee}`);
-    // console.log(`ff:${ff}`);
-    const response = await axios.post(
+    const responseSearchID = await axios.post(
       "/rss/api/ftp/search",
       {
-        fabNames: aa,
-        machineNames: aa,
-        categoryCodes: aa,
-        categoryNames: aa,
-        startDate: aa,
-        endDate: aa,
+        fabNames: thunkParameterArray[0],
+        machineNames: thunkParameterArray[1],
+        categoryCodes: thunkParameterArray[2],
+        categoryNames: thunkParameterArray[3],
+        startDate: thunkParameterArray[4],
+        endDate: thunkParameterArray[5],
         folder: false,
       },
       {
@@ -32,63 +24,37 @@ const asyncSearchThunk = createAsyncThunk(
         },
       }
     );
-    const searchId = await response.data.searchId;
+    const searchId = await responseSearchID.data.searchId;
 
-    // // 2 File Search 상태 및 Result URL 취득
-    // const response2 = await axios.get(`/rss/api/ftp/search/${searchId}`, {
-    //   params: { searchId },
-    //   headers: {
-    //     Authorization: `Bearer ${accessToken}`,
-    //   },
-    // });
-    // const resultUrl = await response2.data.resultUrl;
+    // 2 File Search 상태 및 Result URL 취득
+    const responseResultUrl = await axios.get(
+      `/rss/api/ftp/search/${searchId}`,
+      {
+        params: { searchId },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    const resultUrl = await responseResultUrl.data.resultUrl;
 
-    // // 3 File Search Result 정보 취득
-    // const response3 = await axios.get(`${resultUrl}`, {
-    //   params: { resultUrl },
-    //   headers: {
-    //     Authorization: `Bearer ${accessToken}`,
-    //   },
-    // });
+    // 3 File Search Result 정보 취득
+    const responseResultLists = await axios.get(`${resultUrl}`, {
+      params: { resultUrl },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
-    return searchId;
+    return [responseResultLists.data.lists];
   }
 );
 
 const searchSlice = createSlice({
   name: "Search",
   initialState: {
-    fabNames: [],
-    machineNames: [],
-    categoryCodes: [],
-    categoryName: [],
-    startDate: "",
-    endDate: "",
     status: "Welcome!!!",
-    searchId: "",
-    resultUrl: "",
     finalListData: [],
-  },
-
-  reducers: {
-    setFabNames: (state, action) => {
-      state.fabNames = action.payload;
-    },
-    setMachineNames: (state, action) => {
-      state.machineNames = action.payload;
-    },
-    setCategoryCodes: (state, action) => {
-      state.categoryCodes = action.payload;
-    },
-    setCategoryName: (state, action) => {
-      state.categoryName = action.payload;
-    },
-    setStartDate: (state, action) => {
-      state.startDate = action.payload;
-    },
-    setEndDate: (state, action) => {
-      state.endDate = action.payload;
-    },
   },
 
   extraReducers: (builder) => {
@@ -96,7 +62,7 @@ const searchSlice = createSlice({
       state.status = "loading!!!";
     });
     builder.addCase(asyncSearchThunk.fulfilled, (state, action) => {
-      state.searchId = action.payload;
+      state.finalListData = action.payload;
       state.status = "complete!!!";
     });
     builder.addCase(asyncSearchThunk.rejected, (state, action) => {
@@ -106,12 +72,4 @@ const searchSlice = createSlice({
 });
 
 export default searchSlice.reducer;
-export const {
-  setFabNames,
-  setMachineNames,
-  setCategoryCodes,
-  setCategoryName,
-  setStartDate,
-  setEndDate,
-} = searchSlice.actions;
 export { asyncSearchThunk };
