@@ -27,7 +27,6 @@ const dataBoxEmpty = css`
   align-items: center;
   background: #ffffff;
   border-radius: 10px;
-  margin-top: 16px;
   margin-bottom: 16px;
   width: 1440px;
 `;

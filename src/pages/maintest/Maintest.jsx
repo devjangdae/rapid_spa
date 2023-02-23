@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import * as md5 from "md5";
-import store from "../../reducers/store";
 import { up } from "../../reducers/slices/counterSlice";
 
 import Header from "../../components/Header/index";
