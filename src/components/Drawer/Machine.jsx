@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
 /** @jsxImportSource @emotion/react */

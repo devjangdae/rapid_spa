@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export const dataSource = [
   {
     fabName: "Line1",

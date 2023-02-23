@@ -26,5 +26,6 @@ module.exports = {
     "prefer-const": "off",
     "no-unused-vars": "off",
     "no-shadow": "off",
+    "no-plusplus": "off",
   },
 };

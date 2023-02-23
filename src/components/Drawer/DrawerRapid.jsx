@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
