@@ -24,6 +24,7 @@ const selectBoxWrap = css`
 
 function ManualBox() {
   const status = useSelector((state) => state.search.status);
+  const totalData = useSelector((state) => state.search.finalListData.length);
   return (
     <div className="contentWrap" css={contentWrap}>
       <div className="row01" css={selectBoxWrap}>
@@ -35,6 +36,8 @@ function ManualBox() {
         ) : status === "loading!!!" ? (
           <SkeletonBox />
         ) : status === "fail!!!" ? (
+          <DataEmpty />
+        ) : status === "complete!!!" && totalData === 0 ? (
           <DataEmpty />
         ) : (
           <DataTable /> // "complete!!!"

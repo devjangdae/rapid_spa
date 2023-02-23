@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Empty } from "antd";
+import { useSelector } from "react-redux";
 
 const dataBoxEmpty = css`
   display: flex;
@@ -13,11 +14,19 @@ const dataBoxEmpty = css`
   width: 1440px;
 `;
 function DataEmpty() {
+  const status = useSelector((state) => state.search.status);
+  const totalData = useSelector((state) => state.search.finalListData.length);
   return (
     <div className="dataBoxEmpty" css={dataBoxEmpty}>
       <Empty
         image={Empty.PRESENTED_IMAGE_SIMPLE}
-        description={<span>Please Search for Data</span>}
+        description={
+          status === "complete!!!" && totalData === 0 ? (
+            <span>데이터 0</span>
+          ) : (
+            <span>Please Search for Data</span>
+          )
+        }
       />
     </div>
   );
