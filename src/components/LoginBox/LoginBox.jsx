@@ -1,37 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { useState, useEffect } from "react";
-import { css } from "@emotion/react";
 import { Form, Input, Button, message } from "antd";
 import axios from "axios";
 import * as md5 from "md5";
 import { useNavigate } from "react-router-dom";
-
-const loginTextWrap = css`
-  display: flex;
-  font-weight: 500;
-`;
-
-const loginWrap = css`
-  display: flex;
-  flex-direction: column;
-  width: 450px;
-  gap: 15px;
-  padding: 50px;
-`;
-
-const loginBox = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 550px;
-  height: 400px;
-  background-color: #ffffff;
-
-  border: 1px solid #d9d9d9;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
-`;
+import { loginTextWrap, loginWrap, loginBox } from "./styles/index";
 
 function LoginBox() {
   const [id, setId] = useState();
