@@ -28,7 +28,7 @@ function ManualBox() {
         <SelectBox />
       </div>
       <div className="row02" css={selectBoxWrap}>
-        {dataList === 1 ? <DataEmpty /> : <SkeletonBox />}
+        {dataList === 1 ? <DataEmpty /> : <DataTable />}
       </div>
     </div>
   );

@@ -46,12 +46,12 @@ const asyncSearchThunk = createAsyncThunk(
       },
     });
 
-    return [responseResultLists.data.lists];
+    return responseResultLists.data.lists;
   }
 );
 
 const searchSlice = createSlice({
-  name: "Search",
+  name: "search",
   initialState: {
     status: "Welcome!!!",
     finalListData: [],
