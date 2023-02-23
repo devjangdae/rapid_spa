@@ -70,10 +70,10 @@ const categorySlice = createSlice({
       state.checkedCategory = state.checkedCategory.sort();
     },
 
-    updateCategoryErrorMsg: (state, action) => {
+    categoryErrorMsgUpdate: (state, action) => {
       state.categoryErrorMsg = "! Please select at least One Category";
     },
-    categoryErrorMsg: (state, action) => {
+    categoryErrorMsgReset: (state, action) => {
       state.categoryErrorMsg = "";
     },
   },
@@ -89,8 +89,8 @@ export const {
   deleteCheckedCategoryCode,
   updateCheckedCategoryName,
   deleteCheckedCategoryName,
-  updateCategoryErrorMsg,
-  categoryErrorMsg,
+  categoryErrorMsgUpdate,
+  categoryErrorMsgReset,
   sortCheckedCategory,
   checkedCategoryReset,
   checkedCategoryCodeReset,

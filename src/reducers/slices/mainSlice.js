@@ -56,6 +56,25 @@ const mainSlice = createSlice({
     currentFabNameUpdate: (state, action) => {
       state.currentFabName.push(action.payload);
     },
+
+    currentCategoryReset: (state, action) => {
+      state.currentCategory = [];
+    },
+    currentCategoryCodeReset: (state, action) => {
+      state.currentCategoryCode = [];
+    },
+    currentCategoryNameReset: (state, action) => {
+      state.currentCategoryName = [];
+    },
+    currentFabMachineNameReset: (state, action) => {
+      state.currentFabMachineName = [];
+    },
+    currentMachineNameReset: (state, action) => {
+      state.currentMachineName = [];
+    },
+    currentFabNameReset: (state, action) => {
+      state.currentFabName = [];
+    },
   },
 });
 
@@ -74,4 +93,10 @@ export const {
   currentFabMachineNameUpdate,
   currentMachineNameUpdate,
   currentFabNameUpdate,
+  currentCategoryReset,
+  currentCategoryCodeReset,
+  currentCategoryNameReset,
+  currentFabMachineNameReset,
+  currentMachineNameReset,
+  currentFabNameReset,
 } = mainSlice.actions;

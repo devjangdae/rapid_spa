@@ -18,7 +18,7 @@ import {
   checkedCategoryReset,
   checkedCategoryCodeReset,
   checkedCategoryNameReset,
-  categoryErrorMsg,
+  categoryErrorMsgReset,
 } from "../../reducers/slices/categorySlice";
 
 const machineHeaderWrapper = css`
@@ -101,7 +101,7 @@ function Category() {
   const checkCategory = (e, categoryValue) => {
     const isChecked = e.target.checked;
 
-    dispatch(categoryErrorMsg());
+    dispatch(categoryErrorMsgReset());
 
     if (isChecked === true) {
       dispatch(updateCheckedCategory(categoryValue));
@@ -117,7 +117,7 @@ function Category() {
   const onCheckAllChange = (e) => {
     // setChecked(e.target.checked ? categoryList.map((item) => item) : []);
     setCheckAll(e.target.checked);
-    dispatch(categoryErrorMsg());
+    dispatch(categoryErrorMsgReset());
 
     if (e.target.checked === true) {
       dispatch(checkedCategoryReset());
@@ -160,9 +160,7 @@ function Category() {
             </Checkbox>
           ))}
         </Space>
-        {/* <div css={error}>{errorMsg}</div>
-        <div>{checkedCategoryCode}</div>
-        <div>{checkedCategoryName}</div> */}
+        <div css={error}>{errorMsg}</div>
       </div>
     </div>
   );

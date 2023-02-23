@@ -24,17 +24,30 @@ import {
   currentFabMachineNameUpdate,
   currentMachineNameUpdate,
   currentFabNameUpdate,
+  currentCategoryReset,
+  currentCategoryCodeReset,
+  currentCategoryNameReset,
+  currentFabMachineNameReset,
+  currentMachineNameReset,
+  currentFabNameReset,
 } from "../../reducers/slices/mainSlice";
 import {
-  updateCategoryErrorMsg,
+  categoryErrorMsgUpdate,
+  categoryErrorMsgReset,
   sortCheckedCategory,
 } from "../../reducers/slices/categorySlice";
 
 import Category from "./Category";
 import Machine from "./Machine";
 import Date from "./Date";
-import { dateErrorMsgUpdate } from "../../reducers/slices/dateSlice";
-import { machineErrorMsgUpdate } from "../../reducers/slices/machineSlice";
+import {
+  dateErrorMsgUpdate,
+  dateErrorMsgReset,
+} from "../../reducers/slices/dateSlice";
+import {
+  machineErrorMsgUpdate,
+  machineErrorMsgReset,
+} from "../../reducers/slices/machineSlice";
 import LoadingBox from "../LoadingBox/index";
 
 const { RangePicker } = DatePicker;
@@ -114,8 +127,11 @@ function DrawerRapid() {
     (state) => state.machineData.checkedFabName
   );
 
-  const closeDrawerRapid = () => {
+  const cancelBtn = () => {
     dispatch(closeDrawer());
+    dispatch(dateErrorMsgReset());
+    dispatch(categoryErrorMsgReset());
+    dispatch(machineErrorMsgReset());
   };
 
   const [isRequest, setRequest] = useState(false);
@@ -126,13 +142,19 @@ function DrawerRapid() {
       checkedDate.length === 0 ||
       checkedFabMachine.length === 0
     ) {
-      if (checkedCategory.length === 0) dispatch(updateCategoryErrorMsg());
+      if (checkedCategory.length === 0) dispatch(categoryErrorMsgUpdate());
       if (checkedDate.length === 0) dispatch(dateErrorMsgUpdate());
       if (checkedFabMachine.length === 0) dispatch(machineErrorMsgUpdate());
     } else {
       dispatch(currentDateUpdate(checkedDate));
       dispatch(currentStartDateUpdate(checkedStartDate));
       dispatch(currentEndDateUpdate(checkedEndDate));
+      dispatch(currentCategoryReset());
+      dispatch(currentCategoryCodeReset());
+      dispatch(currentCategoryNameReset());
+      dispatch(currentFabMachineNameReset());
+      dispatch(currentFabNameReset());
+      dispatch(currentMachineNameReset());
 
       for (let i = 0; i < checkedCategory.length; i++) {
         dispatch(currentCategoryUpdate(checkedCategory[i]));
@@ -180,7 +202,7 @@ function DrawerRapid() {
           </div>
         </div>
         <div css={drawerButtonWrapper}>
-          <Button css={blueButton} onClick={closeDrawerRapid}>
+          <Button css={blueButton} onClick={cancelBtn}>
             Cancel
           </Button>
           <LoadingBox />
