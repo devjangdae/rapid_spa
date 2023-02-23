@@ -27,7 +27,7 @@ import {
   checkedFabNameReset,
 } from "../../reducers/slices/machineSlice";
 import { getRequest } from "../../libs/axios/configure";
-import { URL_SYSTEM_M } from "../../constants/URL";
+import { URL_SYSTEM_MACHINE } from "../../constants/URL";
 
 const drawerMachineWrapper = css`
   margin-right: 80px;
@@ -75,7 +75,7 @@ function Machine() {
     const fetchMachine = async () => {
       try {
         const response = await getRequest({
-          url: URL_SYSTEM_M,
+          url: URL_SYSTEM_MACHINE,
           token: accessToken,
         });
 

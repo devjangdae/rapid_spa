@@ -19,6 +19,8 @@ import {
   checkedCategoryNameReset,
   categoryErrorMsgReset,
 } from "../../reducers/slices/categorySlice";
+import { getRequest } from "../../libs/axios/configure";
+import { URL_SYSTEM_CATEGORY } from "../../constants/URL";
 
 const machineHeaderWrapper = css`
   padding-bottom: 20px;
@@ -64,10 +66,9 @@ function Category() {
 
     const fetchCategory = async () => {
       try {
-        const response = await axios.get("/rss/api/system/categoryInfo/", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+        const response = await getRequest({
+          url: URL_SYSTEM_CATEGORY,
+          token: accessToken,
         });
 
         for (let i = 0; i < response.data.lists.length; i++) {
