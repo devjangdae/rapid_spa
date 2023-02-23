@@ -146,6 +146,8 @@ function DrawerRapid() {
       if (checkedDate.length === 0) dispatch(dateErrorMsgUpdate());
       if (checkedFabMachine.length === 0) dispatch(machineErrorMsgUpdate());
     } else {
+      // reset all... slicer안에 함수 구현해서 한번에 리셋할 예정
+      // assign 또한 silcer에서 한번에 가능하지 않을까...??
       dispatch(currentDateUpdate(checkedDate));
       dispatch(currentStartDateUpdate(checkedStartDate));
       dispatch(currentEndDateUpdate(checkedEndDate));
@@ -207,7 +209,7 @@ function DrawerRapid() {
           </Button>
           <LoadingBox />
 
-          <Button css={whiteButton} onClick={searchBtn}>
+          <Button type="primary" onClick={searchBtn}>
             Search
           </Button>
         </div>

@@ -56,7 +56,15 @@ const mainSlice = createSlice({
     currentFabNameUpdate: (state, action) => {
       state.currentFabName.push(action.payload);
     },
-
+    currentDateReset: (state, action) => {
+      state.currentDate = "";
+    },
+    currentStartDateReset: (state, action) => {
+      state.currentStartDate = "";
+    },
+    currentEndDateReset: (state, action) => {
+      state.currentEndDate = "";
+    },
     currentCategoryReset: (state, action) => {
       state.currentCategory = [];
     },
@@ -93,6 +101,9 @@ export const {
   currentFabMachineNameUpdate,
   currentMachineNameUpdate,
   currentFabNameUpdate,
+  currentDateReset,
+  currentStartDateReset,
+  currentEndDateReset,
   currentCategoryReset,
   currentCategoryCodeReset,
   currentCategoryNameReset,

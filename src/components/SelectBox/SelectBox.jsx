@@ -1,18 +1,29 @@
+/* eslint-disable import/no-duplicates */
 /* eslint-disable no-plusplus */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Collapse, Button, Tag } from "antd";
 import { DoubleRightOutlined } from "@ant-design/icons";
 import { Provider, useSelector, useDispatch } from "react-redux";
+import { current } from "@reduxjs/toolkit";
 import {
   closeDrawer,
   openDrawer,
   clickResetButton,
   clickSearchButton,
+  currentDateReset,
+  currentStartDateReset,
+  currentEndDateReset,
+  currentCategoryReset,
+  currentCategoryCodeReset,
+  currentCategoryNameReset,
+  currentFabMachineNameReset,
+  currentMachineNameReset,
+  currentFabNameReset,
 } from "../../reducers/slices/mainSlice";
 
 import {
-  updateCategoryErrorMsg,
+  categoryErrorMsgUpdate,
   sortCheckedCategory,
   updateCheckedCategory,
   updateCheckedCategoryCode,
@@ -20,6 +31,7 @@ import {
   checkedCategoryReset,
   checkedCategoryCodeReset,
   checkedCategoryNameReset,
+  categoryErrorMsgReset,
 } from "../../reducers/slices/categorySlice";
 
 import {
@@ -66,17 +78,15 @@ const dateBox = css`
   border: 1px solid #d9d9d9;
 `;
 
-const selectButton = css`
+const resetButton = css`
   font-family: "Saira";
   color: #1890ff;
   border: 1px solid #1890ff;
   margin-right: 5px;
 `;
 
-const resetButton = css`
+const selectButton = css`
   font-family: "Saira";
-  background: #1890ff;
-  color: #ffffff;
 `;
 
 const collapse = css`
@@ -96,6 +106,7 @@ const tagMargin = css`
 `;
 
 const panelHeader = css`
+  color: "FFFFFF";
   display: flex;
   background: #f9f9f9;
   justify-content: space-between;
@@ -135,13 +146,25 @@ function SelectBox() {
     return state.mainData.currentEndDate;
   });
 
-  const currentFabName2 = useSelector((state) => {
-    return state.mainData.currentFabName;
-  });
+  const resetBtn = () => {
+    // reset all... slicer안에 함수 구현해서 한번에 리셋할 예정
+    dispatch(currentDateReset());
+    dispatch(currentStartDateReset());
+    dispatch(currentEndDateReset());
+
+    dispatch(currentCategoryReset());
+    dispatch(currentCategoryReset());
+    dispatch(currentCategoryReset());
+
+    dispatch(currentFabMachineNameReset());
+    dispatch(currentFabNameReset());
+    dispatch(currentMachineNameReset());
+  };
 
   const selectBtn = () => {
     dispatch(openDrawer());
 
+    // reset all... slicer안에 함수 구현해서 한번에 리셋할 예정
     dispatch(checkedCategoryReset());
     dispatch(checkedCategoryCodeReset());
     dispatch(checkedCategoryNameReset());
@@ -171,7 +194,7 @@ function SelectBox() {
     <div>
       <div className="dateBoxButtonWrap" css={dateBoxButtonWrap}>
         <div className="dateBox" css={dateBox}>
-          <div>DATE</div>
+          <div css={currentDate.length ? null : disabledColor}>DATE</div>
           {currentDate.length !== 0 ? (
             <Tag color="green">{currentDate}</Tag>
           ) : (
@@ -179,23 +202,31 @@ function SelectBox() {
           )}
         </div>
         <div>
-          <div>{currentFabName2}</div>
-          <Button className="selectButton" css={selectButton}>
+          <Button onClick={resetBtn} css={resetButton}>
             Reset
           </Button>
-          <Button className="resetButton" onClick={selectBtn} css={resetButton}>
+          <Button type="primary" onClick={selectBtn} css={selectButton}>
             Select <DoubleRightOutlined />
           </Button>
         </div>
       </div>
       <div style={{ display: "flex" }}>
-        <div style={{ width: "50%" }} className="collapse">
-          <Collapse css={collapse} size="small">
+        <div style={{ width: "50%" }}>
+          <Collapse
+            css={collapse}
+            collapsible={currentCategory.length ? null : "disabled"}
+          >
             <Panel
               header={
                 <div css={panelHeader}>
                   <div>MACHINE</div>
-                  <div>Total:</div>
+                  {currentFabMachineName.length ? (
+                    <div>Total:{currentFabMachineName.length}</div>
+                  ) : (
+                    <div css={disabledColor}>
+                      Please select at least one Machine
+                    </div>
+                  )}
                 </div>
               }
               key="1"
@@ -207,18 +238,29 @@ function SelectBox() {
                   </Tag>
                 ))
               ) : (
-                <div>Please select at least one Machine</div>
+                <div css={disabledColor}>
+                  Please select at least one Machine
+                </div>
               )}
             </Panel>
           </Collapse>
         </div>
-        <div style={{ width: "50%" }} className="collapse">
-          <Collapse css={collapse}>
+        <div style={{ width: "50%" }}>
+          <Collapse
+            css={collapse}
+            collapsible={currentCategory.length ? null : "disabled"}
+          >
             <Panel
               header={
                 <div css={panelHeader}>
-                  <div>Category</div>
-                  <div>Total:</div>
+                  <div>CATEGORY</div>
+                  {currentCategory.length ? (
+                    <div>Total:{currentCategory.length}</div>
+                  ) : (
+                    <div css={disabledColor}>
+                      Please select at least one category
+                    </div>
+                  )}
                 </div>
               }
               key="1"
@@ -230,7 +272,9 @@ function SelectBox() {
                   </Tag>
                 ))
               ) : (
-                <div>Please select at least one category</div>
+                <div css={disabledColor}>
+                  Please select at least one category
+                </div>
               )}
             </Panel>
           </Collapse>
