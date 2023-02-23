@@ -12,6 +12,8 @@ import {
   currentStartDateReset,
   currentEndDateReset,
   currentCategoryReset,
+  currentCategoryNameReset,
+  currentCategoryCodeReset,
   currentFabMachineNameReset,
   currentMachineNameReset,
   currentFabNameReset,

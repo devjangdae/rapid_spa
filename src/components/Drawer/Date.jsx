@@ -10,6 +10,8 @@ import {
   checkedDateUpdate,
   checkedStartDateUpdate,
   checkedEndDateUpdate,
+  checkedDefaultStartDateUpdate,
+  checkedDefaultEndDateUpdate,
   dateErrorMsgReset,
 } from "../../reducers/slices/dateSlice";
 
@@ -29,6 +31,12 @@ const error = css`
 function Date() {
   const dispatch = useDispatch();
 
+  const checkedDefaultStartDate = useSelector(
+    (state) => state.dateData.checkedDefaultStartDate
+  );
+  const checkedDefaultEndDate = useSelector(
+    (state) => state.dateData.checkedDefaultEndDate
+  );
   const errorMsg = useSelector((state) => state.dateData.dateErrorMsg);
 
   const disabledDate = (current) => {
@@ -39,16 +47,7 @@ function Date() {
   const selectDate = (e) => {
     dispatch(dateErrorMsgReset());
 
-    dispatch(
-      checkedEndDateUpdate(
-        e[1].format().substring(0, 4) +
-          e[1].format().substring(5, 7) +
-          e[1].format().substring(8, 10) +
-          e[1].format().substring(11, 13) +
-          e[1].format().substring(14, 16) +
-          e[1].format().substring(17, 19)
-      )
-    );
+    dispatch(checkedDefaultStartDateUpdate(e[0].format()));
     dispatch(
       checkedStartDateUpdate(
         e[0].format().substring(0, 4) +
@@ -57,6 +56,18 @@ function Date() {
           e[0].format().substring(11, 13) +
           e[0].format().substring(14, 16) +
           e[0].format().substring(17, 19)
+      )
+    );
+
+    dispatch(checkedDefaultEndDateUpdate(e[1].format()));
+    dispatch(
+      checkedEndDateUpdate(
+        e[1].format().substring(0, 4) +
+          e[1].format().substring(5, 7) +
+          e[1].format().substring(8, 10) +
+          e[1].format().substring(11, 13) +
+          e[1].format().substring(14, 16) +
+          e[1].format().substring(17, 19)
       )
     );
 
@@ -93,6 +104,11 @@ function Date() {
           onChange={(e) => {
             selectDate(e);
           }}
+          value={
+            checkedDefaultStartDate.length && checkedDefaultEndDate.length
+              ? [dayjs(checkedDefaultStartDate), dayjs(checkedDefaultEndDate)]
+              : null
+          }
         />
       </div>
       <div css={error}>{errorMsg}</div>
