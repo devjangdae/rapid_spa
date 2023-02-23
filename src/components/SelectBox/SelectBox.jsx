@@ -1,7 +1,6 @@
 /* eslint-disable import/no-duplicates */
 /* eslint-disable no-plusplus */
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { Collapse, Button, Tag } from "antd";
 import { DoubleRightOutlined } from "@ant-design/icons";
 import { Provider, useSelector, useDispatch } from "react-redux";
@@ -42,88 +41,23 @@ import {
   checkedFabNameReset,
   checkedMachineName2Reset,
 } from "../../reducers/slices/machineSlice";
+import {
+  dateBoxButtonWrap,
+  dateBox,
+  resetButton,
+  selectButton,
+  collapse,
+  disabledColor,
+  disabledDate,
+  tagMargin,
+  panelHeader,
+  tagsBox,
+  totalNumber,
+  collapseWrapper,
+  collapseContainer,
+} from "./styles/index";
 
 const { Panel } = Collapse;
-
-const dateBoxButtonWrap = css`
-  width: fill;
-  display: flex;
-  justify-content: space-between;
-  padding-right: 5px;
-  padding-left: 5px;
-  padding-top: 20px;
-  align-items: flex-end;
-`;
-
-const dateBox = css`
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  width: 49.6%;
-  font-size: 14px;
-  height: 46px;
-  background: #ffffff;
-  border-radius: 8px;
-  padding-left: 40px;
-  margin-right: 0px;
-  justify-content: space-between;
-  border: 1px solid #d9d9d9;
-`;
-
-const resetButton = css`
-  font-family: "Saira";
-  color: #1890ff;
-  border: 1px solid #1890ff;
-  margin-right: 5px;
-`;
-
-const selectButton = css`
-  font-family: "Saira";
-`;
-
-const collapse = css`
-  background: #ffffff;
-  border-radius: 10px;
-  margin: 5px;
-  font-family: "Saira";
-`;
-
-const disabledColor = css`
-  color: #d9d9d9;
-`;
-
-const disabledDate = css`
-  color: #d9d9d9;
-  margin-right: 20px;
-`;
-
-const tagMargin = css`
-  margin-top: 3px;
-  margin-bottom: 3px;
-`;
-
-const panelHeader = css`
-  color: "FFFFFF";
-  display: flex;
-  background: #f9f9f9;
-  justify-content: space-between;
-`;
-
-const tagsBox = css`
-  display: flex;
-`;
-
-const totalNumber = css`
-  color: #1890ff;
-`;
-
-const collapseWrapper = css`
-  width: 50%;
-`;
-
-const collapseContainer = css`
-  display: flex;
-`;
 
 function SelectBox() {
   const dispatch = useDispatch();

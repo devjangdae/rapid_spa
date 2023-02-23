@@ -40,12 +40,10 @@ function LoginBox() {
   };
 
   return (
-    <div className="loginBox" css={[loginBox]}>
+    <div css={[loginBox]}>
       <Form onFinish={handleSubmit}>
-        <div className="loginWrap" css={[loginWrap]}>
-          <div className="loginTextWrap" css={[loginTextWrap]}>
-            ID
-          </div>
+        <div css={[loginWrap]}>
+          <div css={[loginTextWrap]}>ID</div>
           <div>
             <Form.Item
               rules={[
@@ -67,9 +65,7 @@ function LoginBox() {
               />
             </Form.Item>
           </div>
-          <div className="loginTextWrap" css={[loginTextWrap]}>
-            PASSWORD
-          </div>
+          <div css={[loginTextWrap]}>PASSWORD</div>
           <div>
             <Form.Item
               rules={[

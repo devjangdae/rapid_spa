@@ -1,13 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { Button, Modal, Spin } from "antd";
-
-const spinStyle = css`
-  display: flex;
-  justify-content: center;
-  margin-right: 50px;
-  margin-top: 50px;
-`;
+import { spinStyle } from "./styles/index";
 
 function SpinBox() {
   return (

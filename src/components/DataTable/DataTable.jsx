@@ -1,35 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { Col, Row, Statistic } from "antd";
 import { useSelector } from "react-redux";
 import TableData from "../TableData/index";
-
-const totalWrap = css`
-  display: flex;
-  padding-top: 16px;
-  max-width: 1440px;
-  width: 100%;
-  padding-left: 60px;
-`;
-
-const tableWrap = css`
-  display: flex;
-  padding: 16px;
-  width: 100%;
-  max-width: 1408px;
-`;
-
-const dataBoxEmpty = css`
-  display: flex;
-  flex-direction: column;
-  min-height: 70vh;
-  justify-content: center;
-  align-items: center;
-  background: #ffffff;
-  border-radius: 10px;
-  margin-bottom: 16px;
-  width: 1440px;
-`;
+import { dataBoxEmpty, tableWrap, totalWrap } from "./styles/index";
 
 function DataTable() {
   const totalData = useSelector((state) => state.search.finalListData.length);

@@ -1,30 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { Avatar } from "antd";
 import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-
-const wrapper = css`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const profileWrapper = css`
-  display: flex;
-`;
-
-const logoutWrapper = css`
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
-const numberWrapper = css`
-  margin-right: 30px;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-`;
+import {
+  numberWrapper,
+  logoutWrapper,
+  profileWrapper,
+  wrapper,
+} from "./styles/index";
 
 function Header() {
   const navigate = useNavigate();

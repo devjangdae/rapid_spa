@@ -1,16 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { Table, Button, Input, Space } from "antd";
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 import { columns } from "../../constants/columns";
-
-const tableStyle = css`
-  table-layout: auto;
-  width: 100%;
-`;
+import { tableStyle } from "./styles/index";
 
 function TableData() {
   const finalListData = useSelector((state) => state.search.finalListData);
