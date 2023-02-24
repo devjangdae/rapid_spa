@@ -8,7 +8,6 @@ import NotFound from "./pages/notFound/index";
 // 테스트용
 import Mainrapid from "./pages/mainrapid/Mainrapid";
 import Mainrapid2 from "./pages/mainrapid/Mainrapid2";
-import Maintest from "./pages/maintest/Maintest";
 
 function App() {
   return (
@@ -24,7 +23,6 @@ function App() {
         {/* 테스트용 */}
         <Route path="/mainrapid" element={<Mainrapid />} />
         <Route path="/mainrapid2" element={<Mainrapid2 />} />
-        <Route path="/maintest" element={<Maintest />} />
       </Routes>
     </BrowserRouter>
   );

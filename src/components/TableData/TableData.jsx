@@ -44,6 +44,7 @@ function TableData() {
     <Table
       css={tableStyle}
       columns={columns}
+      rowKey={(finalListData) => finalListData.fileName}
       dataSource={finalListData}
       pagination={tableParams.pagination}
       onChange={handleTableChange}
