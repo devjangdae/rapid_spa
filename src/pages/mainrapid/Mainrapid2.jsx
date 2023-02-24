@@ -37,7 +37,7 @@ import {
   DoubleRightOutlined,
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // 툴킷
 import { useSelector, useDispatch } from "react-redux";
@@ -730,7 +730,6 @@ function Mainrapid() {
             </div>
           </Drawer>
         </Layout>
-      <Outlet />
     </div>
   );
 }

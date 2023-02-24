@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import Header from "../../components/Header/index";
@@ -28,7 +28,6 @@ function Manual() {
       <div className="basic-footer">
         <Footer />
       </div>
-      <Outlet />
     </div>
   );
 }

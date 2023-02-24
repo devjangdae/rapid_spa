@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import TitleBox from "../../components/TitleBox/index";
 import LoginBox from "../../components/LoginBox/index";
@@ -22,7 +22,6 @@ function Login() {
           <LoginBox />
         </div>
       </div>
-      <Outlet />
     </div>
   );
 }

@@ -2,7 +2,6 @@
 import { css } from "@emotion/react";
 import { Layout, Collapse, Button, Empty } from "antd";
 import { DoubleRightOutlined } from "@ant-design/icons";
-import { Outlet } from "react-router-dom";
 
 const { Content } = Layout;
 const { Panel } = Collapse;
@@ -147,7 +146,6 @@ function Mainrapid() {
           </div>
         </Content>
       </Layout>
-      <Outlet />
     </div>
   );
 }
