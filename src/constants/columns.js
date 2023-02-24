@@ -1,3 +1,4 @@
+// 미사용
 export const columns = [
   {
     title: "Machine",

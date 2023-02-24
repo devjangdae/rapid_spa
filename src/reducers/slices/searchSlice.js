@@ -54,6 +54,11 @@ const searchSlice = createSlice({
     status: "Welcome!!!",
     finalListData: [],
   },
+  reducers: {
+    changeWelcomeStatus: (state, action) => {
+      state.status = "Welcome!!!";
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(asyncSearchThunk.pending, (state, action) => {
@@ -70,4 +75,5 @@ const searchSlice = createSlice({
 });
 
 export default searchSlice.reducer;
+export const { changeWelcomeStatus } = searchSlice.actions;
 export { asyncSearchThunk };
