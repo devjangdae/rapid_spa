@@ -181,21 +181,17 @@ function SelectBox() {
               }
               key="1"
             >
-              <div css={tagsBox}>
-                {currentFabMachineName.length !== 0 ? (
-                  currentFabMachineName.map((list) => (
-                    <div key={list}>
-                      <Tag color="purple" css={tagMargin}>
-                        {list}
-                      </Tag>
-                    </div>
-                  ))
-                ) : (
-                  <div css={disabledColor}>
-                    Please select at least one Machine
-                  </div>
-                )}
-              </div>
+              {currentFabMachineName.length !== 0 ? (
+                currentFabMachineName.map((list) => (
+                  <Tag color="purple" css={tagMargin} key={list}>
+                    {list}
+                  </Tag>
+                ))
+              ) : (
+                <div css={disabledColor}>
+                  Please select at least one Machine
+                </div>
+              )}
             </Panel>
           </Collapse>
         </div>
@@ -221,21 +217,17 @@ function SelectBox() {
               }
               key="1"
             >
-              <div css={tagsBox}>
-                {currentCategory.length !== 0 ? (
-                  currentCategory.map((list) => (
-                    <div key={list}>
-                      <Tag color="orange" css={tagMargin} key={list}>
-                        {list}
-                      </Tag>
-                    </div>
-                  ))
-                ) : (
-                  <div css={disabledColor}>
-                    Please select at least one Category
-                  </div>
-                )}
-              </div>
+              {currentCategory.length !== 0 ? (
+                currentCategory.map((list) => (
+                  <Tag color="orange" css={tagMargin} key={list}>
+                    {list}
+                  </Tag>
+                ))
+              ) : (
+                <div css={disabledColor}>
+                  Please select at least one Category
+                </div>
+              )}
             </Panel>
           </Collapse>
         </div>
