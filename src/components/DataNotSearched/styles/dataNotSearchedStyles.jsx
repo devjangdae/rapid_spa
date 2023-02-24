@@ -7,6 +7,7 @@ export const dataBoxEmpty = css`
   align-items: center;
   background: #ffffff;
   border-radius: 10px;
+  border: 1px solid #d9d9d9;
+  width: fill;
   margin: 5px;
-  width: 1440px;
 `;

@@ -7,8 +7,9 @@ export const skeletonBox = css`
   align-items: center;
   background: #ffffff;
   border-radius: 10px;
+  border: 10px #000000;
+  width: fill;
   margin: 5px;
-  width: 1440px;
 `;
 
 export const skeletonStyle = css`

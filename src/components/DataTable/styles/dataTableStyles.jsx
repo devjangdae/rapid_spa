@@ -23,6 +23,8 @@ export const dataBoxEmpty = css`
   align-items: center;
   background: #ffffff;
   border-radius: 10px;
+  border: 1px solid #d9d9d9;
   margin-bottom: 16px;
-  width: 1440px;
+  width: fill;
+  margin: 5px;
 `;

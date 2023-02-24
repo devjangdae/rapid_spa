@@ -41,6 +41,7 @@ import {
   checkedFabNameReset,
   checkedMachineName2Reset,
 } from "../../reducers/slices/machineSlice";
+import { changeWelcomeStatus } from "../../reducers/slices/searchSlice";
 import {
   dateBoxButtonWrap,
   dateBox,
@@ -106,6 +107,8 @@ function SelectBox() {
     dispatch(currentFabMachineNameReset());
     dispatch(currentFabNameReset());
     dispatch(currentMachineNameReset());
+
+    dispatch(changeWelcomeStatus());
   };
 
   const selectBtn = () => {
