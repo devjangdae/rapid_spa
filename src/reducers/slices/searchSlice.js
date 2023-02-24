@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-await-in-loop */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -23,28 +25,54 @@ const asyncSearchThunk = createAsyncThunk(
       }
     );
     const searchId = await responseSearchID.data.searchId;
+    console.log("searchID 실행함");
 
-    // 2 File Search 상태 및 Result URL 취득
-    const responseResultUrl = await axios.get(
-      `/rss/api/ftp/search/${searchId}`,
-      {
+    // const responseResultUrl = await axios.get(
+    //   `/rss/api/ftp/search/${searchId}`,
+    //   {
+    //     params: { searchId },
+    //     headers: {
+    //       Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    //     },
+    //   }
+    // );
+
+    // const resultStatus = await responseResultUrl.data.status; // (done | in-process | error)
+
+    let resultStatus = "";
+    let resultUrl = "";
+    do {
+      console.log("do 실행함");
+      // 2 File Search 상태 및 Result URL 취득
+      const respons = await axios.get(`/rss/api/ftp/search/${searchId}`, {
         params: { searchId },
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },
+      });
+
+      // resultStatus 체크
+      resultStatus = await respons.data.status; // (done | in-process | error)
+
+      if (resultStatus === "done") {
+        // 3 File Search Result 정보 취득
+        resultUrl = await respons.data.resultUrl;
+        const responseResultLists = await axios.get(`${resultUrl}`, {
+          params: { resultUrl },
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+          },
+        });
+
+        return responseResultLists.data.lists;
       }
-    );
-    const resultUrl = await responseResultUrl.data.resultUrl;
+      if (resultStatus === "error") {
+        return [""]; // 에러에 대한 처리 해야함.(미완성)
+      }
+    } while (resultStatus === "in-process");
 
-    // 3 File Search Result 정보 취득
-    const responseResultLists = await axios.get(`${resultUrl}`, {
-      params: { resultUrl },
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-      },
-    });
-
-    return responseResultLists.data.lists;
+    // resultUrl
+    // const resultUrl = await responseResultUrl.data.resultUrl;
   }
 );
 
