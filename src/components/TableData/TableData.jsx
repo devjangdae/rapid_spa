@@ -201,7 +201,7 @@ function TableData() {
     <Table
       css={tableStyle}
       columns={columns}
-      rowKey={(finalListData) => finalListData.index}
+      rowKey={(finalListData, index) => index}
       dataSource={finalListData}
       pagination={tableParams.pagination}
       onChange={handleTableChange}
