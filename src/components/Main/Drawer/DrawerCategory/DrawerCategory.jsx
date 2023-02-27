@@ -27,10 +27,6 @@ const machineHeaderWrapper = css`
   display: flex;
 `;
 
-const checkAll = css`
-  margin-right: 50px;
-`;
-
 const error = css`
   font-weight: 800;
   margin-top: 20px;
