@@ -1,4 +1,4 @@
-import NotFoundBox from "../../components/NotFoundBox/index";
+import NotFoundBox from "../../components/Main/NotFoundBox/index";
 
 function NotFound() {
   return <NotFoundBox />;

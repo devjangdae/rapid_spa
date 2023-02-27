@@ -11,7 +11,7 @@ import {
   checkedStartDateUpdate,
   checkedEndDateUpdate,
   dateErrorMsgReset,
-} from "../../reducers/slices/dateSlice";
+} from "../../../reducers/slices/dateSlice";
 
 const { RangePicker } = DatePicker;
 

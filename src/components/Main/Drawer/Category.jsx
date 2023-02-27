@@ -18,9 +18,9 @@ import {
   checkedCategoryCodeReset,
   checkedCategoryNameReset,
   categoryErrorMsgReset,
-} from "../../reducers/slices/categorySlice";
-import { getRequest } from "../../libs/axios/configure";
-import { URL_SYSTEM_CATEGORY } from "../../constants/URL";
+} from "../../../reducers/slices/categorySlice";
+import { getRequest } from "../../../libs/axios/configure";
+import { URL_SYSTEM_CATEGORY } from "../../../constants/URL";
 
 const machineHeaderWrapper = css`
   padding-bottom: 20px;

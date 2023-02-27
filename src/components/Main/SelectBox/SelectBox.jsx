@@ -16,7 +16,7 @@ import {
   currentFabMachineNameReset,
   currentMachineNameReset,
   currentFabNameReset,
-} from "../../reducers/slices/mainSlice";
+} from "../../../reducers/slices/mainSlice";
 
 import {
   updateCheckedCategory,
@@ -26,13 +26,13 @@ import {
   checkedCategoryCodeReset,
   checkedCategoryNameReset,
   categoryErrorMsgReset,
-} from "../../reducers/slices/categorySlice";
+} from "../../../reducers/slices/categorySlice";
 
 import {
   checkedDateUpdate,
   checkedStartDateUpdate,
   checkedEndDateUpdate,
-} from "../../reducers/slices/dateSlice";
+} from "../../../reducers/slices/dateSlice";
 import {
   checkedFabMachineNameUpdate,
   checkedFabNameUpdate,
@@ -40,8 +40,8 @@ import {
   checkedFabMachineNameReset,
   checkedFabNameReset,
   checkedMachineName2Reset,
-} from "../../reducers/slices/machineSlice";
-import { changeWelcomeStatus } from "../../reducers/slices/searchSlice";
+} from "../../../reducers/slices/machineSlice";
+import { changeWelcomeStatus } from "../../../reducers/slices/searchSlice";
 import {
   dateBoxButtonWrap,
   dateBox,

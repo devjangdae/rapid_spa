@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import TitleBox from "../../components/TitleBox/index";
-import LoginBox from "../../components/LoginBox/index";
+import TitleBox from "../../components/Login/TitleBox/index";
+import LoginBox from "../../components/Login/LoginBox/index";
 import "./login.css";
 
 function Login() {

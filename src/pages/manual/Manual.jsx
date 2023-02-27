@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-import Header from "../../components/Header/index";
-import Footer from "../../components/Footer/index";
-import ManualBox from "../../components/ManualBox/index";
-import DrawerRapid from "../../components/Drawer/DrawerRapid";
+import Header from "../../components/Main/Header/index";
+import Footer from "../../components/Main/Footer/index";
+import ManualBox from "../../components/Main/ManualBox/index";
+import DrawerRapid from "../../components/Main/Drawer/DrawerRapid";
 
 function Manual() {
   const navigate = useNavigate();

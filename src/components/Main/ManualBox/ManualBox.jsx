@@ -2,9 +2,9 @@
 /** @jsxImportSource @emotion/react */
 import { useSelector } from "react-redux";
 import SelectBox from "../SelectBox/index";
-import DataNotSearched from "../DataNotSearched";
+import DataNotSearched from "../DataNotSearched/index";
 import SkeletonBox from "../SkeletonBox/index";
-import DataSearchFailed from "../DataSearchFailed";
+import DataSearchFailed from "../DataSearchFailed/index";
 import DataEmpty from "../DataEmpty/index";
 import DataTable from "../DataTable/index";
 import { selectBoxWrap, contentWrap } from "./styles/index";
