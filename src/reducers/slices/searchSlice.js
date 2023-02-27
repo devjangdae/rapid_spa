@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-use-before-define */
 /* eslint-disable consistent-return */
 /* eslint-disable no-await-in-loop */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
@@ -67,7 +69,9 @@ const asyncSearchThunk = createAsyncThunk(
         return responseResultLists.data.lists;
       }
       if (resultStatus === "error") {
-        return [""]; // 에러에 대한 처리 해야함.(미완성)
+        // changeFailStatus();
+        searchSlice.actions.changeFailStatus();
+        return; // 에러에 대한 처리 해야함.(미완성)
       }
     } while (resultStatus === "in-process");
 
@@ -86,6 +90,9 @@ const searchSlice = createSlice({
     changeWelcomeStatus: (state, action) => {
       state.status = "Welcome!!!";
     },
+    changeFailStatus: (state, action) => {
+      state.status = "fail!!!";
+    },
   },
 
   extraReducers: (builder) => {
@@ -103,5 +110,5 @@ const searchSlice = createSlice({
 });
 
 export default searchSlice.reducer;
-export const { changeWelcomeStatus } = searchSlice.actions;
+export const { changeWelcomeStatus, changeFailStatus } = searchSlice.actions;
 export { asyncSearchThunk };
