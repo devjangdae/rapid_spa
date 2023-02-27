@@ -28,3 +28,7 @@ export const dataBoxEmpty = css`
   width: fill;
   margin: 5px;
 `;
+
+export const totalResultText = css`
+  text-align: right;
+`;

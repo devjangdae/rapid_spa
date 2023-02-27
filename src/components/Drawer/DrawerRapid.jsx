@@ -188,10 +188,8 @@ function DrawerRapid() {
     <Drawer
       title="Option Select"
       placement="left"
-      // onClose={closeDrawer}
       closable={false}
       open={drawerIsOpen}
-      // style={{ width: "900px" }}
       size="large"
     >
       <div css={drawerContainter2}>

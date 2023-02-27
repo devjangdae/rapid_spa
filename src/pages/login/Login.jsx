@@ -15,7 +15,7 @@ function Login() {
   }, []);
 
   return (
-    <div className="basic-container" style={{ justifyContent: "center" }}>
+    <div className="basic-container basicCenter">
       <div className="content-container">
         <div className="login-container">
           <TitleBox />

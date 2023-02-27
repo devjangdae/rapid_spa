@@ -2,17 +2,22 @@
 import { Col, Row, Statistic } from "antd";
 import { useSelector } from "react-redux";
 import TableData from "../TableData/index";
-import { dataBoxEmpty, tableWrap, totalWrap } from "./styles/index";
+import {
+  dataBoxEmpty,
+  tableWrap,
+  totalWrap,
+  totalResultText,
+} from "./styles/index";
 
 function DataTable() {
   const totalData = useSelector((state) => state.search.finalListData.length);
 
   return (
-    <div style={{ padding: "0px" }} css={dataBoxEmpty}>
+    <div css={dataBoxEmpty}>
       <div css={totalWrap}>
         <Row gutter={16}>
           <Col span={30}>
-            <span style={{ textAlign: "right" }}>
+            <span css={totalResultText}>
               <Statistic title="Total Result" value={totalData} />
             </span>
           </Col>

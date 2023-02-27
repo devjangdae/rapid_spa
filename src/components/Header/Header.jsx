@@ -7,6 +7,7 @@ import {
   logoutWrapper,
   profileWrapper,
   wrapper,
+  cursorPointer,
 } from "./styles/index";
 
 function Header() {
@@ -28,12 +29,8 @@ function Header() {
           <span>{userName}</span>
         </div>
         <div css={[logoutWrapper]}>
-          <span
-            role="presentation"
-            onClick={outLog}
-            style={{ cursor: "pointer" }}
-          >
-            <LogoutOutlined style={{ fontSize: "15px" }} />
+          <span role="presentation" onClick={outLog} css={cursorPointer}>
+            <LogoutOutlined />
             Logout
           </span>
         </div>

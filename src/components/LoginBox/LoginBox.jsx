@@ -4,7 +4,12 @@ import { Form, Input, Button, message } from "antd";
 import axios from "axios";
 import * as md5 from "md5";
 import { useNavigate } from "react-router-dom";
-import { loginTextWrap, loginWrap, loginBox } from "./styles/index";
+import {
+  loginTextWrap,
+  loginWrap,
+  loginBox,
+  loginBtnStyle,
+} from "./styles/index";
 
 function LoginBox() {
   const [id, setId] = useState();
@@ -86,12 +91,7 @@ function LoginBox() {
               />
             </Form.Item>
           </div>
-          <Button
-            style={{ height: "80px", fontSize: "32px" }}
-            type="primary"
-            htmlType="submit"
-            block
-          >
+          <Button css={loginBtnStyle} type="primary" htmlType="submit" block>
             Login
           </Button>
         </div>

@@ -7,6 +7,9 @@
     height: 100%;
     gap: 20px;
 }
+.basicCenter {
+    justify-content: center;
+}
 
 @media (max-width: 1000px) {
     .login-container {

@@ -21,3 +21,7 @@ export const numberWrapper = css`
   justify-content: flex-end;
   align-items: center;
 `;
+
+export const cursorPointer = css`
+  cursor: pointer;
+`;
