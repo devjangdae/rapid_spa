@@ -10,7 +10,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 // 툴킷
 import { Provider, useSelector, useDispatch } from "react-redux";
-import store from "../../../reducers/store";
+import store from "../../../../reducers/store";
 import {
   validMachineUpdate,
   validMachineInitiate,
@@ -25,9 +25,9 @@ import {
   checkedFabNameUpdate,
   checkedFabNameDelete,
   checkedFabNameReset,
-} from "../../../reducers/slices/machineSlice";
-import { getRequest } from "../../../libs/axios/configure";
-import { URL_SYSTEM_MACHINE } from "../../../constants/URL";
+} from "../../../../reducers/slices/machineSlice";
+import { getRequest } from "../../../../libs/axios/configure";
+import { URL_SYSTEM_MACHINE } from "../../../../constants/URL";
 
 const drawerMachineWrapper = css`
   margin-right: 80px;
@@ -45,7 +45,7 @@ const error = css`
   color: red;
 `;
 
-function Machine() {
+function DrawerMachine() {
   const accessToken = sessionStorage.getItem("accessToken");
 
   const [machineLine, setMachineLine] = useState([]);
@@ -223,4 +223,4 @@ function Machine() {
   );
 }
 
-export default Machine;
+export default DrawerMachine;

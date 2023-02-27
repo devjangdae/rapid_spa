@@ -11,7 +11,7 @@ import {
   checkedStartDateUpdate,
   checkedEndDateUpdate,
   dateErrorMsgReset,
-} from "../../../reducers/slices/dateSlice";
+} from "../../../../reducers/slices/dateSlice";
 
 const { RangePicker } = DatePicker;
 
@@ -26,7 +26,7 @@ const error = css`
   color: red;
 `;
 
-function Date() {
+function DrawerDate() {
   const dispatch = useDispatch();
 
   const checkedStartDate = useSelector(
@@ -110,4 +110,4 @@ function Date() {
   );
 }
 
-export default Date;
+export default DrawerDate;

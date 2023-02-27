@@ -18,9 +18,9 @@ import {
   checkedCategoryCodeReset,
   checkedCategoryNameReset,
   categoryErrorMsgReset,
-} from "../../../reducers/slices/categorySlice";
-import { getRequest } from "../../../libs/axios/configure";
-import { URL_SYSTEM_CATEGORY } from "../../../constants/URL";
+} from "../../../../reducers/slices/categorySlice";
+import { getRequest } from "../../../../libs/axios/configure";
+import { URL_SYSTEM_CATEGORY } from "../../../../constants/URL";
 
 const machineHeaderWrapper = css`
   padding-bottom: 20px;
@@ -38,7 +38,7 @@ const error = css`
   color: red;
 `;
 
-function Category() {
+function DrawerCategory() {
   const [categoryList, setCategoryList] = useState([]);
   const [indeterminate, setIndeterminate] = useState(false);
   const [checkAll, setCheckAll] = useState(false);
@@ -168,4 +168,4 @@ function Category() {
   );
 }
 
-export default Category;
+export default DrawerCategory;

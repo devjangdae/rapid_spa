@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 
 // 툴킷
 import { useSelector, useDispatch } from "react-redux";
-import { asyncSearchThunk } from "../../../reducers/slices/searchSlice";
+import { asyncSearchThunk } from "../../../../reducers/slices/searchSlice";
 import {
   openDrawer,
   closeDrawer,
@@ -29,25 +29,25 @@ import {
   currentFabMachineNameReset,
   currentMachineNameReset,
   currentFabNameReset,
-} from "../../../reducers/slices/mainSlice";
+} from "../../../../reducers/slices/mainSlice";
 import {
   categoryErrorMsgUpdate,
   categoryErrorMsgReset,
   sortCheckedCategory,
-} from "../../../reducers/slices/categorySlice";
+} from "../../../../reducers/slices/categorySlice";
 
-import Category from "./Category";
-import Machine from "./Machine";
-import Date from "./Date";
+import Category from "../DrawerCategory/DrawerCategory";
+import Machine from "../DrawerMachine/DrawerMachine";
+import Date from "../DrawerDate/DrawerDate";
 import {
   dateErrorMsgUpdate,
   dateErrorMsgReset,
-} from "../../../reducers/slices/dateSlice";
+} from "../../../../reducers/slices/dateSlice";
 import {
   machineErrorMsgUpdate,
   machineErrorMsgReset,
-} from "../../../reducers/slices/machineSlice";
-import LoadingBox from "../LoadingBox/index";
+} from "../../../../reducers/slices/machineSlice";
+import LoadingBox from "../../LoadingBox/index";
 
 const { RangePicker } = DatePicker;
 
