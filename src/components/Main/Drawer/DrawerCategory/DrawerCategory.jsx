@@ -1,7 +1,4 @@
 /** @jsxImportSource @emotion/react */
-
-import { css } from "@emotion/react";
-import axios from "axios";
 import { Checkbox, Space } from "antd";
 import React, { useState, useEffect } from "react";
 
@@ -22,17 +19,7 @@ import {
 import { getRequest } from "../../../../libs/axios/configure";
 import { URL_SYSTEM_CATEGORY } from "../../../../constants/URL";
 
-const machineHeaderWrapper = css`
-  padding-bottom: 20px;
-  display: flex;
-`;
-
-const error = css`
-  font-weight: 800;
-  margin-top: 20px;
-  font-size: 13px;
-  color: red;
-`;
+import * as style from "./styles/index";
 
 function DrawerCategory() {
   const [categoryList, setCategoryList] = useState([]);
@@ -134,7 +121,7 @@ function DrawerCategory() {
 
   return (
     <div>
-      <div css={machineHeaderWrapper}>
+      <div css={style.machineHeaderWrapper}>
         CATEGORY
         <Checkbox
           indeterminate={indeterminate}
@@ -158,7 +145,7 @@ function DrawerCategory() {
             </div>
           ))}
         </Space>
-        <div css={error}>{errorMsg}</div>
+        <div css={style.error}>{errorMsg}</div>
       </div>
     </div>
   );

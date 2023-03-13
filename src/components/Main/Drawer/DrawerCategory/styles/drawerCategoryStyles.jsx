@@ -1,15 +1,15 @@
 import { css } from "@emotion/react";
 
-const machineHeaderWrapper = css`
+export const machineHeaderWrapper = css`
   padding-bottom: 20px;
   display: flex;
 `;
 
-const checkAll = css`
+export const checkAll = css`
   margin-right: 50px;
 `;
 
-const error = css`
+export const error = css`
   font-weight: 800;
   margin-top: 20px;
   font-size: 13px;

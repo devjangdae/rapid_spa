@@ -15,17 +15,6 @@ import {
 
 const { RangePicker } = DatePicker;
 
-const drawerDateContainter = css`
-  margin-bottom: 25px;
-`;
-
-const error = css`
-  font-weight: 800;
-  margin-top: 20px;
-  font-size: 13px;
-  color: red;
-`;
-
 function DrawerDate() {
   const dispatch = useDispatch();
 
